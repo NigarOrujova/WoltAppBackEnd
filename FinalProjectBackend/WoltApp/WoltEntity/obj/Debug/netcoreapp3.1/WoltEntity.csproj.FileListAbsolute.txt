@@ -1,0 +1,16 @@
+C:\Users\Nigar\Desktop\New folder (5)\FinalProjectBackend\WoltApp\WoltEntity\bin\Debug\netcoreapp3.1\WoltEntity.deps.json
+C:\Users\Nigar\Desktop\New folder (5)\FinalProjectBackend\WoltApp\WoltEntity\bin\Debug\netcoreapp3.1\WoltEntity.runtimeconfig.json
+C:\Users\Nigar\Desktop\New folder (5)\FinalProjectBackend\WoltApp\WoltEntity\bin\Debug\netcoreapp3.1\WoltEntity.runtimeconfig.dev.json
+C:\Users\Nigar\Desktop\New folder (5)\FinalProjectBackend\WoltApp\WoltEntity\bin\Debug\netcoreapp3.1\WoltEntity.dll
+C:\Users\Nigar\Desktop\New folder (5)\FinalProjectBackend\WoltApp\WoltEntity\bin\Debug\netcoreapp3.1\WoltEntity.pdb
+C:\Users\Nigar\Desktop\New folder (5)\FinalProjectBackend\WoltApp\WoltEntity\bin\Debug\netcoreapp3.1\WoltCore.dll
+C:\Users\Nigar\Desktop\New folder (5)\FinalProjectBackend\WoltApp\WoltEntity\bin\Debug\netcoreapp3.1\WoltCore.pdb
+C:\Users\Nigar\Desktop\New folder (5)\FinalProjectBackend\WoltApp\WoltEntity\obj\Debug\netcoreapp3.1\WoltEntity.csproj.AssemblyReference.cache
+C:\Users\Nigar\Desktop\New folder (5)\FinalProjectBackend\WoltApp\WoltEntity\obj\Debug\netcoreapp3.1\WoltEntity.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nigar\Desktop\New folder (5)\FinalProjectBackend\WoltApp\WoltEntity\obj\Debug\netcoreapp3.1\WoltEntity.AssemblyInfoInputs.cache
+C:\Users\Nigar\Desktop\New folder (5)\FinalProjectBackend\WoltApp\WoltEntity\obj\Debug\netcoreapp3.1\WoltEntity.AssemblyInfo.cs
+C:\Users\Nigar\Desktop\New folder (5)\FinalProjectBackend\WoltApp\WoltEntity\obj\Debug\netcoreapp3.1\WoltEntity.csproj.CoreCompileInputs.cache
+C:\Users\Nigar\Desktop\New folder (5)\FinalProjectBackend\WoltApp\WoltEntity\obj\Debug\netcoreapp3.1\WoltEntity.csproj.CopyComplete
+C:\Users\Nigar\Desktop\New folder (5)\FinalProjectBackend\WoltApp\WoltEntity\obj\Debug\netcoreapp3.1\WoltEntity.dll
+C:\Users\Nigar\Desktop\New folder (5)\FinalProjectBackend\WoltApp\WoltEntity\obj\Debug\netcoreapp3.1\WoltEntity.pdb
+C:\Users\Nigar\Desktop\New folder (5)\FinalProjectBackend\WoltApp\WoltEntity\obj\Debug\netcoreapp3.1\WoltEntity.genruntimeconfig.cache

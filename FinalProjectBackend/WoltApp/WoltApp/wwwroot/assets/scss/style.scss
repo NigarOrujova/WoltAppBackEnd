@@ -1,0 +1,17 @@
+// Abstract files
+@import "./abstracts/variables";
+@import "./abstracts/mixins";
+// Pages
+@import "./pages/home/index";
+@import"./pages/restaurant/restaurant";
+
+// Core files
+@import "./core/core";
+
+// Layout
+@import "./layout/header";
+@import "./layout/footer";
+@import"./layout/main";
+
+// Component
+@import"./components/extends";

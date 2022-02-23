@@ -1,0 +1,46 @@
+#stories{
+    padding: 40px 0;
+    h1{
+        @extend %h1;
+    }
+    .col-lg-4{
+        padding: 0 8px;
+        padding-bottom: 1.75rem;
+        a{
+            text-decoration: none;
+            color: #000;
+            .card{
+                height: 300px;
+                border-radius: 15px;
+                background-position: center;
+                position: relative;
+                overflow-y: hidden;
+                box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+                .imgArea{
+                    transition: 0.3s;
+                    height: 200px !important;
+                overflow: hidden;
+                    img{
+                        border-radius: 15px 15px 0 0;
+                        width: 100%;
+                    }
+                }
+                .card-body{
+                    overflow-y: hidden;
+                    height: 50px;
+                    border: 6px solid transparent;
+                    h3{
+                        font-size: 18px;
+                    }
+                }
+            }
+            .card:hover img{
+                transition: 0.3s;            
+                transform: scale(1.1);
+            }
+            .card:hover{
+                box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+            }
+        }
+    }
+}

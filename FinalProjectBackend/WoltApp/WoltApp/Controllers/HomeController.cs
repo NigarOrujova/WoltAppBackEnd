@@ -22,7 +22,7 @@ namespace WoltApp.Controllers
             {
                 Sliders = await _context.Sliders.ToListAsync(),
                 Categories = await _context.Categories
-                .Where(c => c.IsDeleted == false)
+                .Where(c => c.IsDeleted == false && c.ImageURL!=null)
                 .ToListAsync(),
                 Restaurants = await _context.Restaurants.Where(r => r.IsDeleted == false).ToListAsync(),
                 Stores = await _context.Stores.Where(s => s.IsDeleted == false).ToListAsync()

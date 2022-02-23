@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ATRsITHURIGXPlmJkX+2NRj+mcsCQSJ9UGGf8WKGXUBHgEn/58md0mLlDVkzisxLn1pGf3r/hxgy2n8tgKs3CQ==",
+  "dgSpecHash": "fVjAgCXBNwkInxvsI87GNN3AMzs/dm5WpPBF4kvFPzgWCfjaJWbdo+Skulr03xExWpqfwHkp2xS8wSFK3Y9UlQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Nigar\\Desktop\\New folder (5)\\FinalProjectBackend\\WoltApp\\WoltEntity\\WoltEntity.csproj",
+  "projectFilePath": "C:\\Users\\Nigar\\Desktop\\New folder (6)\\FinalProjectBackend\\WoltApp\\WoltEntity\\WoltEntity.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nigar\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.14\\microsoft.aspnetcore.http.features.5.0.14.nupkg.sha512",
     "C:\\Users\\Nigar\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",

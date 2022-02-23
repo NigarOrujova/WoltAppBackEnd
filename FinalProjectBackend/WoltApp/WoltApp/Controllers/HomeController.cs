@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WoltBusiness.DTOs;
 using WoltDataAccess.DAL;
 
 namespace WoltApp.Controllers
@@ -14,9 +16,18 @@ namespace WoltApp.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            return View();
+            HomeDTO homeDTO = new HomeDTO
+            {
+                Sliders = await _context.Sliders.ToListAsync(),
+                Categories = await _context.Categories
+                .Where(c => c.IsDeleted == false)
+                .ToListAsync(),
+                Restaurants = await _context.Restaurants.Where(r => r.IsDeleted == false).ToListAsync(),
+                Stores = await _context.Stores.Where(s => s.IsDeleted == false).ToListAsync()
+            };
+            return View(homeDTO);
         }
     }
 }

@@ -68,7 +68,7 @@
                                 @foreach (var item in Model.Restaurants)
                                 {
                                     <div class="item">
-                                        <a asp-controller="@item.Name" asp-action="Index">
+                                        <a asp-controller="@item.ControllerName" asp-action="Index">
                                             <div class="card">
                                                 <div class="imgArea">
                                                     <img src="./assets/img/@item.ImageURL" alt="...">

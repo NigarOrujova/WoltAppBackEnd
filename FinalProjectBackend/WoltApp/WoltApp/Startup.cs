@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WoltDataAccess.DAL;
+using WoltDataAccess.Repositories.Implementations;
+using WoltDataAccess.Repositories.Interfaces;
 
 namespace WoltApp
 {
@@ -30,6 +32,7 @@ namespace WoltApp
             {
                 options.UseSqlServer(Configuration["ConnectionStrings:Default"]);
             });
+            services.AddScoped<IProductRepository, ProductRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

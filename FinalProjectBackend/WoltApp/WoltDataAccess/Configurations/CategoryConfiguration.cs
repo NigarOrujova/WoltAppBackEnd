@@ -9,6 +9,7 @@ namespace WoltDataAccess.Configurations
         public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
+            builder.Property(x => x.ControllerName).HasMaxLength(50).IsRequired();
             builder.Property(x => x.IsDeleted).HasDefaultValue(false);
             builder.Property(x => x.CreatedDate).HasDefaultValueSql("GETUTCDATE()");
             builder.Property(p => p.ImageURL).IsRequired(false);

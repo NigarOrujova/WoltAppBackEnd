@@ -12,6 +12,7 @@ namespace WoltDataAccess.Configurations
         public void Configure(EntityTypeBuilder<Restaurant> builder)
         {
             builder.Property(p => p.Name).HasMaxLength(100).IsRequired();
+            builder.Property(x => x.ControllerName).HasMaxLength(50).IsRequired();
             builder.Property(p => p.Description).HasMaxLength(255).IsRequired(false);
             builder.Property(p => p.Address).HasMaxLength(255).IsRequired(false);
             builder.Property(p => p.ContactNumber).HasMaxLength(20).IsRequired(false);

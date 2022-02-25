@@ -24,7 +24,7 @@ namespace WoltApp.Controllers
                 Categories = await _context.Categories
                 .Where(c => c.IsDeleted == false && c.ImageURL!=null)
                 .ToListAsync(),
-                Restaurants = await _context.Restaurants.Where(r => r.IsDeleted == false).ToListAsync(),
+                Restaurants = await _context.Restaurants.Where(r => r.IsDeleted == false).Include(r=>r.RestaurantProducts).ThenInclude(r=>r.Product).ToListAsync(),
                 Stores = await _context.Stores.Where(s => s.IsDeleted == false).ToListAsync()
             };
             return View(homeDTO);

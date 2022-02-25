@@ -26,8 +26,15 @@ using WoltBusiness.DTOs;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\Views\_ViewImports.cshtml"
+using WoltEntity.Entities;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ce7615a2617403fe6566be7c48e352ba2567a24c", @"/Views/Home/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"3d63641dd0b6171ed0c92938c4a834a7f6e89b31", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"4d0b4d4946a839ca0beeba8b79b5d57297e85b73", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<HomeDTO>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Index", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -176,7 +183,7 @@ WriteAttributeValue("", 1987, item.ImageURL, 1987, 14, false);
 #line hidden
 #nullable disable
             WriteLiteral("                                    <div class=\"item\">\r\n                                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ce7615a2617403fe6566be7c48e352ba2567a24c9021", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ce7615a2617403fe6566be7c48e352ba2567a24c9229", async() => {
                 WriteLiteral("\r\n                                            <div class=\"card\">\r\n                                                <div class=\"imgArea\">\r\n                                                    <img");
                 BeginWriteAttribute("src", " src=\"", 3921, "\"", 3954, 2);
                 WriteAttributeValue("", 3927, "./assets/img/", 3927, 13, true);

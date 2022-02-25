@@ -1,4 +1,4 @@
-﻿@model RestaurantDTO
+﻿@model List<RestaurantProduct>
 @{
     ViewData["Title"] = "Index";
 }
@@ -8,9 +8,9 @@
             <div class="col-lg-2 col-md-12">
                 <div class="cardCategory">
                     <ul>
-                        @foreach (var item in Model.Categories)
+                        @foreach (var item in Model)
                         {
-                            <li><a href="#">@item.Name</a></li>
+                             @*<li><a href="#">@item.Product.Category.Name</a></li>*@
                         }
                     </ul>
                 </div>
@@ -21,63 +21,63 @@
                         <h2>Burgerlər</h2>
                     </div>
                     <div class="product">
-                        @foreach (var item in Model.Products)
-                        {
-                            <div class="product-item">
-                                <div class="line"></div>
-                                <div class="card" data-toggle="modal" data-target="#mcProduct-@item.Id">
-                                    <div class="row g-0">
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <h5 class="card-title">@item.Title</h5>
-                                                <p class="card-text">
-                                                    @item.Description
-                                                </p>
-                                                <p class="card-text"><span>AZN @item.Price</span></p>
+                            @foreach (var item in Model)
+                            {
+                                <div class="product-item">
+                                    <div class="line"></div>
+                                    <div class="card" data-toggle="modal" data-target="#mcProduct-@item.Id">
+                                        <div class="row g-0">
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">@item.Product.Title</h5>
+                                                    <p class="card-text">
+                                                        @item.Product.Description
+                                                    </p>
+                                                    <p class="card-text"><span>AZN @item.Product.Price</span></p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="cardImg">
-                                                <img src="./assets/img/@item.ImageURL"
-                                                     class="img-fluid rounded-start" alt="...">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Modal -->
-                                <div class="modal fade" id="mcProduct-@item.Id" tabindex="-1" role="dialog"
-                                     aria-labelledby="exampleModalLabel-@item.Id" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel-@item.Id">
-                                                    <img src="./assets/img/@item.ImageURL"
+                                            <div class="col-md-4">
+                                                <div class="cardImg">
+                                                    <img src="./assets/img/@item.Product.ImageURL"
                                                          class="img-fluid rounded-start" alt="...">
-                                                </h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
+                                                </div>
                                             </div>
-                                            <div class="modal-body">
-                                                <h5 class="card-title">@item.Title</h5>
-                                                <p class="card-text">
-                                                    @item.Description
-                                                </p>
-                                                <p class="card-text"><span>AZN @item.Price</span></p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">
-                                                    Close
-                                                </button>
-                                                <button type="button" class="btn btn-primary">Add basket</button>
+                                        </div>
+                                    </div>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="mcProduct-@item.Id" tabindex="-1" role="dialog"
+                                         aria-labelledby="exampleModalLabel-@item.Id" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel-@item.Id">
+                                                        <img src="./assets/img/@item.Product.ImageURL"
+                                                             class="img-fluid rounded-start" alt="...">
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h5 class="card-title">@item.Product.Title</h5>
+                                                    <p class="card-text">
+                                                        @item.Product.Description
+                                                    </p>
+                                                    <p class="card-text"><span>AZN @item.Product.Price</span></p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">
+                                                        Close
+                                                    </button>
+                                                    <button type="button" class="btn btn-primary">Add basket</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        }
+                            }
                         <div class="line"></div>
                     </div>
                 </div>

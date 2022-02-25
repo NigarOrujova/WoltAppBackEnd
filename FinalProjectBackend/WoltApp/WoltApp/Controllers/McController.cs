@@ -20,19 +20,16 @@ namespace WoltApp.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            //RestaurantDTO resDTO = new RestaurantDTO
-            //{
-            //    Products = await _context.Products.Where(c => c.IsDeleted == false)
-            //                                      .Include(p => p.RestaurantProducts)
-            //                                      .ThenInclude(p=>p.Restaurant)
-            //                                      .ToListAsync(),
-            //    Categories = await _context.Categories
-            //    .Where(c => c.IsDeleted == false && c.ImageURL != null)
-            //    .ToListAsync(),
-            //    Restaurants = await _context.Restaurants.Where(r => r.IsDeleted == false && r.Id==1).Include(r => r.RestaurantProducts).ThenInclude(r => r.Product).ToListAsync()
-            //};
-            List<RestaurantProduct> restaurant = await _context.RestaurantProducts.Include(p => p.Restaurant).Where(p=>p.RestaurantId==1).Include(p=>p.Product).ToListAsync();
-            return View(restaurant);
+            RestaurantDTO resDTO = new RestaurantDTO
+            {
+                RestaurantProducts = await _context.RestaurantProducts.Include(p => p.Restaurant)
+                                                                      .Where(p => p.RestaurantId == 1)
+                                                                      .Include(p => p.Product).ToListAsync(),
+                RestaurantCategories = await _context.RestaurantCategories.Include(c => c.Restaurant)
+                                                                          .Where(c => c.RestaurantId == 1)
+                                                                          .Include(c => c.Category).ToListAsync()
+            };
+            return View(resDTO);
         }
     }
 }

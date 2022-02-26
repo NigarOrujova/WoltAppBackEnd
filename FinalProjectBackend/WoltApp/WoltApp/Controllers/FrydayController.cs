@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WoltBusiness.DTOs;
 using WoltDataAccess.DAL;
+using WoltEntity.Entities;
 
 namespace WoltApp.Controllers
 {
@@ -17,7 +18,7 @@ namespace WoltApp.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
             RestaurantDTO resDTO = new RestaurantDTO
             {
@@ -27,7 +28,8 @@ namespace WoltApp.Controllers
                 RestaurantCategories = await _context.RestaurantCategories.Include(c => c.Restaurant)
                                                                           .Where(c => c.RestaurantId == 2)
                                                                           .Include(c => c.Category).ToListAsync(),
-                Restaurant= await _context.Restaurants.Where(r=> r.IsDeleted==false && r.Id==2).FirstOrDefaultAsync()
+                Restaurant = await _context.Restaurants.Where(r => r.IsDeleted == false)
+                                                       .Include(r=>r.RestaurantCategories).ThenInclude(r=>r.Category).FirstOrDefaultAsync(r=>r.Id==6)
             };
             return View(resDTO);
         }

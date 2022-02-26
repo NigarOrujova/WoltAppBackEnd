@@ -27,7 +27,7 @@ namespace WoltApp.Controllers
                 RestaurantCategories = await _context.RestaurantCategories.Include(c => c.Restaurant)
                                                                           .Where(c => c.RestaurantId == 12)
                                                                           .Include(c => c.Category).ToListAsync(),
-                Restaurant = await _context.Restaurants.Where(r => r.IsDeleted == false && r.Id == 12).FirstOrDefaultAsync()
+                Restaurant = await _context.Restaurants.Where(r => r.IsDeleted == false).FirstOrDefaultAsync(r=>r.Id==12)
             };
             return View(resDTO);
         }

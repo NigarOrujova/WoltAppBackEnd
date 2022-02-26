@@ -10,18 +10,20 @@
                     <ul>
                         @foreach (var item in Model.RestaurantCategories)
                         {
-                             <li><a href="#">@item.Category.Name</a></li>
+                             <li><a href="#@item.Category.Name">@item.Category.Name</a></li>
                         }
                     </ul>
                 </div>
             </div>
             <div class="col-lg-6 col-md-12">
-                <div class="menu-item">
-                    <div class="categoryName">
-                        <h2>Burgerlər</h2>
-                    </div>
-                    <div class="product">
-                            @foreach (var item in Model.RestaurantProducts)
+                @foreach (var pro in Model.RestaurantCategories)
+                {
+                    <div class="menu-item">
+                        <div class="categoryName">
+                            <h2 id="@pro.Category.Name">@pro.Category.Name</h2>
+                        </div>
+                        <div class="product">
+                            @foreach (var item in Model.RestaurantProducts.Where(p => p.Product.CategoryId == pro.CategoryId))
                             {
                                 <div class="product-item">
                                     <div class="line"></div>
@@ -78,21 +80,22 @@
                                     </div>
                                 </div>
                             }
-                        <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
                     </div>
-                </div>
+                }
             </div>
             <div class="col-lg-4 col-md-12">
                 <h2>Məkan məlumatları</h2>
                 <h3>Ünvan</h3>
-                @*<p>@Model.Restaurant.Address</p>*@
+                <p>@Model.Restaurant.Address</p>
                 <h3>Contact</h3>
                 <p>
                     Allergiyanız və ya pəhrizlə bağlı məhdudiyyətləriniz varsa, restoran ilə əlaqə saxlayın.
                     Restoran sorğu əsasında yemək ilə bağlı məlumatlar təmin edəcək.
                 </p>
                 <div class="phone-number">
-                    @*<a href="tel:@Model.Restaurant.ContactNumber"><span>@Model.Restaurant.ContactNumber</span></a>*@
+                    <a href="tel:@Model.Restaurant.ContactNumber"><span>@Model.Restaurant.ContactNumber</span></a>
                 </div>
             </div>
         </div>

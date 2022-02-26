@@ -320,3 +320,11 @@ C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\De
 C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Fryday\Index.cshtml.g.cs
 C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Gloria\Index.cshtml.g.cs
 C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Burger\Index.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\İceDrinks\Index.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Drinks\Index.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Snacks\Index.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Deserts\Index.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Pizza\Index.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Salad\Index.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Sushi\Index.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Sandwich\Index.cshtml.g.cs

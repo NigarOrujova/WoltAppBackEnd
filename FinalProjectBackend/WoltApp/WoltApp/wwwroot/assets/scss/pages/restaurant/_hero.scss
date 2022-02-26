@@ -1,4 +1,14 @@
-#resHero{
+#resHero {
     height: 500px;
     z-index: -1;
+    .container {
+        height: 100%;
+
+        .hero-area {
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: flex-end;
+        }
+    }
 }

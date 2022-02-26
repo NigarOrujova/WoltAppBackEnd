@@ -2,6 +2,16 @@
 @{
     ViewData["Title"] = "Index";
 }
+<section id="resHero" style="background-image: url(./assets/img/@Model.Restaurant.HeroImageURL);background-position: top;background-repeat: no-repeat;background-size: cover;">
+    <div class="container">
+        <div class="row">
+            <div class="hero-area">
+                <h1>@Model.Restaurant.Name</h1>
+                <p>@Model.Restaurant.Description</p>
+            </div>
+        </div>
+    </div>
+</section>
 <section id="products">
     <div class="container">
         <div class="row">
@@ -10,7 +20,7 @@
                     <ul>
                         @foreach (var item in Model.RestaurantCategories)
                         {
-                             <li><a href="#@item.Category.Name">@item.Category.Name</a></li>
+                            <li><a href="#@item.Category.Name">@item.Category.Name</a></li>
                         }
                     </ul>
                 </div>

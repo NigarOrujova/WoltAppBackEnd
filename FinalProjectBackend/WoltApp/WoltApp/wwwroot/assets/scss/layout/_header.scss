@@ -96,10 +96,42 @@
             border-radius: 0.5rem;
             background: $base-color;
             color: rgb(255, 255, 255);
-    .badge{
-        color: $base-color;
-        margin: 0 5px;
-    }
+            .badge{
+                color: $base-color;
+                margin: 0 5px;
+            }
+        
+        }
+        .modal-body{
+            .card{
+                border: 0;
+                .row{
+                    align-items: center;
+                    .count{
+                        border: 2px solid rgba(206, 206, 206, 0.767);
+                        border-radius: 5px;
+                        width: 30px;
+                        align-items: center;
+                        justify-content: center;
+                        display: flex;
+                        color:$base-color;
+                    }
+                    span{
+                        color:$base-color;
+                    }
+                }
+            }
+        }
+        .button-content{
+            width: 100%;
+            .col-11{
+                align-items: center;
+                justify-content: center;
+                display: flex;
+                span{
+                    padding: 0 10px;
+                }
+            }
         }
     }
 }

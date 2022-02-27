@@ -534,6 +534,71 @@
   margin-top: 15px;
 }
 
+#products .product .modal-body .card-title {
+  font-size: 30px;
+}
+
+#products .product .modal-body span {
+  color: #00aaf3;
+  font-weight: 500;
+}
+
+#products .product .modal-footer .row {
+  width: 100%;
+  border: 0;
+}
+
+#products .product .modal-footer .row button {
+  border: none;
+  position: relative;
+  z-index: 0;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+      align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  width: 100%;
+  max-width: 100%;
+  cursor: pointer;
+  padding: 0px 1rem;
+  min-height: 3.375rem;
+  border-radius: 0.5rem;
+  color: white;
+}
+
+#products .product .modal-footer .row button i {
+  border-radius: 50%;
+  background-color: #fff;
+  width: 24px;
+  height: 24px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: #00aaf3;
+  margin: 0 10px;
+}
+
+#products .product .modal-footer .row .pro-count {
+  background-color: #d0f0ff;
+  color: #00aaf3;
+}
+
+#products .product .modal-footer .row .add-basket {
+  background-color: #00aaf3;
+}
+
 #about {
   padding-top: 48px;
 }
@@ -735,6 +800,56 @@
   margin: 0 5px;
 }
 
+#header .basket .modal-body .card {
+  border: 0;
+}
+
+#header .basket .modal-body .card .row {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#header .basket .modal-body .card .row .count {
+  border: 2px solid rgba(206, 206, 206, 0.767);
+  border-radius: 5px;
+  width: 30px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #00aaf3;
+}
+
+#header .basket .modal-body .card .row span {
+  color: #00aaf3;
+}
+
+#header .basket .button-content {
+  width: 100%;
+}
+
+#header .basket .button-content .col-11 {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#header .basket .button-content .col-11 span {
+  padding: 0 10px;
+}
+
 #footer {
   background-color: #f3f3f3;
 }
@@ -806,8 +921,8 @@
           flex-direction: column;
   pointer-events: none;
   right: 40px;
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
   bottom: 70px;
   z-index: 900;
   text-decoration: none;
@@ -819,9 +934,13 @@
 }
 
 #footer .ScrollToTop i {
-  font-size: 32px;
+  font-size: 24px;
   color: black;
   text-align: center;
+}
+
+#footer #footer .ScrollToTop:hover {
+  border: 1px solid #000;
 }
 
 #footer .ScrollToTop.active {
@@ -882,7 +1001,7 @@
           box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
 }
 
-#restaurants h1, #stories h1 {
+#restaurants h1, #stories h1, #products .product .modal-body .card-title {
   font-family: nunito, sans-serif;
   font-weight: 900;
   font-style: normal;

@@ -45,8 +45,8 @@
     flex-direction: column;
     pointer-events: none;
     right: 40px;
-    width: 48px;
-    height: 48px;
+    width: 42px;
+    height: 42px;
     bottom: 70px;
     z-index: 900;
     text-decoration: none;
@@ -55,10 +55,13 @@
     opacity: 0;
     transition:  all .3s;
     i{
-        font-size: 32px;
+        font-size: 24px;
         color: black;
         text-align: center;
     }
+}
+#footer .ScrollToTop:hover {
+    border: 1px solid #000;
 }
 .ScrollToTop.active
 {

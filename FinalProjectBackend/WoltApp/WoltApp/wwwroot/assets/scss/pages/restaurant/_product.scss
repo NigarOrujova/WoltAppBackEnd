@@ -1,55 +1,59 @@
-#products {
-    .cardCategory {
+#products{
+    .cardCategory{
+        padding-top: 48px;
         position: -webkit-sticky;
         position: sticky;
-
-        ul {
+        z-index: 999;
+        ul{
             position: sticky !important;
             margin-top: 15px;
             list-style: none;
-
-            a {
-                color: rgba(0, 0, 0, 0.644);
+            a{
+                color:rgba(0, 0, 0, 0.644);
                 padding: 8px 0;
             }
         }
     }
-
-    .categoryName {
-        padding: 15px 0;
+    .categoryName{
+        padding-top: 48px;
+        padding-bottom: 15px;
+        h2{
+            @extend %h2;
+        }
     }
-
-    .card {
-        border: 0;
-
-        .col-md-4 {
-            padding-bottom:15px;
-            .cardImg {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 100%;
+    .row{
+        border-bottom: 1px solid rgba(0,0,0,.125);
+        border-top: 1px solid rgba(0,0,0,.125);
+            padding-bottom: 15px;
+            .card{
+                border:0;
+                h5{
+                    font-family: nunito, sans-serif;
+                    font-weight: 700;
+                }
+                .cardImg{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100%;
+                }
+                span{
+                    color:#009de0;
+                    font-weight: 600;
+                }
             }
-        }
-
-        span {
-            color: #009de0;
-            font-weight: 600;
-        }
     }
-
-    .line {
+    .line{
         height: 1px;
         width: 100%;
         background-color: rgba(146, 146, 146, 0.397);
     }
-
     .card:hover .row{
         border: 1px solid rgba(0,0,0,.125);
+        border-radius: 5px;
     }
-
-    .col-lg-4 {
-        h2 {
+    .col-lg-4{
+        h2{
             margin-top: 15px;
         }
     }

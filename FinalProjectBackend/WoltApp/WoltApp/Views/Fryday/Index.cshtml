@@ -5,7 +5,7 @@
 <section id="resHero" style="background-image: url(./assets/img/@Model.Restaurant.HeroImageURL);background-position: top;background-repeat: no-repeat;background-size: cover;">
     <div class="container">
         <div class="row">
-            <div class="hero-area">
+            <div class="hero-area text-white">
                 <h1>@Model.Restaurant.Name</h1>
                 <p>@Model.Restaurant.Description</p>
             </div>
@@ -36,7 +36,6 @@
                             @foreach (var item in Model.RestaurantProducts.Where(p => p.Product.CategoryId == pro.CategoryId))
                             {
                                 <div class="product-item">
-                                    <div class="line"></div>
                                     <div class="card" data-toggle="modal" data-target="#mcProduct-@item.Id">
                                         <div class="row g-0">
                                             <div class="col-md-8">
@@ -90,12 +89,11 @@
                                     </div>
                                 </div>
                             }
-                            <div class="line"></div>
                         </div>
                     </div>
                 }
             </div>
-            <div class="col-lg-4 col-md-12">
+            <div id="about" class="col-lg-4 col-md-12">
                 <h2>Məkan məlumatları</h2>
                 <h3>Ünvan</h3>
                 <p>@Model.Restaurant.Address</p>

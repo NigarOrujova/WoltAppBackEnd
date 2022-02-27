@@ -1,5 +1,10 @@
 #footer{
     background-color: rgb(243, 243, 243);
+    h4{
+        font-family: nunito, sans-serif;
+        font-weight: 900;
+        font-size: 19px;
+    }
     a{
         color: #000;
     }
@@ -32,4 +37,33 @@
         color: #fff;
         background-color: rgb(65, 142, 165);
     }
+    .ScrollToTop
+{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    pointer-events: none;
+    right: 40px;
+    width: 48px;
+    height: 48px;
+    bottom: 70px;
+    z-index: 900;
+    text-decoration: none;
+    border-radius: 50%;
+    background-color: rgb(231, 231, 231);
+    opacity: 0;
+    transition:  all .3s;
+    i{
+        font-size: 32px;
+        color: black;
+        text-align: center;
+    }
+}
+.ScrollToTop.active
+{
+    bottom: 32px;
+    pointer-events: auto;
+    opacity: 1;
+}
 }

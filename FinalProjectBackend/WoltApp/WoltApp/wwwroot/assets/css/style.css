@@ -412,11 +412,61 @@
 #resHero {
   height: 500px;
   z-index: -1;
+  position: relative;
+}
+
+#resHero .container {
+  height: 100%;
+  width: 100%;
+}
+
+#resHero .container .row {
+  height: 100%;
+}
+
+#resHero .container .row .hero-area {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  z-index: 1;
+}
+
+#resHero .container .row .hero-area h1 {
+  font-size: 5.5rem;
+  font-family: nunito, sans-serif;
+  font-weight: 900;
+}
+
+#resHero .container .row .hero-area p {
+  font-size: 2rem;
+  font-family: nunito, sans-serif;
+}
+
+#resHero::before {
+  content: "";
+  background: rgba(0, 0, 0, 0.219);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 
 #products .cardCategory {
+  padding-top: 48px;
   position: -webkit-sticky;
   position: sticky;
+  z-index: 999;
 }
 
 #products .cardCategory ul {
@@ -432,14 +482,26 @@
 }
 
 #products .categoryName {
-  padding: 15px 0;
+  padding-top: 48px;
+  padding-bottom: 15px;
 }
 
-#products .card {
+#products .row {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+  padding-bottom: 15px;
+}
+
+#products .row .card {
   border: 0;
 }
 
-#products .card .cardImg {
+#products .row .card h5 {
+  font-family: nunito, sans-serif;
+  font-weight: 700;
+}
+
+#products .row .card .cardImg {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -452,7 +514,7 @@
   height: 100%;
 }
 
-#products .card span {
+#products .row .card span {
   color: #009de0;
   font-weight: 600;
 }
@@ -463,12 +525,27 @@
   background-color: rgba(146, 146, 146, 0.397);
 }
 
-#products .card:hover {
+#products .card:hover .row {
   border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 5px;
 }
 
 #products .col-lg-4 h2 {
   margin-top: 15px;
+}
+
+#about {
+  padding-top: 48px;
+}
+
+#about h2 {
+  font-size: 25px;
+}
+
+#about h3 {
+  font-size: 19px;
+  font-weight: 800;
+  font-family: nunito, sans-serif;
 }
 
 /* Searchbar */
@@ -537,6 +614,7 @@
 }
 
 #header {
+  background-color: transparent;
   z-index: 10;
 }
 
@@ -661,6 +739,12 @@
   background-color: #f3f3f3;
 }
 
+#footer h4 {
+  font-family: nunito, sans-serif;
+  font-weight: 900;
+  font-size: 19px;
+}
+
 #footer a {
   color: #000;
 }
@@ -706,6 +790,44 @@
 #footer .social-media li:hover {
   color: #fff;
   background-color: #418ea5;
+}
+
+#footer .ScrollToTop {
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  pointer-events: none;
+  right: 40px;
+  width: 48px;
+  height: 48px;
+  bottom: 70px;
+  z-index: 900;
+  text-decoration: none;
+  border-radius: 50%;
+  background-color: #e7e7e7;
+  opacity: 0;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+#footer .ScrollToTop i {
+  font-size: 32px;
+  color: black;
+  text-align: center;
+}
+
+#footer .ScrollToTop.active {
+  bottom: 32px;
+  pointer-events: auto;
+  opacity: 1;
 }
 
 #pills-tab {
@@ -766,7 +888,7 @@
   font-style: normal;
 }
 
-#card h2, #category h2, #discount h2 {
+#card h2, #category h2, #discount h2, #products .categoryName h2, #about h2 {
   font-family: nunito, sans-serif;
   font-weight: 800;
   font-style: normal;

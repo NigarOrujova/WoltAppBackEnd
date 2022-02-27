@@ -122,3 +122,12 @@ $('.slide-five').owlCarousel({
     }
 })
 
+const ScrollToTop = document.querySelector('.ScrollToTop');
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 100) {
+        ScrollToTop.classList.add('active');
+    }
+    else {
+        ScrollToTop.classList.remove('active');
+    }
+})

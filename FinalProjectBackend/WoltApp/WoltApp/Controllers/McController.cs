@@ -12,7 +12,7 @@ namespace WoltApp.Controllers
 {
     public class McController : Controller
     {
-        private AppDbContext _context { get; }
+        private readonly AppDbContext _context;
 
         public McController(AppDbContext context)
         {
@@ -28,7 +28,7 @@ namespace WoltApp.Controllers
                 RestaurantCategories = await _context.RestaurantCategories.Include(c => c.Restaurant)
                                                                           .Where(c => c.RestaurantId == 1)
                                                                           .Include(c => c.Category).ToListAsync(),
-                Restaurant= await _context.Restaurants.Where(r=> r.IsDeleted==false).FirstOrDefaultAsync()
+                Restaurant = await _context.Restaurants.Where(r => r.IsDeleted == false).FirstOrDefaultAsync()
             };
             return View(resDTO);
         }

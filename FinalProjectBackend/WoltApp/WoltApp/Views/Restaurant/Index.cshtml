@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-<section id="resHero" style="background-image: url(./assets/img/@Model.Restaurant.HeroImageURL);background-position: top;background-repeat: no-repeat;background-size: cover;">
+<section id="resHero" style="background-image: url(/assets/img/@Model.Restaurant.HeroImageURL);background-position: top;background-repeat: no-repeat;background-size: cover;">
     <div class="container">
         <div class="row">
             <div class="hero-area text-white">
@@ -49,7 +49,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="cardImg">
-                                                    <img src="./assets/img/@item.Product.ImageURL"
+                                                    <img src="~/assets/img/@item.Product.ImageURL"
                                                          class="img-fluid rounded-start" alt="...">
                                                 </div>
                                             </div>
@@ -62,7 +62,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel-@item.Id">
-                                                        <img src="./assets/img/@item.Product.ImageURL"
+                                                        <img src="~/assets/img/@item.Product.ImageURL"
                                                              class="img-fluid rounded-start" alt="...">
                                                     </h5>
                                                     <button type="button" class="close" data-dismiss="modal"

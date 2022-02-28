@@ -12,11 +12,11 @@
             @foreach (var item in Model)
             {
                 <div class="col-lg-4 col-md-6 col-sm-12">
-                    @*<a asp-controller="Restaurant" asp-action="Index" asp-route-id="@item.RestaurantId">*@
-                    <a asp-controller="@item.Restaurant.ControllerName" asp-action="Index">
+                    <a asp-controller="Restaurant" asp-action="Index" asp-route-id="@item.RestaurantId">
+                    @*<a asp-controller="@item.Restaurant.ControllerName" asp-action="Index">*@
                         <div class="card">
                             <div class="imgArea">
-                                <img src="./assets/img/@item.Restaurant.ImageURL" alt="...">
+                                <img src="~/assets/img/@item.Restaurant.ImageURL" alt="...">
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">@item.Restaurant.Name</h5>

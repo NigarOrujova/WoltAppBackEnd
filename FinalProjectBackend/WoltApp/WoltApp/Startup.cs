@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 using WoltDataAccess.DAL;
 using WoltDataAccess.Repositories.Implementations;
 using WoltDataAccess.Repositories.Interfaces;
+using WoltEntity.Entities;
 
 namespace WoltApp
 {
@@ -31,6 +33,26 @@ namespace WoltApp
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(Configuration["ConnectionStrings:Default"]);
+            });
+            services.AddIdentity<AppUser, IdentityRole>()
+                    .AddEntityFrameworkStores<AppDbContext>()
+                    .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(IdentityOptions =>
+            {
+                IdentityOptions.Password.RequiredLength = 8;
+                IdentityOptions.Password.RequireNonAlphanumeric = true;
+                IdentityOptions.Password.RequireLowercase = true;
+                IdentityOptions.Password.RequireLowercase = true;
+                IdentityOptions.Password.RequireDigit = true;
+
+                IdentityOptions.User.RequireUniqueEmail = true;
+
+                IdentityOptions.Lockout.MaxFailedAccessAttempts = 3;
+                IdentityOptions.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+                IdentityOptions.Lockout.AllowedForNewUsers = true;
+
+                IdentityOptions.SignIn.RequireConfirmedEmail = true;
             });
             services.AddScoped<IProductRepository, ProductRepository>();
         }
@@ -53,6 +75,7 @@ namespace WoltApp
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

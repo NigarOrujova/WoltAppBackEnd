@@ -20,12 +20,22 @@
                     </div>
                 </div>
                 <ul class="navbar-nav ml-auto">
+                    @if (User.Identity.IsAuthenticated)
+                    {
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Daxil ol</a>
+                        <h4>@User.Identity.Name</h4>
+                        <a asp-controller="Account" asp-action="LogOut">Logout</a>
+                    </li>
+                    }
+                    else
+                    {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Account" asp-action="Login">Daxil ol</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Qeydiyyatdan keçin</a>
+                        <a class="nav-link" asp-controller="Account" asp-action="Register">Qeydiyyatdan keçin</a>
                     </li>
+                    }
                 </ul>
             </div>
         </nav>

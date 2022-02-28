@@ -15,5 +15,9 @@ namespace WoltApp.ViewComponents
         {
             _context = context;
         }
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            return View();
+        }
     }
 }

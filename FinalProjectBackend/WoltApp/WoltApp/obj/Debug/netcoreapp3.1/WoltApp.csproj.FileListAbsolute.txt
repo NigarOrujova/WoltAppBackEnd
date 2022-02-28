@@ -314,18 +314,6 @@ C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\De
 C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\WoltApp.dll
 C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\WoltApp.pdb
 C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\WoltApp.genruntimeconfig.cache
-C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Mc\Index.cshtml.g.cs
-C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Fryday\Index.cshtml.g.cs
-C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Gloria\Index.cshtml.g.cs
-C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Burger\Index.cshtml.g.cs
-C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\İceDrinks\Index.cshtml.g.cs
-C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Drinks\Index.cshtml.g.cs
-C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Snacks\Index.cshtml.g.cs
-C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Deserts\Index.cshtml.g.cs
-C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Pizza\Index.cshtml.g.cs
-C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Salad\Index.cshtml.g.cs
-C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Sushi\Index.cshtml.g.cs
-C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Sandwich\Index.cshtml.g.cs
 C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Areas\WoltArea\Views\Dashboard\Index.cshtml.g.cs
 C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Areas\WoltArea\Views\_ViewStart.cshtml.g.cs
 C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Areas\WoltArea\Views\_ViewImports.cshtml.g.cs
@@ -336,3 +324,5 @@ C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\De
 C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Areas\WoltArea\Views\Restaurant\Index.cshtml.g.cs
 C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Areas\WoltArea\Views\Category\Index.cshtml.g.cs
 C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Areas\WoltArea\Views\Slider\Index.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\Footer\Default.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (6)\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\Header\Default.cshtml.g.cs

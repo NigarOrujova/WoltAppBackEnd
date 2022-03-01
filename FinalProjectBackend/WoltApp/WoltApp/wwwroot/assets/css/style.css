@@ -685,6 +685,7 @@ body {
 #header {
   background-color: transparent;
   z-index: 10;
+  border-bottom:1px solid rgba(206, 206, 206, 0.767);
 }
 
 #header .navbar-toggler {

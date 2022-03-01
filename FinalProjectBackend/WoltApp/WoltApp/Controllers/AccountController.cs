@@ -126,40 +126,6 @@ namespace WoltApp.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-        //public IActionResult ChangePassword()
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> ChangePassword(ChangePasswordDTO password)
-        //{
-        //    if (!ModelState.IsValid) return View(password);
-        //    var user = await _userManager.GetUserAsync(User);
-        //    if (user == null)
-        //    {
-        //        ModelState.AddModelError(string.Empty, "User is Not Found");
-        //        return View();
-        //    }
-        //    var checkPasword = await _userManager.CheckPasswordAsync(user, password.CurrentPassword);
-        //    if (!checkPasword)
-        //    {
-        //        ModelState.AddModelError(string.Empty, "Incorrect Password");
-        //        return View(password);
-        //    }
-        //    var result = await _userManager.ChangePasswordAsync(user, password.CurrentPassword,
-        //                                                                password.NewPassword);
-        //    if (!result.Succeeded)
-        //    {
-        //        foreach (var error in result.Errors)
-        //        {
-        //            ModelState.AddModelError(string.Empty, error.Description);
-        //        }
-        //        return View(password);
-        //    }
-        //    await _signInManager.RefreshSignInAsync(user);
-        //    return RedirectToAction("Index", "Home");
-        //}
         //GET-ForgotPassword
         public IActionResult ForgotPassword()
         {
@@ -222,5 +188,55 @@ namespace WoltApp.Controllers
         {
             return View();
         }
+        //GET-AccountSetting
+        public IActionResult AccountSetting()
+        {
+            return View();
+        }
+        //Post-AccountSetting
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AccountSetting(string ReturnUrl)
+        {
+            if (ReturnUrl != null)
+            {
+                return LocalRedirect(ReturnUrl);
+            }
+            return View();
+        }
+        //public IActionResult ChangePassword()
+        //{
+        //    return View();
+        //}
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> ChangePassword(ChangePasswordDTO password)
+        //{
+        //    if (!ModelState.IsValid) return View(password);
+        //    var user = await _userManager.GetUserAsync(User);
+        //    if (user == null)
+        //    {
+        //        ModelState.AddModelError(string.Empty, "User is Not Found");
+        //        return View();
+        //    }
+        //    var checkPasword = await _userManager.CheckPasswordAsync(user, password.CurrentPassword);
+        //    if (!checkPasword)
+        //    {
+        //        ModelState.AddModelError(string.Empty, "Incorrect Password");
+        //        return View(password);
+        //    }
+        //    var result = await _userManager.ChangePasswordAsync(user, password.CurrentPassword,
+        //                                                                password.NewPassword);
+        //    if (!result.Succeeded)
+        //    {
+        //        foreach (var error in result.Errors)
+        //        {
+        //            ModelState.AddModelError(string.Empty, error.Description);
+        //        }
+        //        return View(password);
+        //    }
+        //    await _signInManager.RefreshSignInAsync(user);
+        //    return RedirectToAction("Index", "Home");
+        //}
     }
 }

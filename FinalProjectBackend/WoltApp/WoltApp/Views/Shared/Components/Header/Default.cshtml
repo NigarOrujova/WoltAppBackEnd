@@ -8,7 +8,8 @@
                     aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            @if (User.Identity.IsAuthenticated)
+            {
                 <div class="searchbar">
                     <div class="input-group">
                         <div class="form-outline">
@@ -19,27 +20,111 @@
                         </button>
                     </div>
                 </div>
-                <ul class="navbar-nav ml-auto">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                    <li class="nav-item">
-                        <h4>@User.Identity.Name</h4>
-                        <a asp-controller="Account" asp-action="LogOut">Logout</a>
-                    </li>
-                    }
-                    else
-                    {
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Account" asp-action="Login">Daxil ol</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Account" asp-action="Register">Qeydiyyatdan keçin</a>
-                    </li>
-                    }
-                </ul>
+                <div class="dropdown ml-auto">
+                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                        <img src="~/Admin/assets/img/avatars/default-avatar.png" width="30px" class="avatar img-fluid rounded me-1" />
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">
+                            <i class="bi bi-person"></i>
+                            Profile:
+                            <span class="text-dark">@User.Identity.Name</span><hr />
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <i class="bi bi-gear"></i>
+                            Settings
+                        </a>
+                        <a class="dropdown-item" asp-controller="Account" asp-action="LogOut">
+                            <i class="bi bi-door-open"></i>
+                            Log out
+                        </a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="searchbar">
+                        <div class="input-group">
+                            <div class="form-outline">
+                                <input placeholder="Axtar" type="search" class="search" />
+                            </div>
+                            <button type="button" class="search-btn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Login" asp-route-ReturnUrl="@Context.Request.Path.Value">Daxil ol</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Register">Qeydiyyatdan keçin</a>
+                        </li>
+                    </ul>
+                </div>
+            }
+            <!-- basket -->
+            <div class="basket mx-3">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    <span>View Order</span>
+                    <span class="badge badge-md badge-circle badge-floating badge-light border-white">4</span>
+                </button>
+                <!-- modal start -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Your Order</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="card">
+                                        <div class="row g-0">
+                                            <div class="col-md-1">
+                                                <div class="count">
+                                                    <p>1</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">McChicken™</h5>
+                                                    <p class="card-text"><span>AZN 3.90</span></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="cardImg">
+                                                    <img src="~/assets/img/mcproduct-1.png"
+                                                         class="img-fluid rounded-start" alt="...">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">
+                                        <div class="button-content">
+                                            <div class="row">
+                                                <div class="col-1">
+                                                    <span class="badge badge-md badge-circle badge-floating badge-light border-white">4</span>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p class="card-text">Go to checkout<span>AZN 3.90</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </nav>
     </div>
-    <hr />
 </header>
 <!-- Header End -->

@@ -80,7 +80,7 @@
                                                 <div class="modal-footer">
                                                     <div class="row">
                                                         <div class="col-lg-4"><button type="button" class="btn btn-secondary pro-count"><i id="m1" class="fas fa-minus"></i>1<i id="p1" class="fas fa-plus"></i></button></div>
-                                                        <div class="col-lg-8"><button type="button" class="btn btn-primary add-basket">Add basket</button></div>
+                                                        <div class="col-lg-8"><a asp-controller="Basket" asp-action="AddBasket" asp-route-id="@item.Product.Id" class="btn btn-primary add-basket">Add basket</a></div>
                                                     </div>
                                                 </div>
                                             </div>

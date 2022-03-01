@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,15 +7,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using WoltBusiness.DTOs;
 using WoltDataAccess.DAL;
+using WoltEntity.Entities;
 
 namespace WoltApp.Controllers
 {
     public class RestaurantController : Controller
     {
+        private readonly UserManager<AppUser> _userManager;
         private readonly AppDbContext _context;
 
-        public RestaurantController(AppDbContext context)
+        public RestaurantController(UserManager<AppUser> userManager
+                                   ,AppDbContext context)
         {
+            _userManager = userManager;
             _context = context;
         }
         public async Task<IActionResult> Index(int Id)
@@ -31,5 +36,15 @@ namespace WoltApp.Controllers
             };
             return View(resDTO);
         }
+        //public async Task<IActionResult> AddBasket(int? id)
+        //{
+        //    if (id == null) return NotFound();
+        //    Product dbProduct = await _context.Products.FindAsync(id);
+        //    if (dbProduct == null) return BadRequest();
+        //    return Json(id);
+        //    //List<BasketDTO> basket = GetBasket();
+        //    //UpdateBasket((int)id, basket);
+        //    //return RedirectToAction("Index", "Home");
+        //}
     }
 }

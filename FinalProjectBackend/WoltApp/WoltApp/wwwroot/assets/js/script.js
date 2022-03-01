@@ -4,6 +4,14 @@ var loader = document.getElementById("loader");
 window.addEventListener("load",function (){
     loader.style.display = "none";
 });
+//Alert
+Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Your work has been saved',
+    showConfirmButton: false,
+    timer: 1500
+})
 
 //SLIDERS
 $('.slide-one').owlCarousel({

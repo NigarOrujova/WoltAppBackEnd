@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WoltBusiness.DTOs.Account;
 using WoltDataAccess.DAL;
 using WoltEntity.Entities;
+using WoltEntity.Utilities.Email;
 
 namespace WoltApp.Controllers
 {
@@ -30,10 +31,12 @@ namespace WoltApp.Controllers
         {
             return View();
         }
+        //GET-Login
         public IActionResult Login()
         {
             return View();
         }
+        //Post-Login
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginDTO login, string ReturnUrl)
@@ -69,10 +72,12 @@ namespace WoltApp.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+        //GET-Register
         public IActionResult Register()
         {
             return View();
         }
+        //Post-Register
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterDTO register)
@@ -99,17 +104,10 @@ namespace WoltApp.Controllers
             IdentityResult identityResult = await _userManager.CreateAsync(newUser, register.Password);
             if (identityResult.Succeeded)
             {
-                //var token = await _userManager.GenerateEmailConfirmationTokenAsync(appUser);
-                //var confirmationLink = Url.Action("ConfirmEmail", "Email", new { token, email = user.Email }, Request.Scheme);
-                //EmailHelper emailHelper = new EmailHelper();
-                //bool emailResponse = emailHelper.SendEmail(user.Email, confirmationLink);
-
-                //if (emailResponse)
-                //    return RedirectToAction("Index");
-                //else
-                //{
-                //    // log email failed 
-                //}
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
+                var confirmationLink = Url.Action("ConfirmEmail", "Email", new { token, email = register.Email }, Request.Scheme);
+                EmailHelper emailHelper = new EmailHelper();
+                bool emailResponse = emailHelper.SendEmail(register.Email, confirmationLink);
                 await _signInManager.SignInAsync(newUser,false);
                 return RedirectToAction("Index", "Home");
             }
@@ -122,10 +120,107 @@ namespace WoltApp.Controllers
                 return View(register);
             }
         }
+        //Logout Account
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+        //public IActionResult ChangePassword()
+        //{
+        //    return View();
+        //}
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> ChangePassword(ChangePasswordDTO password)
+        //{
+        //    if (!ModelState.IsValid) return View(password);
+        //    var user = await _userManager.GetUserAsync(User);
+        //    if (user == null)
+        //    {
+        //        ModelState.AddModelError(string.Empty, "User is Not Found");
+        //        return View();
+        //    }
+        //    var checkPasword = await _userManager.CheckPasswordAsync(user, password.CurrentPassword);
+        //    if (!checkPasword)
+        //    {
+        //        ModelState.AddModelError(string.Empty, "Incorrect Password");
+        //        return View(password);
+        //    }
+        //    var result = await _userManager.ChangePasswordAsync(user, password.CurrentPassword,
+        //                                                                password.NewPassword);
+        //    if (!result.Succeeded)
+        //    {
+        //        foreach (var error in result.Errors)
+        //        {
+        //            ModelState.AddModelError(string.Empty, error.Description);
+        //        }
+        //        return View(password);
+        //    }
+        //    await _signInManager.RefreshSignInAsync(user);
+        //    return RedirectToAction("Index", "Home");
+        //}
+        //GET-ForgotPassword
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+        //Post-ForgotPassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordDTO forgotPassword)
+        {
+            if (!ModelState.IsValid) return View(forgotPassword);
+            var user = await _userManager.FindByEmailAsync(forgotPassword.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "User Is Not Found");
+                return View();
+            }
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var callback = Url.Action(nameof(ResetPassword), "Account", new { token, email = user.Email }, Request.Scheme);
+            EmailHelper emailHelper = new EmailHelper();
+            emailHelper.SendEmail(user.Email, callback);
+            return RedirectToAction(nameof(ForgotPasswordConfirmation));
+        }
+        //GET-ForgotPasswordConfirmation
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+        //GET-ResetPassword
+        public IActionResult ResetPassword(string token, string email)
+        {
+            var model = new ResetPasswordDTO { Token = token, Email = email };
+            return View(model);
+        }
+        //Post-ResetPassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordDTO resetPassword)
+        {
+            if (!ModelState.IsValid) return View(resetPassword);
+            var user = await _userManager.FindByEmailAsync(resetPassword.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "User Is Not Found");
+                return View();
+            }
+            IdentityResult identityResult = await _userManager.ResetPasswordAsync(user, resetPassword.Token, resetPassword.Password);
+            if (!identityResult.Succeeded)
+            {
+                foreach (var error in identityResult.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+                return View(resetPassword);
+            }
+            return RedirectToAction(nameof(ResetPasswordConfirmation));
+        }
+        //GET-ResetPasswordConfirmation
+        public IActionResult ResetPasswordConfirmation()
+        {
+            return View();
         }
     }
 }

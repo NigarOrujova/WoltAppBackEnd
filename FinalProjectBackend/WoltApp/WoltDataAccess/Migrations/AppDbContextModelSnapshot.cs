@@ -224,6 +224,43 @@ namespace WoltDataAccess.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("WoltEntity.Entities.BasketItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Count")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("BasketItems");
+                });
+
             modelBuilder.Entity("WoltEntity.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -265,12 +302,6 @@ namespace WoltDataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AppUserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AppUserId1")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -314,8 +345,6 @@ namespace WoltDataAccess.Migrations
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AppUserId1");
 
                     b.HasIndex("CategoryId");
 
@@ -610,12 +639,21 @@ namespace WoltDataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WoltEntity.Entities.Product", b =>
+            modelBuilder.Entity("WoltEntity.Entities.BasketItem", b =>
                 {
                     b.HasOne("WoltEntity.Entities.AppUser", "AppUser")
-                        .WithMany("Products")
-                        .HasForeignKey("AppUserId1");
+                        .WithMany("BasketItems")
+                        .HasForeignKey("AppUserId");
 
+                    b.HasOne("WoltEntity.Entities.Product", "Product")
+                        .WithMany("BasketItems")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WoltEntity.Entities.Product", b =>
+                {
                     b.HasOne("WoltEntity.Entities.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")

@@ -7,17 +7,6 @@ namespace WoltDataAccess.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "AppUserId",
-                table: "Products",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<string>(
-                name: "AppUserId1",
-                table: "Products",
-                nullable: true);
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -52,7 +41,8 @@ namespace WoltDataAccess.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     FullName = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false)
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    IsActivated = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -165,10 +155,34 @@ namespace WoltDataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_AppUserId1",
-                table: "Products",
-                column: "AppUserId1");
+            migrationBuilder.CreateTable(
+                name: "BasketItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AppUserId = table.Column<string>(nullable: true),
+                    ProductId = table.Column<int>(nullable: false),
+                    Count = table.Column<int>(nullable: false, defaultValue: 0),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false, defaultValueSql: "GETUTCDATE()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BasketItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BasketItems_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_BasketItems_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -209,21 +223,19 @@ namespace WoltDataAccess.Migrations
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Products_AspNetUsers_AppUserId1",
-                table: "Products",
-                column: "AppUserId1",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+            migrationBuilder.CreateIndex(
+                name: "IX_BasketItems_AppUserId",
+                table: "BasketItems",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BasketItems_ProductId",
+                table: "BasketItems",
+                column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Products_AspNetUsers_AppUserId1",
-                table: "Products");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -240,22 +252,13 @@ namespace WoltDataAccess.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "BasketItems");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Products_AppUserId1",
-                table: "Products");
-
-            migrationBuilder.DropColumn(
-                name: "AppUserId",
-                table: "Products");
-
-            migrationBuilder.DropColumn(
-                name: "AppUserId1",
-                table: "Products");
         }
     }
 }

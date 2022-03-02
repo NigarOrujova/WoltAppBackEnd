@@ -19,8 +19,7 @@ namespace WoltEntity.Entities
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow.AddHours(4);
         public int CategoryId { get; set; }
         public Category Category { get; set; }
-        public int AppUserId { get; set; }
-        public AppUser AppUser { get; set; }
+        public List<BasketItem> BasketItems { get; set; }
         public ICollection<RestaurantProduct> RestaurantProducts { get; set; }
         public ICollection<StoreProduct> StoreProducts { get; set; }
     }

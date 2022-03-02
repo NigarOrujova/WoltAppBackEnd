@@ -17,6 +17,7 @@ namespace WoltDataAccess.DAL
         public DbSet<RestaurantProduct> RestaurantProducts { get; set; }
         public DbSet<StoreCategory> StoreCategories { get; set; }
         public DbSet<StoreProduct> StoreProducts { get; set; }
+        public DbSet<BasketItem> BasketItems { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
@@ -28,6 +29,7 @@ namespace WoltDataAccess.DAL
             modelBuilder.ApplyConfiguration(new StoreCategoryConfiguration());
             modelBuilder.ApplyConfiguration(new StoreProductConfiguration());
             modelBuilder.ApplyConfiguration(new SliderConfiguration());
+            modelBuilder.ApplyConfiguration(new BasketItemConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

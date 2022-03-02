@@ -7,6 +7,10 @@
   <ItemGroup>
     <Compile Remove="Migrations\20220228163439_CreateUserTable.cs" />
     <Compile Remove="Migrations\20220228163439_CreateUserTable.Designer.cs" />
+    <Compile Remove="Migrations\20220228163758_CreateUserTable.cs" />
+    <Compile Remove="Migrations\20220228163758_CreateUserTable.Designer.cs" />
+    <Compile Remove="Migrations\20220228174921_CreateUserIsActiveColum.cs" />
+    <Compile Remove="Migrations\20220228174921_CreateUserIsActiveColum.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

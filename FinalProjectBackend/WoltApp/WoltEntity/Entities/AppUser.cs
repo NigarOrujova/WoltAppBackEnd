@@ -10,6 +10,6 @@ namespace WoltEntity.Entities
         public string FullName { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActivated { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public List<BasketItem> BasketItems { get; set; }
     }
 }

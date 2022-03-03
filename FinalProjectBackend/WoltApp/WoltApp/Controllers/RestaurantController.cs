@@ -36,15 +36,5 @@ namespace WoltApp.Controllers
             };
             return View(resDTO);
         }
-        //public async Task<IActionResult> AddBasket(int? id)
-        //{
-        //    if (id == null) return NotFound();
-        //    Product dbProduct = await _context.Products.FindAsync(id);
-        //    if (dbProduct == null) return BadRequest();
-        //    return Json(id);
-        //    //List<BasketDTO> basket = GetBasket();
-        //    //UpdateBasket((int)id, basket);
-        //    //return RedirectToAction("Index", "Home");
-        //}
     }
 }

@@ -188,15 +188,39 @@ namespace WoltApp.Controllers
         {
             return View();
         }
-        //GET-AccountSetting
-        public IActionResult AccountSetting()
+        //GET-AccountProfil
+        public async Task<IActionResult> AccountProfil()
         {
-            return View();
+            AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+            RegisterDTO profile = new RegisterDTO
+            {
+                    Email = user.Email,
+                    Fullname = user.FullName,
+                    Username = user.UserName
+            };
+            return View(profile);
         }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> AccountProfil(RegisterDTO profil)
+        //{
+
+        //}
+        //GET-AccountSetting
+        //public async Task<IActionResult> AccountSetting()
+        //{
+        //    AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
+        //    RegisterDTO profile = new RegisterDTO
+        //    {
+        //        Email = user.Email,
+        //        Fullname = user.FullName
+        //    };
+        //    return View(profile);
+        //}
         //Post-AccountSetting
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AccountSetting(string ReturnUrl)
+        public IActionResult AccountProfil(string ReturnUrl)
         {
             if (ReturnUrl != null)
             {
@@ -204,36 +228,102 @@ namespace WoltApp.Controllers
             }
             return View();
         }
-        //public IActionResult ChangePassword()
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordDTO password)
+        {
+            if (!ModelState.IsValid) return View(password);
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "User is Not Found");
+                return View();
+            }
+            var checkPasword = await _userManager.CheckPasswordAsync(user, password.CurrentPassword);
+            if (!checkPasword)
+            {
+                ModelState.AddModelError(string.Empty, "Incorrect Password");
+                return View(password);
+            }
+            var result = await _userManager.ChangePasswordAsync(user, password.CurrentPassword,
+                                                                        password.NewPassword);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return View(password);
+            }
+            await _signInManager.RefreshSignInAsync(user);
+            return RedirectToAction("Index", "Home");
+        }
+        public IActionResult ChangeUsername()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangeUsername(ChangeUserNameDTO username)
+        {
+            if (!ModelState.IsValid) return View(username);
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "User is Not Found");
+                return View(username);
+            }
+            var checkPasword = await _userManager.CheckPasswordAsync(user, username.Password);
+            if (!checkPasword)
+            {
+                ModelState.AddModelError(string.Empty, "Incorrect Password");
+                return View(username);
+            }
+            var result = await _userManager.SetUserNameAsync(user, username.NewUsername);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return View(username);
+            }
+            await _signInManager.RefreshSignInAsync(user);
+            return RedirectToAction("Index", "Home");
+        }
+        //public IActionResult ChangeEmail()
         //{
         //    return View();
         //}
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> ChangePassword(ChangePasswordDTO password)
+        //public async Task<IActionResult> ChangeEmail(ChangeEmailDTO email)
         //{
-        //    if (!ModelState.IsValid) return View(password);
+        //    if (!ModelState.IsValid) return View(email);
         //    var user = await _userManager.GetUserAsync(User);
         //    if (user == null)
         //    {
         //        ModelState.AddModelError(string.Empty, "User is Not Found");
-        //        return View();
+        //        return View(email);
         //    }
-        //    var checkPasword = await _userManager.CheckPasswordAsync(user, password.CurrentPassword);
+        //    var checkPasword = await _userManager.CheckPasswordAsync(user, email.Password);
         //    if (!checkPasword)
         //    {
         //        ModelState.AddModelError(string.Empty, "Incorrect Password");
-        //        return View(password);
+        //        return View(email);
         //    }
-        //    var result = await _userManager.ChangePasswordAsync(user, password.CurrentPassword,
-        //                                                                password.NewPassword);
+        //    var result = await _userManager.SetUserNameAsync(user, email.NewEmail);
         //    if (!result.Succeeded)
         //    {
         //        foreach (var error in result.Errors)
         //        {
         //            ModelState.AddModelError(string.Empty, error.Description);
         //        }
-        //        return View(password);
+        //        return View(email);
         //    }
         //    await _signInManager.RefreshSignInAsync(user);
         //    return RedirectToAction("Index", "Home");

@@ -1,4 +1,11 @@
-﻿    <!-- Header Start -->
+﻿@using WoltEntity.Entities
+@using WoltBusiness.Services
+@inject LayoutServices service
+@{ 
+    List<Product> basketItems = service.GetBasketItems();
+}
+
+    <!-- Header Start -->
 <header id="header">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
@@ -25,12 +32,12 @@
                         <img src="~/Admin/assets/img/avatars/default-avatar.png" width="30px" class="avatar img-fluid rounded me-1" />
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" asp-controller="Account" asp-action="AccountProfil">
                             <i class="bi bi-person"></i>
                             Profile:
                             <span class="text-dark">@User.Identity.Name</span><hr />
                         </a>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" asp-controller="Account" asp-action="AccountSetting">
                             <i class="bi bi-gear"></i>
                             Settings
                         </a>
@@ -83,27 +90,30 @@
                             </div>
                             <div class="modal-body">
                                 <div class="container">
-                                    <div class="card">
-                                        <div class="row g-0">
-                                            <div class="col-md-1">
-                                                <div class="count">
-                                                    <p>1</p>
+                                    @foreach (var item in basketItems)
+                                    {
+                                        <div class="card">
+                                            <div class="row g-0">
+                                                <div class="col-md-1">
+                                                    <div class="count">
+                                                        <p>@item.Count</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">McChicken™</h5>
-                                                    <p class="card-text"><span>AZN 3.90</span></p>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">@item.Title</h5>
+                                                        <p class="card-text"><span>AZN @item.Price</span></p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="cardImg">
-                                                    <img src="~/assets/img/mcproduct-1.png"
-                                                         class="img-fluid rounded-start" alt="...">
+                                                <div class="col-md-3">
+                                                    <div class="cardImg">
+                                                        <img src="~/assets/img/@item.ImageURL"
+                                                             class="img-fluid rounded-start" alt="...">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    }
                                 </div>
                                 <div class="modal-footer">
                                     <a asp-controller="Product" asp-action="Basket" class="btn btn-primary">

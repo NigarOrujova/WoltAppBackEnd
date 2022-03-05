@@ -152,5 +152,11 @@ namespace WoltApp.Controllers
         //    Response.Cookies.Append("basket", JsonConvert.SerializeObject(basket));
         //    return RedirectToAction(nameof(Index));
         //}
+
+        public IActionResult ShowBasketItem()
+        {
+            string productshowitem = HttpContext.Request.Cookies["basket"];
+            return Content(productshowitem);
+        }
     }
 }

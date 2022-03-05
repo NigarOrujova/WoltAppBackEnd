@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WoltBusiness.Services;
 using WoltDataAccess.DAL;
 using WoltDataAccess.Repositories.Implementations;
 using WoltDataAccess.Repositories.Interfaces;
@@ -38,6 +39,8 @@ namespace WoltApp
             {
                 options.UseSqlServer(Configuration["ConnectionStrings:Default"]);
             });
+            services.AddScoped<LayoutServices>();
+            services.AddHttpContextAccessor();
             services.AddIdentity<AppUser, IdentityRole>()
                     .AddEntityFrameworkStores<AppDbContext>()
                     .AddDefaultTokenProviders();

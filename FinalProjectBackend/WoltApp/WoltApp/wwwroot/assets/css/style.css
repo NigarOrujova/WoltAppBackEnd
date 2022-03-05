@@ -1065,4 +1065,10 @@ body {
         border-bottom-right-radius: 16px;
     }
 }
+
+#UserProfil {
+    padding:40px 0;
+    color: #1a202c;
+    text-align: left;
+}
 /*# sourceMappingURL=style.css.map */

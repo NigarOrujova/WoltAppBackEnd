@@ -1,0 +1,114 @@
+﻿@model StoreDTO
+@{
+    ViewData["Title"] = "Index";
+}
+<section id="resHero" style="background-image: url(/assets/img/@Model.Store.HeroImageURL);background-position: top;background-repeat: no-repeat;background-size: cover;">
+    <div class="container">
+        <div class="row">
+            <div class="hero-area text-white">
+                <h1>@Model.Store.Name</h1>
+                <p>@Model.Store.Description</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="products">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-12">
+                <div class="cardCategory">
+                    <ul>
+                        @foreach (var item in Model.StoreCategories)
+                        {
+                            <li><a href="#@item.Category.Name">@item.Category.Name</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                @foreach (var pro in Model.StoreCategories)
+                {
+                    <div class="menu-item">
+                        <div class="categoryName">
+                            <h2 id="@pro.Category.Name">@pro.Category.Name</h2>
+                        </div>
+                        <div class="product">
+                            @foreach (var item in Model.StoreProducts.Where(p => p.Product.CategoryId == pro.CategoryId))
+                            {
+                                <div class="product-item">
+                                    <div class="card" data-toggle="modal" data-target="#mcProduct-@item.Id">
+                                        <div class="row g-0">
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">@item.Product.Title</h5>
+                                                    <p class="card-text">
+                                                        @item.Product.Description
+                                                    </p>
+                                                    <p class="card-text"><span>AZN @item.Product.Price</span></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="cardImg">
+                                                    <img src="~/assets/img/@item.Product.ImageURL"
+                                                         class="img-fluid rounded-start" alt="...">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="mcProduct-@item.Id" tabindex="-1" role="dialog"
+                                         aria-labelledby="exampleModalLabel-@item.Id" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel-@item.Id">
+                                                        <img src="~/assets/img/@item.Product.ImageURL"
+                                                             class="img-fluid rounded-start" alt="...">
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h5 class="card-title">@item.Product.Title</h5>
+                                                    <p class="card-text">
+                                                        @item.Product.Description
+                                                    </p>
+                                                    <p class="card-text"><span>AZN @item.Product.Price</span></p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <div class="row">
+                                                        <div class="col-lg-4"><button type="button" class="btn btn-secondary pro-count"><i id="m1" class="fas fa-minus"></i>1<i id="p1" class="fas fa-plus"></i></button></div>
+                                                        <div class="col-lg-8">
+                                                            <form asp-controller="Product" asp-action="AddBasket" asp-route-id="@item.Product.Id" method="post">
+                                                                <button type="submit" class="btn btn-primary add-basket">Add basket</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+            <div id="about" class="col-lg-4 col-md-12">
+                <h2>Məkan məlumatları</h2>
+                <h3>Ünvan</h3>
+                <p>@Model.Store.Address</p>
+                <h3>Contact</h3>
+                <p>
+                    Allergiyanız və ya pəhrizlə bağlı məhdudiyyətləriniz varsa, restoran ilə əlaqə saxlayın.
+                    Restoran sorğu əsasında yemək ilə bağlı məlumatlar təmin edəcək.
+                </p>
+                <div class="phone-number">
+                    <a href="tel:@Model.Store.ContactNumber"><span>@Model.Store.ContactNumber</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -305,7 +305,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="slider-title">
-                                <h2>#Yemekden daha cox</h2>
+                                <h2>#Yemekden daha cox 🛒</h2>
                             </div>
                             <div class="slide-four owl-carousel owl-theme">
                                 <div class="item">
@@ -436,17 +436,17 @@
                                 <h2>Catagory</h2>
                             </div>
                             <div class="slide-five owl-carousel owl-theme">
-                                @foreach (var item in Model.Categories)
+                                @foreach (var item in Model.RestaurantCategories)
                                 {
                                     <div class="item">
                                         <div class="col-lg-12">
-                                            <a asp-controller="Category" asp-action="Index" asp-route-id="@item.Id">
+                                            <a asp-controller="Category" asp-action="Index" asp-route-id="@item.Category.Id">
                                                 <div class="category-card">
                                                     <div class="card">
-                                                        <img src="~/assets/img/@item.ImageURL" class="h-100 w-100"
-                                                             alt="">
+                                                        <img src="~/assets/img/@item.Category.ImageURL" class="h-100 w-100"
+                                                                alt="">
                                                     </div>
-                                                    <h3 class="card-title">@item.Name</h3>
+                                                    <h3 class="card-title">@item.Category.Name</h3>
                                                 </div>
                                             </a>
                                         </div>

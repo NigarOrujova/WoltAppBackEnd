@@ -9,6 +9,8 @@ namespace WoltBusiness.DTOs
     {
         public List<Category> Categories { get; set; }
         public List<Restaurant> Restaurants { get; set; }
+        public List<RestaurantProduct> RestaurantProducts { get; set; }
+        public List<RestaurantCategory> RestaurantCategories { get; set; }
         public List<Store> Stores { get; set; }
         public List<Slider> Sliders { get; set; }
     }

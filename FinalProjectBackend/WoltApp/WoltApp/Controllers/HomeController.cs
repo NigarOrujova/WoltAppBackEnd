@@ -22,13 +22,20 @@ namespace WoltApp.Controllers
             {
                 Sliders = await _context.Sliders.ToListAsync(),
                 RestaurantCategories = await _context.RestaurantCategories
-                                       .Where(x=>x.Category.ImageURL!=null && x.Category.IsDeleted==false)
+                                       .Where(x=>x.Category.ImageURL!=null && x.Category.IsDeleted==false && x.Restaurant.Id==x.RestaurantId)
                                       .Include(x => x.Category)
                                       .Include(x => x.Restaurant).ToListAsync(),
-                //Categories = await _context.Categories
-                //.Where(c => c.IsDeleted == false && c.ImageURL!=null)
-                //.ToListAsync(),
-                Restaurants = await _context.Restaurants.Where(r => r.IsDeleted == false).Include(r=>r.RestaurantProducts).ThenInclude(r=>r.Product).ToListAsync(),
+
+                Categories = await _context.Categories
+                .Where(c => c.IsDeleted == false && c.ImageURL != null).Include(x=>x.RestaurantCategories).ThenInclude(x=>x.Restaurant)
+                .ToListAsync(),
+                StoreCategories =await _context.StoreCategories
+                                              .Where(x=>x.Category.ImageURL!=null && x.Category.IsDeleted==false)
+                                              .Include(x=>x.Category)
+                                              .Include(x=>x.Store).ToListAsync(),
+                Restaurants = await _context.Restaurants.Where(r => r.IsDeleted == false)
+                                            .Include(r=>r.RestaurantProducts).ThenInclude(r=>r.Product)
+                                            .ToListAsync(),
                 Stores = await _context.Stores.Where(s => s.IsDeleted == false).ToListAsync()
             };
             return View(homeDTO);

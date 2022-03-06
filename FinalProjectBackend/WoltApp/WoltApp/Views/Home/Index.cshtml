@@ -308,139 +308,32 @@
                                 <h2>#Yemekden daha cox 🛒</h2>
                             </div>
                             <div class="slide-four owl-carousel owl-theme">
-                                <div class="item">
-                                    <div class="col-lg-12">
-                                        <a href="#">
-                                            <div class="category-card">
-                                                <div class="card">
-                                                    <img src="~/assets/img/category-1.png" class="h-100 w-100"
-                                                         alt="">
+                                @foreach (var item in Model.StoreCategories)
+                                {
+                                    <div class="item">
+                                        <div class="col-lg-12">
+                                            <a asp-controller="Category" asp-action="Index" asp-route-id="@item.Category.Id">
+                                                <div class="category-card">
+                                                    <div class="card">
+                                                        <img src="~/assets/img/@item.Category.ImageURL" class="h-100 w-100"
+                                                             alt="">
+                                                    </div>
+                                                    <h3 class="card-title">@item.Category.Name</h3>
                                                 </div>
-                                                <h3 class="card-title">Our Mission</h3>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="category-card">
-                                                <div class="card">
-                                                    <img src="~/assets/img/category-2.png" class="h-100 w-100"
-                                                         alt="">
-                                                </div>
-                                                <h3 class="card-title">Our Mission</h3>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="item">
-                                    <div class="col-lg-12">
-                                        <a href="#">
-                                            <div class="category-card">
-                                                <div class="card">
-                                                    <img src="~/assets/img/category-3.png" class="h-100 w-100"
-                                                         alt="">
-                                                </div>
-                                                <h3 class="card-title">Our Mission</h3>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="category-card">
-                                                <div class="card">
-                                                    <img src="~/assets/img/category-4.png" class="h-100 w-100"
-                                                         alt="">
-                                                </div>
-                                                <h3 class="card-title">Our Mission</h3>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="col-lg-12">
-                                        <a href="#">
-                                            <div class="category-card">
-                                                <div class="card">
-                                                    <img src="~/assets/img/category-5.png" class="h-100 w-100"
-                                                         alt="">
-                                                </div>
-                                                <h3 class="card-title">Our Mission</h3>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="category-card">
-                                                <div class="card">
-                                                    <img src="~/assets/img/category-6.png" class="h-100 w-100"
-                                                         alt="">
-                                                </div>
-                                                <h3 class="card-title">Our Mission</h3>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="col-lg-12">
-                                        <a href="#">
-                                            <div class="category-card">
-                                                <div class="card">
-                                                    <img src="~/assets/img/category-7.png" class="h-100 w-100"
-                                                         alt="">
-                                                </div>
-                                                <h3 class="card-title">Our Mission</h3>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="category-card">
-                                                <div class="card">
-                                                    <img src="~/assets/img/category-8.png" class="h-100 w-100"
-                                                         alt="">
-                                                </div>
-                                                <h3 class="card-title">Our Mission</h3>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="col-lg-12">
-                                        <a href="#">
-                                            <div class="category-card">
-                                                <div class="card">
-                                                    <img src="~/assets/img/category-9.png" class="h-100 w-100"
-                                                         alt="">
-                                                </div>
-                                                <h3 class="card-title">Our Mission</h3>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="category-card">
-                                                <div class="card">
-                                                    <img src="~/assets/img/category-10.png" class="h-100 w-100"
-                                                         alt="">
-                                                </div>
-                                                <h3 class="card-title">Our Mission</h3>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="col-lg-12">
-                                        <a href="#">
-                                            <div class="category-card">
-                                                <div class="card">
-                                                    <img src="~/assets/img/category-11.png" class="h-100 w-100"
-                                                         alt="">
-                                                </div>
-                                                <h3 class="card-title">Our Mission</h3>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
+                                }
                             </div>
                             <div class="slider-title">
                                 <h2>Catagory</h2>
                             </div>
                             <div class="slide-five owl-carousel owl-theme">
-                                @foreach (var item in Model.RestaurantCategories)
+                                @foreach (var item in Model.RestaurantCategories.Where(x=>x.Category.Id==x.CategoryId))
                                 {
                                     <div class="item">
                                         <div class="col-lg-12">
-                                            <a asp-controller="Category" asp-action="Index" asp-route-id="@item.Category.Id">
+                                            <a asp-controller="Category" asp-action="Index" asp-route-id="@item.Id">
                                                 <div class="category-card">
                                                     <div class="card">
                                                         <img src="~/assets/img/@item.Category.ImageURL" class="h-100 w-100"

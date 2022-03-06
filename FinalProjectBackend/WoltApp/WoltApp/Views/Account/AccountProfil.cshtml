@@ -21,64 +21,74 @@
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/pages-sign-in.html" />
 
-    <title>Sign In</title>
+    <title>Wolt - Profil</title>
 
     <link href="~/Admin/assets/css/app.css" rel="stylesheet">
     <link rel="stylesheet" href="~/assets/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <main style="background-image: url(/assets/img/WoltWallpaper2.jpg)" class="w-100 h-100 d-flex">
+    <main id="profil" style="background-image: url(/assets/img/WoltWallpaper4.png)" class="w-100 h-100 d-flex">
             <div id="UserProfil" class="container d-flex flex-column h-100">
                 <div class="main-body h-100">
                     <div class="row d-flex align-items-center justify-content-center">
                         <div class="col-lg-12 mx-auto d-table h-100 d-flex align-items-center justify-content-center">
-                            <div class="row">
-                                <div class="col-lg-12 h-100">
-                                    <div>
-                                        <h1 class="text-white">Profil</h1>
-                                    </div>
-                                </div>
-                                @await Component.InvokeAsync("User")
-                                <div class="col-md-8">
-                                    <div class="card mb-3" style="height: 350px;">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <h6 class="mb-0">Full Name</h6>
+                            <div class="card card-registration card-registration-2" style="border-radius: 15px; width:1000px">
+                                <div class="card-body p-0">
+                                    <div class="row g-0">
+                                        <div class="col-lg-12">
+                                            <div class="p-5">
+                                                <div class="d-flex justify-content-between align-items-center mb-5">
+                                                    <h1 class="Shopcardtitle mb-0 text-black" style="font-family: nunito, sans-serif;font-weight:800">Profil</h1>
                                                 </div>
-                                                <div class="col-sm-9 text-secondary">
-                                                    @Model.Fullname
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <h6 class="mb-0">Email</h6>
-                                                </div>
-                                                <div class="col-sm-9 text-secondary">
-                                                    @Model.Email
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <h6 class="mb-0">UserName</h6>
-                                                </div>
-                                                <div class="col-sm-9 text-secondary">
-                                                    @Model.Username
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="card-body px-lg-3 py-lg-3">
-                                                <form role="form" method="post">
-                                                    <div class="text-center">
-                                                        <a class="btn btn-primary mt-4" asp-controller="Account" asp-action="ChangePassword">Change Password</a>
-                                                        <button type="submit" class="btn btn-primary mt-4" asp-controller="Account" asp-action="ChangeUsername">Change UserName</button>
-                                                        <button type="submit" class="btn btn-primary mt-4" asp-controller="Account" asp-action="ChangeEmail">Change Email</button>
-                                                        <button type="submit" class="btn btn-primary mt-4" asp-controller="Home" asp-action="Index">Go to Home</button>
+                                                <hr class="my-4">
+                                                <div class="row">
+                                                    @await Component.InvokeAsync("User")
+                                                    <div class="col-md-8">
+                                                        <div class="card mb-3" style="height: 350px;">
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <div class="col-sm-3">
+                                                                        <h5 class="mb-0">Full Name</h5>
+                                                                    </div>
+                                                                    <div class="col-sm-9 text-secondary">
+                                                                        @Model.Fullname
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
+                                                                <div class="row">
+                                                                    <div class="col-sm-3">
+                                                                        <h5 class="mb-0">Email</h5>
+                                                                    </div>
+                                                                    <div class="col-sm-9 text-secondary">
+                                                                        @Model.Email
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
+                                                                <div class="row">
+                                                                    <div class="col-sm-3">
+                                                                        <h5 class="mb-0">UserName</h5>
+                                                                    </div>
+                                                                    <div class="col-sm-9 text-secondary">
+                                                                        @Model.Username
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
+                                                                <h4>Profil Settings:</h4>
+                                                                <div class="card-body">
+                                                                    <form role="form" method="post">
+                                                                        <div class="text-center">
+                                                                            <a class="btn btn-primary mt-4" asp-controller="Account" asp-action="ChangePassword">Change Password</a>
+                                                                            <button type="submit" class="btn btn-primary mt-4" asp-controller="Account" asp-action="ChangeUsername">Change UserName</button>
+                                                                            @*<button type="submit" class="btn btn-primary mt-4" asp-controller="Account" asp-action="ChangeEmail">Change Email</button>*@
+                                                                            <button type="submit" class="btn btn-primary mt-4" asp-controller="Home" asp-action="Index">Go to Home</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

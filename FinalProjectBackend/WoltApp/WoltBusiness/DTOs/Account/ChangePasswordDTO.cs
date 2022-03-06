@@ -7,6 +7,7 @@ namespace WoltBusiness.DTOs.Account
 {
     public class ChangePasswordDTO
     {
+        
         [Required, MaxLength(255), DataType(DataType.Password)]
         public string CurrentPassword { get; set; }
         [Required, MaxLength(255), DataType(DataType.Password)]

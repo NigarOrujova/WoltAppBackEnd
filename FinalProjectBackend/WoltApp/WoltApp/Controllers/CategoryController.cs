@@ -24,5 +24,12 @@ namespace WoltApp.Controllers
                                                                           .Include(c => c.Category).ToListAsync();
             return View(RestaurantCategories);
         }
+        public async Task<IActionResult> Stories(int? Id)
+        {
+            List<StoreCategory> storeCategories = await _context.StoreCategories.Include(c => c.Store)
+                                                                          .Where(c => c.CategoryId == Id)
+                                                                          .Include(c => c.Category).ToListAsync();
+            return View(storeCategories);
+        }
     }
 }

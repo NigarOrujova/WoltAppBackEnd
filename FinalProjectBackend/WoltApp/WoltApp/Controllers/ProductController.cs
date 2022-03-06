@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
@@ -14,17 +15,43 @@ namespace WoltApp.Controllers
     public class ProductController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public ProductController(AppDbContext context)
+        public ProductController(AppDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            List<BasketItemDTO> basketItems = new List<BasketItemDTO>();
+            AppUser user = User.Identity.IsAuthenticated ? await _userManager.FindByNameAsync(User.Identity.Name) : null;
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                if (HttpContext.Request.Cookies["Basket"] != null)
+                {
+                    basketItems = JsonConvert.DeserializeObject<List<BasketItemDTO>>(HttpContext.Request.Cookies["Basket"]);
+                }
+            }
+            else
+            {
+
+                basketItems = await _context.BasketItems.Where(x => x.AppUserId == user.Id && x.IsDeleted == false).Select(x => new BasketItemDTO
+                {
+                    Count = x.Count,
+                    ImageURL = x.Product.ImageURL,
+                    ProductId = x.ProductId,
+                    Title = x.Product.Title,
+                    Price = x.Product.Price
+
+                }).ToListAsync();
+            }
+
+            return View(basketItems);
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> AddBasket(int? id)
         {
             if (id == null) return NotFound();
@@ -157,6 +184,26 @@ namespace WoltApp.Controllers
         {
             string productshowitem = HttpContext.Request.Cookies["basket"];
             return Content(productshowitem);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EmptyBasket()
+        {
+            AppUser user = User.Identity.IsAuthenticated ? await _userManager.FindByNameAsync(User.Identity.Name) : null;
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                Response.Cookies.Delete("Basket");
+            }
+            else
+            {
+                List<BasketItem> basketItem = await _context.BasketItems.Where(x => x.AppUserId == user.Id && x.IsDeleted == false).ToListAsync();
+                _context.BasketItems.RemoveRange(basketItem);
+                _context.SaveChanges();
+
+            }
+            return RedirectToAction("Index","Product");
+
         }
     }
 }

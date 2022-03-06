@@ -162,3 +162,16 @@ window.addEventListener('scroll', () => {
         ScrollToTop.classList.remove('active');
     }
 })
+
+$(document).ready(function () {
+    $('.add-basket').click(function () {
+        var url = $(this).parent().attr('href');
+        console.log("productid" + url)
+        $.ajax({
+            type: "GET",
+            url: `${url}`
+                .then(resp => resp.text())
+        })
+        console.log(resp)
+    })
+});

@@ -1,7 +1,8 @@
 ﻿@model List<BasketItemDTO>
 @{
-    ViewData["Title"] = "Basket";
+    ViewData["Title"] = "Index";
 }
+
 <section id="basketItem" class="h-100" style="background-color: #e1f5fe;">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -22,7 +23,7 @@
                                             <div class="row mb-4 d-flex justify-content-between align-items-center">
                                                 <div class="col-md-2 col-lg-2 col-xl-2">
                                                     <img src="/assets/img/@product.ImageURL"
-                                                         class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                                         class="img-fluid rounded-3">
                                                 </div>
                                                 <div class="col-md-3 col-lg-3 col-xl-3">
                                                     <h6 class="text-muted">@product.Catagory</h6>
@@ -50,22 +51,22 @@
                                                         <a asp-controller="Product" asp-action="RemoveProcuctFromBasket" asp-route-id="@product.ProductId" class="text-muted"><i class="fas fa-times"></i></a>
                                                     </div>
                                                 </form>
-                                                
+
                                             </div>
                                             <hr class="my-4">
                                         }
                                     }
                                     else
                                     {
-                                <div class="d-flex justify-content-center w-100">
-                                    <img src="/assets/img/no-items.png"
-                                         class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                </div>
+                                        <div class="d-flex justify-content-center w-100">
+                                            <img src="/assets/img/no-items.png"
+                                                 class="img-fluid rounded-3">
+                                        </div>
                                         <hr class="my-4">
                                     }
-                                <form method="post">
-                                    <button asp-controller="Product" asp-action="EmptyBasket" type="submit" class="btn btn-primary">Remove Basket</button>
-                                </form>
+                                    <form method="post">
+                                        <button asp-controller="Product" asp-action="EmptyBasket" type="submit" class="btn btn-primary">Remove Basket</button>
+                                    </form>
                                     <div class="pt-5">
                                         <h6 class="mb-0">
                                             <a asp-controller="Home" asp-action="Index" class="text-body">

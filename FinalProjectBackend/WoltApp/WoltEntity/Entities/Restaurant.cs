@@ -20,6 +20,8 @@ namespace WoltEntity.Entities
         public IFormFile HeroPhoto { get; set; }
         public string ImageURL { get; set; }
         public IFormFile Photo { get; set; }
+        public List<int> CategoryIds { get; set; }
+        public List<int> ProductIds { get; set; }
         public ICollection<RestaurantProduct> RestaurantProducts { get; set; }
         public ICollection<RestaurantCategory> RestaurantCategories { get; set; }
     }

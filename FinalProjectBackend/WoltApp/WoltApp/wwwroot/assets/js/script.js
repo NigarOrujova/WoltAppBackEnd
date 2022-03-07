@@ -165,13 +165,21 @@ window.addEventListener('scroll', () => {
 
 $(document).ready(function () {
     $('.add-basket').click(function () {
-        var url = $(this).parent().attr('href');
-        console.log("productid" + url)
+        let ProId = $(this).parent().data('id');
+        console.log("productid" + ProId)
         $.ajax({
             type: "GET",
-            url: `${url}`
-                .then(resp => resp.text())
+            url: `/Product/AddFavorite?productid=${ProId}`,
+            success: function (response) {
+                console.log(response);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+             
         })
-        console.log(resp)
     })
 });

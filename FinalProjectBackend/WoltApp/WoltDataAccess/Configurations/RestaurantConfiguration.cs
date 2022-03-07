@@ -21,6 +21,8 @@ namespace WoltDataAccess.Configurations
             builder.Ignore(x => x.HeroPhoto);
             builder.Property(x => x.HeroImageURL).IsRequired();
             builder.Ignore(x => x.Photo);
+            builder.Ignore(x => x.CategoryIds);
+            builder.Ignore(x => x.ProductIds);
             builder.Property(x => x.IsActive).HasDefaultValueSql("GETUTCDATE()");
             builder.Property(x => x.CreatedDate).HasDefaultValueSql("GETUTCDATE()");
         }

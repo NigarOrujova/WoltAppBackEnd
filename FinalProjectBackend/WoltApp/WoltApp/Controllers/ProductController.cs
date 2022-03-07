@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WoltBusiness.DTOs.Basket;
 using WoltDataAccess.DAL;
@@ -60,6 +61,37 @@ namespace WoltApp.Controllers
             List<BasketDTO> basket = GetBasket();
             UpdateBasket((int)id, basket);
             return RedirectToAction("Index", "Home");
+        }
+        public async Task AddFavorite(int ProId)
+        {
+            ClaimsPrincipal currentUser = User;
+            var userId = _userManager.GetUserId(User);
+
+            BasketItem favorite = _context.BasketItems.Where(f => f.AppUserId == userId && f.ProductId == ProId).FirstOrDefault();
+
+            if (userId != null)
+            {
+
+                if (favorite == null)
+                {
+                    favorite = new BasketItem
+                    {
+                        AppUserId = userId,
+                        ProductId = ProId,
+                    };
+                    await _context.BasketItems.AddAsync(favorite);
+
+                }
+                else
+                {
+                    _context.BasketItems.Remove(favorite);
+                }
+
+            }
+
+
+            await _context.SaveChangesAsync();
+
         }
         private List<BasketDTO> GetBasket()
         {

@@ -102,5 +102,86 @@ namespace WoltApp.Areas.WoltArea.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> Update(int? id)
+        {
+            ViewBag.Products = _context.Products.ToList();
+            ViewBag.Categories = _context.Categories.ToList();
+            Restaurant restaurant = await _context.Restaurants.Where(r => r.IsDeleted == false && r.Id == id).FirstOrDefaultAsync();
+            if (restaurant.Id != id) return BadRequest();
+            return View(restaurant);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(int? id, Restaurant restaurant)
+        {
+            if (restaurant.Id != id) return BadRequest();
+            Restaurant resDb = await _context.Restaurants.Where(cd => cd.IsDeleted == false && cd.Id == id).FirstOrDefaultAsync();
+            if (resDb == null) return NotFound();
+            if (restaurant.Description == null) return View(resDb);
+            bool isExsistFile = true;
+            if (restaurant.Photo == null && restaurant.HeroPhoto==null)
+            {
+                restaurant.ImageURL = resDb.ImageURL;
+                restaurant.HeroImageURL = resDb.HeroImageURL;
+                isExsistFile = false;
+            }
+            if (isExsistFile)
+            {
+                if (!restaurant.Photo.CheckFileSize(1000))
+                {
+                    ModelState.AddModelError("Photo", "Size wrong");
+                    return View(resDb);
+                }
+                if (!restaurant.Photo.CheckFileType("image/"))
+                {
+                    ModelState.AddModelError("Photo", "Type Wrong");
+                    return View(resDb);
+
+                }
+                if (!restaurant.HeroPhoto.CheckFileSize(1000))
+                {
+                    ModelState.AddModelError("HeroPhoto", "Size wrong");
+                    return View(restaurant);
+                }
+                if (!restaurant.HeroPhoto.CheckFileType("image/"))
+                {
+                    ModelState.AddModelError("HeroPhoto", "Type Wrong");
+                    return View(restaurant);
+                }
+                Helper.RemoveFile(_env.WebRootPath, "assets/img", resDb.ImageURL);
+                string newPhotoName = await restaurant.Photo.SaveFileAsync(_env.WebRootPath, "assets/img");
+                resDb.ImageURL = newPhotoName;
+                Helper.RemoveFile(_env.WebRootPath, "assets/img", resDb.HeroImageURL);
+                string newHeroPhotoName = await restaurant.HeroPhoto.SaveFileAsync(_env.WebRootPath, "assets/img");
+                resDb.HeroImageURL = newHeroPhotoName;
+            }
+            resDb.Name = restaurant.Name;
+            resDb.Description = restaurant.Description;
+            resDb.ContactNumber = restaurant.ContactNumber;
+            resDb.Address = restaurant.Address;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        //GET - Details
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null) return NotFound();
+            var restaurant = await _context.Restaurants.FindAsync(id);
+            if (restaurant == null) return BadRequest();
+
+            return View(restaurant);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            Restaurant restaurant = await _context.Restaurants.FindAsync(id);
+            if (restaurant == null) return NotFound();
+            restaurant.IsDeleted = true;
+            //Helper.RemoveFile(_env.WebRootPath, "assets/img", restaurant.ImageURL);
+            //_context.Restaurants.Remove(restaurant);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

@@ -138,6 +138,7 @@ namespace WoltApp.Controllers
         {
             return new BasketItemDTO
             {
+                Id=item.Id,
                 Title = DbProduct.Title,
                 Count = item.Count,
                 StockCount = DbProduct.Count,

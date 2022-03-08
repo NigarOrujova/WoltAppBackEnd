@@ -42,7 +42,6 @@ namespace WoltApp.Controllers
                 {
                     Count = x.Count,
                     ImageURL = x.Product.ImageURL,
-                    ProductId = x.ProductId,
                     Title = x.Product.Title,
                     Price = x.Product.Price
 
@@ -117,12 +116,12 @@ namespace WoltApp.Controllers
             }
             Response.Cookies.Append("basket", JsonConvert.SerializeObject(basket));
         }
-        //public async Task<IActionResult> Basket()
-        //{
-        //    List<BasketDTO> basket = GetBasket();
-        //    List<BasketItemDTO> model = await GetBasketList(basket);
-        //    return View(model);
-        //}
+        public async Task<IActionResult> Basket()
+        {
+            List<BasketDTO> basket = GetBasket();
+            List<BasketItemDTO> model = await GetBasketList(basket);
+            return View(model);
+        }
         public  async Task<List<BasketItemDTO>> GetBasketList(List<BasketDTO> basket)
         {
             List<BasketItemDTO> model = new List<BasketItemDTO>();
@@ -139,7 +138,6 @@ namespace WoltApp.Controllers
         {
             return new BasketItemDTO
             {
-                Id = item.Id,
                 Title = DbProduct.Title,
                 Count = item.Count,
                 StockCount = DbProduct.Count,
@@ -149,6 +147,24 @@ namespace WoltApp.Controllers
                 IsActive = DbProduct.IsDeleted
             };
         }
+        public async Task<IActionResult> ShowBasketItems()
+        {
+            var userId = _userManager.GetUserId(User);
+
+            var ProductIds =await _context.BasketItems
+                    .Where(f => f.AppUserId == userId)
+                    .Select(m => m.ProductId)
+                    .Distinct()
+                    .ToListAsync();
+
+            var basketItem =await _context.Products
+                                .Where(m => ProductIds.Contains(m.Id))
+                                .ToListAsync();
+
+            return View(basketItem);
+
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EmptyBasket()

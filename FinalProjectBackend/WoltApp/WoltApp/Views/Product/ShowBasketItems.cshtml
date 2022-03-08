@@ -1,6 +1,6 @@
-﻿@model List<BasketItemDTO>
+﻿@model List<Product>
 @{
-    ViewData["Title"] = "Basket";
+    ViewData["Title"] = "ShowBasketItems";
 }
 <section id="basketItem" class="h-100" style="background-color: #e1f5fe;">
     <div class="container py-5 h-100">
@@ -25,7 +25,7 @@
                                                          class="img-fluid rounded-3" alt="Cotton T-shirt">
                                                 </div>
                                                 <div class="col-md-3 col-lg-3 col-xl-3">
-                                                    <h6 class="text-muted">@product.Catagory</h6>
+                                                    @*<h6 class="text-muted">@product.Catagory</h6>*@
                                                     <h6 class="text-black mb-0">@product.Title</h6>
                                                 </div>
                                                 <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
@@ -50,22 +50,22 @@
                                                         <a asp-controller="Product" asp-action="RemoveProcuctFromBasket" class="text-muted"><i class="fas fa-times"></i></a>
                                                     </div>
                                                 </form>
-                                                
+
                                             </div>
                                             <hr class="my-4">
                                         }
                                     }
                                     else
                                     {
-                                <div class="d-flex justify-content-center w-100">
-                                    <img src="/assets/img/no-items.png"
-                                         class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                </div>
+                                        <div class="d-flex justify-content-center w-100">
+                                            <img src="/assets/img/no-items.png"
+                                                 class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                        </div>
                                         <hr class="my-4">
                                     }
-                                <form method="post">
-                                    <button asp-controller="Product" asp-action="EmptyBasket" type="submit" class="btn btn-primary">Remove Basket</button>
-                                </form>
+                                    <form method="post">
+                                        <button asp-controller="Product" asp-action="EmptyBasket" type="submit" class="btn btn-primary">Remove Basket</button>
+                                    </form>
                                     <div class="pt-5">
                                         <h6 class="mb-0">
                                             <a asp-controller="Home" asp-action="Index" class="text-body">
@@ -82,3 +82,4 @@
         </div>
     </div>
 </section>
+

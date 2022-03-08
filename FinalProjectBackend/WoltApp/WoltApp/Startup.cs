@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WoltBusiness.Services;
 using WoltDataAccess.DAL;
 using WoltDataAccess.Repositories.Implementations;
 using WoltDataAccess.Repositories.Interfaces;
@@ -32,15 +31,17 @@ namespace WoltApp
         {
             services.Configure<DataProtectionTokenProviderOptions>(options =>
             {
-                options.TokenLifespan = TimeSpan.FromHours(2);
+                options.TokenLifespan = TimeSpan.FromDays(20);
+            });
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromDays(20);
             });
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(Configuration["ConnectionStrings:Default"]);
             });
-            services.AddScoped<LayoutServices>();
-            services.AddHttpContextAccessor();
             services.AddIdentity<AppUser, IdentityRole>()
                     .AddEntityFrameworkStores<AppDbContext>()
                     .AddDefaultTokenProviders();

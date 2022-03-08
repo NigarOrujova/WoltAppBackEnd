@@ -165,11 +165,11 @@ window.addEventListener('scroll', () => {
 
 $(document).ready(function () {
     $('.add-basket').click(function () {
-        let ProId = $(this).parent().data('id');
-        console.log("productid" + ProId)
+        var ProId = $(this).parent().data('id');
+        console.log("productid" + ProId);
         $.ajax({
             type: "GET",
-            url: `/Product/AddFavorite?productid=${ProId}`,
+            url: `/Product/AddBasketItem?productid=${ProId}`,
             success: function (response) {
                 console.log(response);
             },
@@ -179,7 +179,7 @@ $(document).ready(function () {
             error: function (response) {
                 alert(response.responseText);
             }
-             
-        })
-    })
+
+        });
+    });
 });

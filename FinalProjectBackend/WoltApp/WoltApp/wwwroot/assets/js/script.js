@@ -183,3 +183,23 @@ $(document).ready(function () {
         });
     });
 });
+//$(document).ready(function () {
+//    $('.add-basket').click(function () {
+//        var ProId = $(this).parent().data('id');
+//        console.log("productid" + ProId);
+//        $.ajax({
+//            type: "GET",
+//            url: `/Product/AddBasketItem?productid=${ProId}`,
+//            success: function (response) {
+//                console.log(response);
+//            },
+//            failure: function (response) {
+//                alert(response.responseText);
+//            },
+//            error: function (response) {
+//                alert(response.responseText);
+//            }
+
+//        });
+//    });
+//});

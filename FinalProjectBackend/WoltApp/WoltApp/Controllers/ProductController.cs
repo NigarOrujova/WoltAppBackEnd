@@ -185,5 +185,26 @@ namespace WoltApp.Controllers
             return RedirectToAction("Index","Product");
 
         }
+        public async Task<IActionResult> RemoveProductFromBasket(int? id)
+        {
+            if (id == null) return RedirectToAction("Index", "Error");
+            List<BasketDTO> productBaskets = new List<BasketDTO>();
+
+            AppUser user = User.Identity.IsAuthenticated ? await _userManager.FindByNameAsync(User.Identity.Name) : null;
+            BasketItem dbBasketItem = _context.BasketItems.FirstOrDefault(x => x.AppUserId == user.Id && x.ProductId == id && x.IsDeleted == false);
+
+            if (dbBasketItem.Count == 1)
+            {
+
+                _context.BasketItems.Remove(dbBasketItem);
+            }
+            else
+            {
+                dbBasketItem.Count--;
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("ShowBasketItems","Product");
+        }
     }
 }

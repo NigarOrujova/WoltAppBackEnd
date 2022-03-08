@@ -188,23 +188,38 @@ namespace WoltApp.Controllers
         }
         public async Task<IActionResult> RemoveProductFromBasket(int? id)
         {
-            if (id == null) return RedirectToAction("Index", "Error");
+            if (id == null) return NotFound();
             List<BasketDTO> productBaskets = new List<BasketDTO>();
-
             AppUser user = User.Identity.IsAuthenticated ? await _userManager.FindByNameAsync(User.Identity.Name) : null;
-            BasketItem dbBasketItem = _context.BasketItems.FirstOrDefault(x => x.AppUserId == user.Id && x.ProductId == id && x.IsDeleted == false);
-
-            if (dbBasketItem.Count == 1)
+            if (User.Identity.IsAuthenticated)
             {
+                BasketItem dbBasketItem = _context.BasketItems.FirstOrDefault(x => x.AppUserId == user.Id && x.ProductId == id && x.IsDeleted == false);
+                if (dbBasketItem.Count == 1)
+                {
 
-                _context.BasketItems.Remove(dbBasketItem);
+                    _context.BasketItems.Remove(dbBasketItem);
+                }
+                else
+                {
+                    dbBasketItem.Count--;
+                }
+                await _context.SaveChangesAsync();
             }
             else
             {
-                dbBasketItem.Count--;
+                productBaskets = JsonConvert.DeserializeObject<List<BasketDTO>>(Request.Cookies["basket"]);
+                BasketDTO BasketProduct = productBaskets.Find(p => p.Id == id);
+                if (BasketProduct == null) return NotFound();
+                if (BasketProduct.Count == 1)
+                {
+                    productBaskets.Remove(BasketProduct);
+                }
+                else
+                {
+                    BasketProduct.Count--;
+                }
+                HttpContext.Response.Cookies.Append("Basket", JsonConvert.SerializeObject(BasketProduct));
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction("ShowBasketItems","Product");
         }
     }

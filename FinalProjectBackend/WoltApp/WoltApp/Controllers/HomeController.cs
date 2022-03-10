@@ -28,10 +28,8 @@ namespace WoltApp.Controllers
 
                 Categories = await _context.Categories
                 .Where(c => c.IsDeleted == false && c.ImageURL != null)
-                .Include(x=>x.RestaurantCategories).ThenInclude(x=>x.Restaurant)
                 .ToListAsync(),
                 StoreCategories =await _context.StoreCategories
-                                              .Where(x=>x.Category.ImageURL!=null && x.Category.IsDeleted==false)
                                               .Include(x=>x.Category)
                                               .Include(x=>x.Store).ToListAsync(),
                 Restaurants = await _context.Restaurants.Where(r => r.IsDeleted == false)

@@ -702,6 +702,37 @@ body {
   padding: 0;
 }
 
+/*#header .navbar .show-basket {
+    border: none;
+    position: relative;
+    z-index: 0;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+    width: 100%;
+    max-width: 100%;
+    cursor: pointer;
+    padding: 0px 1rem;
+    min-height: 3.375rem;
+    border-radius: 0.5rem;
+    color: rgb(255, 255, 255);
+}*/
+
+/*#header .navbar .show-basket i {
+    border-radius: 50%;
+    background-color: #fff;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(0, 170, 243);
+    margin: 0 10px;
+}*/
+
 #header .nav-link {
   cursor: pointer;
   color: #474747;
@@ -1085,28 +1116,32 @@ body {
     color: #1a202c;
     text-align: left;
 }
-    #UserProfil .btn {
-        border: none;
-        z-index: 0;
-        user-select: none;
-        display: inline-flex;
-        -webkit-box-align: center;
-        align-items: center;
-        -webkit-box-pack: center;
-        justify-content: center;
-        font-feature-settings: "kern";
-        -webkit-font-smoothing: antialiased;
-        font-size: 1rem;
-        line-height: 1.5rem;
-        font-style: normal;
-        font-stretch: normal;
-        text-transform: none;
-        font-weight: 700;
-        cursor: pointer;
-        padding: 0px 1rem;
-        min-height: 3.375rem;
-        border-radius: 0.5rem;
-        background: rgb(0, 170, 243);
-        color: rgb(255, 255, 255);
-    }
+
+#UserProfil .btn {
+    border: none;
+    z-index: 0;
+    user-select: none;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    font-feature-settings: "kern";
+    -webkit-font-smoothing: antialiased;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-style: normal;
+    font-stretch: normal;
+    text-transform: none;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0px 1rem;
+    min-height: 3.375rem;
+    border-radius: 0.5rem;
+    background: rgb(0, 170, 243);
+    color: rgb(255, 255, 255);
+}
+
+
+
 /*# sourceMappingURL=style.css.map */

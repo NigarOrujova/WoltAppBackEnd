@@ -2,123 +2,315 @@
 @{
     ViewData["Title"] = "Index";
 }
-<section id="resHero" style="background-image: url(/assets/img/@Model.Restaurant.HeroImageURL);background-position: top;background-repeat: no-repeat;background-size: cover;">
-    <div class="container">
-        <div class="row">
-            <div class="hero-area text-white">
-                <h1>@Model.Restaurant.Name</h1>
-                <p>@Model.Restaurant.Description</p>
-            </div>
-        </div>
-    </div>
-</section>
-<section id="products">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-2 col-md-12">
-                <div class="cardCategory">
-                    <ul>
-                        @foreach (var item in Model.RestaurantCategories)
-                        {
-                            <li><a href="#@item.Category.Name">@item.Category.Name</a></li>
-                        }
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-12">
-                @foreach (var pro in Model.RestaurantCategories)
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="icon" href="~/assets/img/tabLogo.png">
+    <title>Wolt</title>
+    <!--    Bootstrap Icon CSS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <!--    Owl Carousel-->
+    <link rel="stylesheet" href="~/assets/plugins/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
+    <!-- Wolt Fonts -->
+    <link rel="stylesheet" href="https://use.typekit.net/ucu8xtb.css">
+    <!--    My CSS   -->
+    <link rel="stylesheet" href="~/assets/css/style.css">
+</head>
+
+<body>
+    <div id="loader"></div>
+    <!-- Header Start -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img height="120" src="~/assets/img/nav-logo.gif" alt=""></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                @if (User.Identity.IsAuthenticated)
                 {
-                    <div class="menu-item">
-                        <div class="categoryName">
-                            <h2 id="@pro.Category.Name">@pro.Category.Name</h2>
+                    <div class="searchbar">
+                        <div class="input-group">
+                            <div class="form-outline">
+                                <input placeholder="Axtar" type="search" class="search" />
+                            </div>
+                            <button type="button" class="search-btn">
+                                <i class="fas fa-search"></i>
+                            </button>
                         </div>
-                        <div class="product">
-                            @foreach (var item in Model.RestaurantProducts.Where(p => p.Product.CategoryId == pro.CategoryId))
-                            {
-                                <div class="product-item">
-                                    <div class="card" data-toggle="modal" data-target="#mcProduct-@item.Id">
-                                        <div class="row g-0">
-                                            <div class="col-md-8">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">@item.Product.Title</h5>
-                                                    <p class="card-text">
-                                                        @item.Product.Description
-                                                    </p>
-                                                    <p class="card-text"><span>AZN @item.Product.Price</span></p>
+                    </div>
+                    <div class="dropdown ml-auto">
+                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                            <img src="~/Admin/assets/img/avatars/default-avatar.png" width="30px" class="avatar img-fluid rounded me-1" />
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" asp-controller="Account" asp-action="AccountProfil">
+                                <i class="bi bi-person"></i>
+                                Profile:
+                                <span class="text-dark">@User.Identity.Name</span><hr />
+                            </a>
+                            <a class="dropdown-item" asp-controller="Account" asp-action="AccountSetting">
+                                <i class="bi bi-gear"></i>
+                                Settings
+                            </a>
+                            <a class="dropdown-item" asp-controller="Account" asp-action="LogOut">
+                                <i class="bi bi-door-open"></i>
+                                Log out
+                            </a>
+                        </div>
+                    </div>
+                    <a asp-controller="Product" asp-action="ShowBasketItems" class="btn btn-primary show-basket">
+                        <span>View Order</span>
+                        <span class="badge badge-md badge-circle badge-floating badge-light border-white">4</span>
+                    </a>
+                }
+                else
+                {
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="searchbar">
+                            <div class="input-group">
+                                <div class="form-outline">
+                                    <input placeholder="Axtar" type="search" class="search" />
+                                </div>
+                                <button type="button" class="search-btn">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="Login" asp-route-ReturnUrl="@Context.Request.Path.Value">Daxil ol</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="Register">Qeydiyyatdan keçin</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <a asp-controller="Product" asp-action="Basket" class="btn btn-primary show-basket">
+                        <span>View Order</span>
+                        <span class="badge badge-md badge-circle badge-floating badge-light border-white">4</span>
+                    </a>
+                }
+                <!-- basket -->
+                <!--<div class="basket mx-3">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    <span>View Order</span>
+                    <span class="badge badge-md badge-circle badge-floating badge-light border-white">4</span>
+                </button>-->
+                <!-- modal start -->
+                <!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Your Order</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container">
+                                            <div class="card">
+                                                <div class="row g-0">
+                                                    <div class="col-md-1">
+                                                        <div class="count">
+                                                            <p></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title"></h5>
+                                                            <p class="card-text"><span>AZN</span></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="cardImg">
+                                                            <img src="~/assets/img/"
+                                                                 class="img-fluid rounded-start" alt="...">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
-                                                <div class="cardImg">
-                                                    <img src="~/assets/img/@item.Product.ImageURL"
-                                                         class="img-fluid rounded-start" alt="...">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a asp-controller="Product" asp-action="Basket" class="btn btn-primary">
+                                            <div class="button-content">
+                                                <div class="row">
+                                                    <div class="col-1">
+                                                        <span class="badge badge-md badge-circle badge-floating badge-light border-white">4</span>
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <p class="card-text">Go to checkout<span>AZN 3.90</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+            </nav>
+        </div>
+    </header>
+    <!-- Header End -->
+    <section id="resHero" style="background-image: url(/assets/img/@Model.Restaurant.HeroImageURL);background-position: top;background-repeat: no-repeat;background-size: cover;">
+        <div class="container">
+            <div class="row">
+                <div class="hero-area text-white">
+                    <h1>@Model.Restaurant.Name</h1>
+                    <p>@Model.Restaurant.Description</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="products">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-12">
+                    <div class="cardCategory">
+                        <ul>
+                            @foreach (var item in Model.RestaurantCategories)
+                            {
+                                <li><a href="#@item.Category.Name">@item.Category.Name</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    @foreach (var pro in Model.RestaurantCategories)
+                    {
+                        <div class="menu-item">
+                            <div class="categoryName">
+                                <h2 id="@pro.Category.Name">@pro.Category.Name</h2>
+                            </div>
+                            <div class="product">
+                                @foreach (var item in Model.RestaurantProducts.Where(p => p.Product.CategoryId == pro.CategoryId))
+                                {
+                                    <div class="product-item">
+                                        <div class="card" data-toggle="modal" data-target="#mcProduct-@item.Id">
+                                            <div class="row g-0">
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">@item.Product.Title</h5>
+                                                        <p class="card-text">
+                                                            @item.Product.Description
+                                                        </p>
+                                                        <p class="card-text"><span>AZN @item.Product.Price</span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="cardImg">
+                                                        <img src="~/assets/img/@item.Product.ImageURL"
+                                                             class="img-fluid rounded-start" alt="...">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="mcProduct-@item.Id" tabindex="-1" role="dialog"
-                                         aria-labelledby="exampleModalLabel-@item.Id" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel-@item.Id">
-                                                        <img src="~/assets/img/@item.Product.ImageURL"
-                                                             class="img-fluid rounded-start" alt="...">
-                                                    </h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <h5 class="card-title">@item.Product.Title</h5>
-                                                    <p class="card-text">
-                                                        @item.Product.Description
-                                                    </p>
-                                                    <p class="card-text"><span>AZN @item.Product.Price</span></p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <div class="row">
-                                                        <div class="col-lg-4"><button type="button" class="btn btn-secondary pro-count"><i id="m1" class="fas fa-minus"></i>1<i id="p1" class="fas fa-plus"></i></button></div>
-                                                        @if (User.Identity.IsAuthenticated)
-                                                        {
-                                                            <div class="col-lg-8" data-id="@item.ProductId">
-                                                                <button class="btn btn-primary add-basket">Add basket</button>
-                                                            </div>
-                                                        }
-                                                        else
-                                                        {
-                                                            <div class="col-lg-8">
-                                                                <a asp-controller="Product" asp-action="AddBasket" asp-route-id="@item.Product.Id">
-                                                                    <button class="btn btn-primary">Add basket</button>
-                                                                </a>
-                                                            </div>
-                                                        }
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="mcProduct-@item.Id" tabindex="-1" role="dialog"
+                                             aria-labelledby="exampleModalLabel-@item.Id" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel-@item.Id">
+                                                            <img src="~/assets/img/@item.Product.ImageURL"
+                                                                 class="img-fluid rounded-start" alt="...">
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <h5 class="card-title">@item.Product.Title</h5>
+                                                        <p class="card-text">
+                                                            @item.Product.Description
+                                                        </p>
+                                                        <p class="card-text"><span>AZN @item.Product.Price</span></p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <div class="row">
+                                                            <div class="col-lg-4"><button type="button" class="btn btn-secondary pro-count"><i id="m1" class="fas fa-minus"></i>1<i id="p1" class="fas fa-plus"></i></button></div>
+                                                            @if (User.Identity.IsAuthenticated)
+                                                            {
+                                                                <div class="col-lg-8" data-id="@item.ProductId">
+                                                                    <button class="btn btn-primary add-basket">Add basket</button>
+                                                                </div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="col-lg-8">
+                                                                    <a asp-controller="Product" asp-action="AddBasket" asp-route-id="@item.Product.Id">
+                                                                        <button class="btn btn-primary">Add basket</button>
+                                                                    </a>
+                                                                </div>
+                                                            }
 
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            }
+                                }
+                            </div>
                         </div>
+                    }
+                </div>
+                <div id="about" class="col-lg-4 col-md-12">
+                    <h2>Məkan məlumatları</h2>
+                    <h3>Ünvan</h3>
+                    <p>@Model.Restaurant.Address</p>
+                    <h3>Contact</h3>
+                    <p>
+                        Allergiyanız və ya pəhrizlə bağlı məhdudiyyətləriniz varsa, restoran ilə əlaqə saxlayın.
+                        Restoran sorğu əsasında yemək ilə bağlı məlumatlar təmin edəcək.
+                    </p>
+                    <div class="phone-number">
+                        <a href="tel:@Model.Restaurant.ContactNumber"><span>@Model.Restaurant.ContactNumber</span></a>
                     </div>
-                }
-            </div>
-            <div id="about" class="col-lg-4 col-md-12">
-                <h2>Məkan məlumatları</h2>
-                <h3>Ünvan</h3>
-                <p>@Model.Restaurant.Address</p>
-                <h3>Contact</h3>
-                <p>
-                    Allergiyanız və ya pəhrizlə bağlı məhdudiyyətləriniz varsa, restoran ilə əlaqə saxlayın.
-                    Restoran sorğu əsasında yemək ilə bağlı məlumatlar təmin edəcək.
-                </p>
-                <div class="phone-number">
-                    <a href="tel:@Model.Restaurant.ContactNumber"><span>@Model.Restaurant.ContactNumber</span></a>
                 </div>
             </div>
         </div>
+    </section>
+    @await Component.InvokeAsync("Footer")
+    <div style="display: none;">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/CQAT5qdG8tI" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
     </div>
-</section>
+    <!--    Jquery-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <!--    Bootstrap JS Bundle-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+            crossorigin="anonymous"></script>
+    <!-- Fontawesome Script -->
+    <script src="https://kit.fontawesome.com/703d4d8784.js" crossorigin="anonymous"></script>
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--    Owl Carousel JS-->
+    <script src="~/assets/plugins/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!--My JS-->
+    <script src="~/assets/js/script.js"></script>
+</body>
+
+</html>

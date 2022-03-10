@@ -18,6 +18,7 @@ namespace WoltDataAccess.Configurations
             builder.Property(p => p.ContactNumber).HasMaxLength(20).IsRequired(false);
             builder.Property(x => x.IsDeleted).HasDefaultValue(false);
             builder.Property(x => x.ImageURL).IsRequired();
+            builder.Property(x => x.DiscountPercent).IsRequired(false);
             builder.Ignore(x => x.HeroPhoto);
             builder.Property(x => x.HeroImageURL).IsRequired();
             builder.Ignore(x => x.Photo);

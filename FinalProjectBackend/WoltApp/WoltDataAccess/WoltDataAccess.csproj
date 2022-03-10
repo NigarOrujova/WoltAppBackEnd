@@ -11,6 +11,8 @@
     <Compile Remove="Migrations\20220228163758_CreateUserTable.Designer.cs" />
     <Compile Remove="Migrations\20220228174921_CreateUserIsActiveColum.cs" />
     <Compile Remove="Migrations\20220228174921_CreateUserIsActiveColum.Designer.cs" />
+    <Compile Remove="Migrations\20220310230028_CreateIsNewColum.cs" />
+    <Compile Remove="Migrations\20220310230028_CreateIsNewColum.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

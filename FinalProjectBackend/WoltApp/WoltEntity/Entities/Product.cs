@@ -15,6 +15,9 @@ namespace WoltEntity.Entities
         public string ImageURL { get; set; }
         public IFormFile Photo { get; set; }
         public bool IsDeleted { get; set; }
+        public bool IsNew { get; set; }
+        public bool Discount { get; set; }
+        public string DiscountPercent { get; set; }
         public DateTime IsActive { get; set; } = DateTime.UtcNow.AddHours(4);
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow.AddHours(4);
         public int CategoryId { get; set; }

@@ -45,24 +45,27 @@ namespace WoltApp.Areas.WoltArea.Controllers
             ViewBag.Products = _context.Products.ToList();
             ViewBag.Categories = _context.Categories.ToList();
             if (!ModelState.IsValid) return View(restaurant);
-            restaurant.RestaurantCategories =new List<RestaurantCategory>();
             restaurant.RestaurantProducts = new List<RestaurantProduct>();
-            foreach (var id in restaurant.CategoryIds)
+            if (restaurant.CategoryIds != null)
             {
-                RestaurantCategory resCategory = new RestaurantCategory()
+                restaurant.RestaurantCategories = new List<RestaurantCategory>();
+                foreach (var id in restaurant.CategoryIds)
                 {
-                    CategoryId = id,
-                    RestaurantId = restaurant.Id
+                    RestaurantCategory resCategory = new RestaurantCategory()
+                    {
+                        CategoryId = id,
+                        Restaurant = restaurant
 
-                };
-                restaurant.RestaurantCategories.Add(resCategory);
+                    };
+                    restaurant.RestaurantCategories.Add(resCategory);
+                }
             }
             foreach (var id in restaurant.ProductIds)
             {
                 RestaurantProduct resProduct = new RestaurantProduct()
                 {
                     ProductId = id,
-                    RestaurantId = restaurant.Id
+                    Restaurant = restaurant
 
                 };
                 restaurant.RestaurantProducts.Add(resProduct);

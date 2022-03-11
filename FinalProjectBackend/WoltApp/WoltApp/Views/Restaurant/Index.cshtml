@@ -200,72 +200,147 @@
                             <div class="product">
                                 @foreach (var item in Model.RestaurantProducts.Where(p => p.Product.CategoryId == pro.CategoryId))
                                 {
-                                    <div class="product-item">
-                                        <div class="card" data-toggle="modal" data-target="#mcProduct-@item.Id">
-                                            <div class="row g-0">
-                                                <div class="col-md-8">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">@item.Product.Title</h5>
-                                                        <p class="card-text">
-                                                            @item.Product.Description
-                                                        </p>
-                                                        <p class="card-text"><span>AZN @item.Product.Price</span></p>
+                                    if (item.Product.Discount == false)
+                                    {
+                                        <div class="product-item">
+                                            <div class="card" data-toggle="modal" data-target="#mcProduct-@item.Id">
+                                                <div class="row g-0">
+                                                    <div class="col-md-8">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">@item.Product.Title</h5>
+                                                            <p class="card-text">
+                                                                @item.Product.Description
+                                                            </p>
+                                                            <p class="card-text"><span>AZN @item.Product.Price</span></p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="cardImg">
-                                                        <img src="~/assets/img/@item.Product.ImageURL"
-                                                             class="img-fluid rounded-start" alt="...">
+                                                    <div class="col-md-4">
+                                                        <div class="cardImg">
+                                                            <img src="~/assets/img/@item.Product.ImageURL"
+                                                                 class="img-fluid rounded-start" alt="...">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="mcProduct-@item.Id" tabindex="-1" role="dialog"
-                                             aria-labelledby="exampleModalLabel-@item.Id" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel-@item.Id">
-                                                            <img src="~/assets/img/@item.Product.ImageURL"
-                                                                 class="img-fluid rounded-start" alt="...">
-                                                        </h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <h5 class="card-title">@item.Product.Title</h5>
-                                                        <p class="card-text">
-                                                            @item.Product.Description
-                                                        </p>
-                                                        <p class="card-text"><span>AZN @item.Product.Price</span></p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <div class="row">
-                                                            <div class="col-lg-4"><button type="button" class="btn btn-secondary pro-count"><i id="m1" class="fas fa-minus"></i>1<i id="p1" class="fas fa-plus"></i></button></div>
-                                                            @if (User.Identity.IsAuthenticated)
-                                                            {
-                                                                <div class="col-lg-8" data-id="@item.ProductId">
-                                                                    <button class="btn btn-primary add-basket">Add basket</button>
-                                                                </div>
-                                                            }
-                                                            else
-                                                            {
-                                                                <div class="col-lg-8">
-                                                                    <a asp-controller="Product" asp-action="AddBasket" asp-route-id="@item.Product.Id">
-                                                                        <button class="btn btn-primary">Add basket</button>
-                                                                    </a>
-                                                                </div>
-                                                            }
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="mcProduct-@item.Id" tabindex="-1" role="dialog"
+                                                 aria-labelledby="exampleModalLabel-@item.Id" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel-@item.Id">
+                                                                <img src="~/assets/img/@item.Product.ImageURL"
+                                                                     class="img-fluid rounded-start" alt="...">
+                                                            </h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <h5 class="card-title">@item.Product.Title</h5>
+                                                            <p class="card-text">
+                                                                @item.Product.Description
+                                                            </p>
+                                                            <p class="card-text"><span>AZN @item.Product.Price</span></p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <div class="row">
+                                                                <div class="col-lg-4"><button type="button" class="btn btn-secondary pro-count"><i id="m1" class="fas fa-minus"></i>1<i id="p1" class="fas fa-plus"></i></button></div>
+                                                                @if (User.Identity.IsAuthenticated)
+                                                                {
+                                                                    <div class="col-lg-8" data-id="@item.ProductId">
+                                                                        <button class="btn btn-primary add-basket">Add basket</button>
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="col-lg-8">
+                                                                        <a asp-controller="Product" asp-action="AddBasket" asp-route-id="@item.Product.Id">
+                                                                            <button class="btn btn-primary">Add basket</button>
+                                                                        </a>
+                                                                    </div>
+                                                                }
 
+
+
+
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="product-item">
+                                            <div class="card" data-toggle="modal" data-target="#mcProduct-@item.Id">
+                                                <div class="row g-0">
+                                                    <div class="col-md-8">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">@item.Product.Title</h5>
+                                                            <p class="card-text">
+                                                                @item.Product.Description
+                                                            </p>
+                                                            <p class="card-text"><span>AZN @item.Product.Price</span></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="cardImg">
+                                                            <img src="~/assets/img/@item.Product.ImageURL"
+                                                                 class="img-fluid rounded-start" alt="...">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="mcProduct-@item.Id" tabindex="-1" role="dialog"
+                                                 aria-labelledby="exampleModalLabel-@item.Id" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel-@item.Id">
+                                                                <img src="~/assets/img/@item.Product.ImageURL"
+                                                                     class="img-fluid rounded-start" alt="...">
+                                                            </h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <h5 class="card-title">@item.Product.Title</h5>
+                                                            <p class="card-text">
+                                                                @item.Product.Description
+                                                            </p>
+                                                            <p class="card-text"><span>AZN @item.Product.Price</span></p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <div class="row">
+                                                                <div class="col-lg-4"><button type="button" class="btn btn-secondary pro-count"><i id="m1" class="fas fa-minus"></i>1<i id="p1" class="fas fa-plus"></i></button></div>
+                                                                @if (User.Identity.IsAuthenticated)
+                                                                {
+                                                                    <div class="col-lg-8" data-id="@item.ProductId">
+                                                                        <button class="btn btn-primary add-basket">Add basket</button>
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="col-lg-8">
+                                                                        <a asp-controller="Product" asp-action="AddBasket" asp-route-id="@item.Product.Id">
+                                                                            <button class="btn btn-primary">Add basket</button>
+                                                                        </a>
+                                                                    </div>
+                                                                }
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
                                 }
                             </div>
                         </div>

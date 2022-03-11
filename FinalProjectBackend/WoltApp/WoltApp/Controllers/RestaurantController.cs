@@ -26,12 +26,12 @@ namespace WoltApp.Controllers
         {
             RestaurantDTO resDTO = new RestaurantDTO
             {
-                RestaurantProducts = await _context.RestaurantProducts.Include(p => p.Restaurant)
+                RestaurantProducts = await _context.RestaurantProducts.Include(p => p.Product).Include(p => p.Restaurant)
                                                           .Where(p => p.RestaurantId == Id)
-                                                          .Include(p => p.Product).ToListAsync(),
-                RestaurantCategories = await _context.RestaurantCategories.Include(c => c.Restaurant)
+                                                          .ToListAsync(),
+                RestaurantCategories = await _context.RestaurantCategories.Include(c => c.Category).Include(c => c.Restaurant)
                                                               .Where(c => c.RestaurantId == Id)
-                                                              .Include(c => c.Category).ToListAsync(),
+                                                              .ToListAsync(),
                 Restaurant = await _context.Restaurants.Where(r => r.IsDeleted == false && r.Id==Id).FirstOrDefaultAsync(),
                 
             };

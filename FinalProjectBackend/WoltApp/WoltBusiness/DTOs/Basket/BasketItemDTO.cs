@@ -12,6 +12,7 @@ namespace WoltBusiness.DTOs.Basket
         public int Count { get; set; }
         public string Catagory { get; set; }
         public string ImageURL { get; set; }
+        public decimal DiscountPercent { get; set; }
         public int StockCount { get; set; }
         public bool IsActive { get; set; }
     }

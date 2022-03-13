@@ -16,7 +16,7 @@ namespace WoltDataAccess.Configurations
             builder.Property(p => p.Price).IsRequired().HasDefaultValue(0).HasColumnType("decimal(18,2)");
             builder.Property(p => p.Count).IsRequired().HasDefaultValue(0);
             builder.Property(p => p.IsDeleted).HasDefaultValue(false);
-            builder.Property(x => x.DiscountPercent).IsRequired(false);
+            builder.Property(x => x.DiscountPercent).IsRequired().HasDefaultValue(0).HasColumnType("decimal(18,2)");
             builder.Property(p =>p.ImageURL).IsRequired();
             builder.Ignore(p =>p.Photo);
             builder.Property(p => p.IsActive).HasDefaultValueSql("GETUTCDATE()");

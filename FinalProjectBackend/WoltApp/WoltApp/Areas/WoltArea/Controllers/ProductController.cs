@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace WoltApp.Areas.WoltArea.Controllers
 {
+    [Area("WoltArea")]
     public class ProductController : Controller
     {
-        [Area("WoltArea")]
         public IActionResult Index()
         {
             return View();

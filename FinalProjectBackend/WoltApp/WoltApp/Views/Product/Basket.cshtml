@@ -43,7 +43,15 @@
                                                     </button>
                                                 </div>
                                                 <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                    <h6 class="mb-0">@product.Price AZN</h6>
+                                                    @if (product.DiscountPercent > 0)
+                                                    {
+                                                        <p class="card-text d-inline-block"><span style="color:#e0321f;margin-right:10px">AZN @((product.Price*(product.DiscountPercent)/100))</span></p>
+                                                        <p class="card-text price d-inline-block"><span style="color: rgb(109, 109, 109); text-decoration: line-through; font-weight: 400">AZN @product.Price</span></p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="card-text"><span>AZN @product.Price</span></p>
+                                                    }
                                                 </div>
                                                 <form method="post">
                                                     <div class="col-md-1 col-lg-1 col-xl-1 text-end">

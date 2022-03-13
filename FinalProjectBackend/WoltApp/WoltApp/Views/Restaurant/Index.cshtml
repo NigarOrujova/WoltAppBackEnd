@@ -30,7 +30,7 @@
 <body>
     <div id="loader"></div>
     <!-- Header Start -->
-    <header id="header">
+    <header id="header" class="header " style="transition: 0.3s;">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img height="120" src="~/assets/img/nav-logo.gif" alt=""></a>
@@ -43,12 +43,13 @@
                 {
                     <div class="searchbar">
                         <div class="input-group">
-                            <div class="form-outline">
+                            <div class="form-outline" style="background-color:transparent">
+                                <i class="fas fa-search"></i>
                                 <input placeholder="Axtar" type="search" class="search" />
                             </div>
-                            <button type="button" class="search-btn">
+                            @*<button type="button" class="search-btn">
                                 <i class="fas fa-search"></i>
-                            </button>
+                            </button>*@
                         </div>
                     </div>
                     <div class="dropdown ml-auto">
@@ -81,12 +82,12 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <div class="searchbar">
                             <div class="input-group">
-                                <div class="form-outline">
-                                    <input placeholder="Axtar" type="search" class="search" />
+                                <div id="search" class="form-outline" >
+                                    <input placeholder="Axtar" type="search" class="search" style="background-color:transparent"/>
                                 </div>
-                                <button type="button" class="search-btn">
-                                    <i class="fas fa-search"></i>
-                                </button>
+                                @*<button type="button" class="search-btn">
+            <i class="fas fa-search"></i>
+        </button>*@
                             </div>
                         </div>
                         <ul class="navbar-nav ml-auto">
@@ -211,7 +212,15 @@
                                                             <p class="card-text">
                                                                 @item.Product.Description
                                                             </p>
-                                                            <p class="card-text"><span>AZN @item.Product.Price</span></p>
+                                                            @if (item.Product.DiscountPercent > 0)
+                                                            {
+                                                                <p class="card-text d-inline-block"><span style="color:#e0321f;margin-right:10px">AZN @((item.Product.Price*(item.Product.DiscountPercent)/100))</span></p>
+                                                                <p class="card-text price d-inline-block"><span style="color: rgb(109, 109, 109); text-decoration: line-through; font-weight: 400">AZN @item.Product.Price</span></p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p class="card-text"><span>AZN @item.Product.Price</span></p>
+                                                            }
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -242,7 +251,15 @@
                                                             <p class="card-text">
                                                                 @item.Product.Description
                                                             </p>
-                                                            <p class="card-text"><span>AZN @item.Product.Price</span></p>
+                                                            @if (item.Product.DiscountPercent > 0)
+                                                            {
+                                                                <p class="card-text d-inline-block"><span style="color:#e0321f;margin-right:10px">AZN @((item.Product.Price*(item.Product.DiscountPercent)/100))</span></p>
+                                                                <p class="card-text price d-inline-block"><span style="color: rgb(109, 109, 109);text-decoration: line-through;font-weight:400">AZN @item.Product.Price</span></p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p class="card-text"><span>AZN @item.Product.Price</span></p>
+                                                            }
                                                         </div>
                                                         <div class="modal-footer">
                                                             <div class="row">
@@ -261,10 +278,6 @@
                                                                         </a>
                                                                     </div>
                                                                 }
-
-
-
-
                                                             </div>
                                                         </div>
                                                     </div>

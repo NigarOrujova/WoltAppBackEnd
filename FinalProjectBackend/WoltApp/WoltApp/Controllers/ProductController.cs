@@ -43,7 +43,8 @@ namespace WoltApp.Controllers
                     Count = x.Count,
                     ImageURL = x.Product.ImageURL,
                     Title = x.Product.Title,
-                    Price = x.Product.Price
+                    Price = x.Product.Price,
+                    DiscountPercent=x.Product.DiscountPercent
 
                 }).ToListAsync();
             }
@@ -145,6 +146,7 @@ namespace WoltApp.Controllers
                 Catagory=DbProduct.Category.Name,
                 ImageURL = DbProduct.ImageURL,
                 Price = DbProduct.Price,
+                DiscountPercent=DbProduct.DiscountPercent,
                 IsActive = DbProduct.IsDeleted
             };
         }

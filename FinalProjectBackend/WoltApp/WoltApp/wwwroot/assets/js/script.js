@@ -205,6 +205,15 @@ $(document).ready(function () {
         });
     });
 });
+
+let header = document.querySelector("#header");
+window.addEventListener('scroll', function () {
+    if (scrollY > 10) {
+        header.classList.add("header-active");
+    } else {
+        header.classList.remove("header-active");
+    }
+})
 //$(document).ready(function () {
 //    $('.add-basket').click(function () {
 //        var ProId = $(this).parent().data('id');

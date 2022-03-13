@@ -111,8 +111,10 @@ namespace WoltApp.Areas.WoltArea.Controllers
         {
             ViewBag.Products = _context.Products.ToList();
             ViewBag.Categories = _context.Categories.ToList();
-            Restaurant restaurant = await _context.Restaurants.Where(r => r.IsDeleted == false && r.Id == id).FirstOrDefaultAsync();
+            Restaurant restaurant = await _context.Restaurants.Include(x => x.RestaurantProducts).Include(x => x.RestaurantCategories).Where(r => r.IsDeleted == false && r.Id == id).FirstOrDefaultAsync();
             if (restaurant.Id != id) return BadRequest();
+            restaurant.CategoryIds =await _context.RestaurantCategories.Select(x => x.CategoryId).ToListAsync();
+            restaurant.ProductIds = await _context.RestaurantProducts.Select(x => x.ProductId).ToListAsync();
             return View(restaurant);
         }
         [HttpPost]
@@ -120,7 +122,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
         public async Task<IActionResult> Update(int? id, Restaurant restaurant)
         {
             if (restaurant.Id != id) return BadRequest();
-            Restaurant resDb = await _context.Restaurants.Where(cd => cd.IsDeleted == false && cd.Id == id).FirstOrDefaultAsync();
+            Restaurant resDb = await _context.Restaurants.Include(x=>x.RestaurantProducts).Include(x=>x.RestaurantCategories).Where(cd => cd.IsDeleted == false && cd.Id == id).FirstOrDefaultAsync();
             if (resDb == null) return NotFound();
             if (restaurant.Description == null) return View(resDb);
             bool isExsistFile = true;
@@ -164,6 +166,29 @@ namespace WoltApp.Areas.WoltArea.Controllers
             resDb.Description = restaurant.Description;
             resDb.ContactNumber = restaurant.ContactNumber;
             resDb.Address = restaurant.Address;
+            resDb.Discount = restaurant.Discount;
+            resDb.IsNew = restaurant.IsNew;
+            resDb.DiscountPercent = restaurant.DiscountPercent;
+            foreach (var categoryId in restaurant.CategoryIds.Where(x => !resDb.RestaurantCategories.Any(rc => rc.CategoryId == x)))
+            {
+                RestaurantCategory restaurantCategory = new RestaurantCategory
+                {
+                    RestaurantId = restaurant.Id,
+                    CategoryId = categoryId
+                };
+
+                resDb.RestaurantCategories.Add(restaurantCategory);
+            }
+            foreach (var productId in restaurant.ProductIds.Where(x => !resDb.RestaurantProducts.Any(rc => rc.ProductId == x)))
+            {
+                RestaurantProduct restaurantProduct = new RestaurantProduct
+                {
+                    RestaurantId = restaurant.Id,
+                    ProductId = productId
+                };
+
+                resDb.RestaurantProducts.Add(restaurantProduct);
+            }
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

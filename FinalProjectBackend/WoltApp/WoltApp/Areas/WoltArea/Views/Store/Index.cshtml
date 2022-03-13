@@ -1,0 +1,133 @@
+﻿@model IEnumerable<Store>
+@{
+    ViewData["Title"] = "Index";
+    int count = 1;
+}
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Stories</h3>
+                    <div class="col-sm-12 d-flex justify-content-end">
+                        <a class="btn btn-success" asp-action="Create">Create Store</a>
+                    </div>
+                </div>
+                <!-- Light table -->
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="sort" data-sort="name">№</th>
+                                <th scope="col" class="sort" data-sort="budget">Image</th>
+                                <th scope="col" class="sort" data-sort="budget">HeroImage</th>
+                                <th scope="col" class="sort" data-sort="budget">Store</th>
+                                <th scope="col" class="sort" data-sort="budget">Description</th>
+                                <th scope="col" class="sort" data-sort="budget">Address</th>
+                                <th scope="col" class="sort" data-sort="budget">Contact Number</th>
+                                <th scope="col" class="sort" data-sort="status">Setting</th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+                            @foreach (var store in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <span class="badge badge-dot mr-4">
+                                            <span class="status text-black">@count</span>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <img style="height:100px" src="~/assets/img/@store.ImageURL" alt="" />
+                                    </td>
+                                    <td>
+                                        <img style="height:100px" src="~/assets/img/@store.HeroImageURL" alt="" />
+                                    </td>
+                                    <td>
+                                        @store.Name
+                                    </td>
+                                    <td>
+                                        @store.Description
+                                    </td>
+                                    <td>
+                                        @store.Address
+                                    </td>
+                                    <td>
+                                        @store.ContactNumber
+                                    </td>
+                                    <td>
+                                        <form>
+                                            <button class="btn btn-primary" asp-action="Details" asp-route-id="@store.Id">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </form>
+                                        <form>
+                                            <button class="btn btn-warning" asp-action="Update" asp-route-id="@store.Id">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </form>
+                                        <form method="post" asp-action="Delete" asp-route-id="@store.Id">
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                    @*<div class="modal fade" id="exampleModal_@restaurant.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <h3>@restaurant.Name</h3>
+                                                        <h2>Do you want delete?</h2>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <form method="post" asp-action="Delete" asp-route-id="@restaurant.Id">
+                                                            <button type="submit" class="btn btn-danger"> Delete </button>
+                                                        </form>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                </tr>
+                                count++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Card footer -->
+                <div class="card-footer py-4">
+                    <nav aria-label="...">
+                        <ul class="pagination justify-content-end mb-0">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">
+                                    <i class="fas fa-angle-left"></i>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <i class="fas fa-angle-right"></i>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

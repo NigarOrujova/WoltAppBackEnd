@@ -534,6 +534,12 @@ namespace WoltDataAccess.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
+                    b.Property<bool>("Discount")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("DiscountPercent")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("HeroImageURL")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -551,6 +557,9 @@ namespace WoltDataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
+
+                    b.Property<bool>("IsNew")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()

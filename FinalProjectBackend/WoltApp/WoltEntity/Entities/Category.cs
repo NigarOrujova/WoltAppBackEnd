@@ -9,7 +9,6 @@ namespace WoltEntity.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string ControllerName { get; set; }
         public bool IsDeleted { get; set; }
         public string ImageURL { get; set; }
         public IFormFile Photo { get; set; }

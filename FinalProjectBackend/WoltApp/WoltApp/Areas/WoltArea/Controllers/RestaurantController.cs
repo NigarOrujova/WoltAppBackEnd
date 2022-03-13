@@ -96,7 +96,6 @@ namespace WoltApp.Areas.WoltArea.Controllers
                 Description = restaurant.Description,
                 Address=restaurant.Address,
                 ContactNumber=restaurant.ContactNumber,
-                ControllerName=restaurant.ControllerName,
                 ImageURL =await restaurant.Photo.SaveFileAsync(_env.WebRootPath,"assets/img"),
                 HeroImageURL = await restaurant.HeroPhoto.SaveFileAsync(_env.WebRootPath, "assets/img"),
                 RestaurantCategories = restaurant.RestaurantCategories,

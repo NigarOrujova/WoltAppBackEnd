@@ -19,8 +19,15 @@ using WoltEntity.Entities;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "C:\Users\Nigar\Desktop\New folder (6)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\Areas\WoltArea\Views\_ViewImports.cshtml"
+using WoltBusiness.DTOs;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"2d47ab5c93609c2e85a602b37aa9393d9e3d1829", @"/Areas/WoltArea/Views/_ViewStart.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"90d5ba831ccde99934d8c21ab3a961f3ce1e6abb", @"/Areas/WoltArea/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"0cc8d4c1eca9d04de13104f045f14c6cb74ae9a7", @"/Areas/WoltArea/Views/_ViewImports.cshtml")]
     public class Areas_WoltArea_Views__ViewStart : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

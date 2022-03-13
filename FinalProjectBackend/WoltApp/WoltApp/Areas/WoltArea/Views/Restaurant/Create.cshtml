@@ -37,11 +37,6 @@
             <span class="text-danger" asp-validation-for="@Model.ContactNumber"></span>
         </div>
         <div class="mb-3">
-            <label asp-for="@Model.ControllerName" class="form-label">Address</label>
-            <input asp-for="@Model.ControllerName" class="form-control" />
-            <span class="text-danger" asp-validation-for="@Model.ControllerName"></span>
-        </div>
-        <div class="mb-3">
             <label asp-for="@Model.CategoryIds" class="form-label">Categories</label>
             <select asp-for="@Model.CategoryIds" asp-items="@(new SelectList(ViewBag.Categories,"Id","Name"))" class="form-control">
             </select>

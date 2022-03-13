@@ -7,7 +7,7 @@
     <h2>Create Category</h2>
     <form method="post" enctype="multipart/form-data">
         <div class="col-md-4">
-            <label asp-for="@Model.Name" class="form-label">Restaurant name</label>
+            <label asp-for="@Model.Name" class="form-label">Store name</label>
             <input asp-for="@Model.Name" class="form-control" />
             <span class="text-danger" asp-validation-for="@Model.Name"></span>
         </div>
@@ -32,7 +32,7 @@
             <span class="text-danger" asp-validation-for="@Model.Address"></span>
         </div>
         <div class="col-md-4">
-            <label asp-for="@Model.ContactNumber" class="form-label">Address</label>
+            <label asp-for="@Model.ContactNumber" class="form-label">ContactNumber</label>
             <input asp-for="@Model.ContactNumber" class="form-control" />
             <span class="text-danger" asp-validation-for="@Model.ContactNumber"></span>
         </div>

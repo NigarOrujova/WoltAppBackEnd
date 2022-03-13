@@ -18,7 +18,7 @@ namespace WoltEntity.Utilities.Email
             mailMessage.Body = confirmationLink;
 
             SmtpClient client = new SmtpClient();
-            client.Credentials = new System.Net.NetworkCredential("tu201906017@code.edu.az", "bhnzoklgrbjqpwjp");
+            client.Credentials = new System.Net.NetworkCredential("tu201906017@code.edu.az", "rouyfqdtwiuqvvyq");
             client.Host = "smtp.gmail.com";
             client.EnableSsl = true;
             client.Port = 587;

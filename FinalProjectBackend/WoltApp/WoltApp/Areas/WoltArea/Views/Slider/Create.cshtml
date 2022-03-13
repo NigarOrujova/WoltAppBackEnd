@@ -1,0 +1,27 @@
+﻿@model MultipleSliderDTO
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container">
+    <h2>Create Category</h2>
+    <form method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label asp-for="@Model.Title" class="form-label">Slider title</label>
+            <input asp-for="@Model.Title" class="form-control" />
+            <span class="text-danger" asp-validation-for="@Model.Title"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Description" class="form-label">Description</label>
+            <input asp-for="@Model.Description" class="form-control" />
+            <span class="text-danger" asp-validation-for="@Model.Description"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Photos" class="form-label">Slider Photo</label>
+            <input asp-for="@Model.Photos" class="form-control" />
+            <span class="text-danger" asp-validation-for="@Model.Photos"></span>
+        </div>
+        <button type="submit" class="btn btn-secondary">Create</button>
+        <a class="btn btn-pinterest" asp-action="Index">Cancel</a>
+    </form>
+</div>

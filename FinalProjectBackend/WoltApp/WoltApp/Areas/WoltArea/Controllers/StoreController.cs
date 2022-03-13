@@ -99,7 +99,6 @@ namespace WoltApp.Areas.WoltArea.Controllers
                 Description = store.Description,
                 Address = store.Address,
                 ContactNumber = store.ContactNumber,
-                ControllerName = store.ControllerName,
                 ImageURL = await store.Photo.SaveFileAsync(_env.WebRootPath, "assets/img"),
                 HeroImageURL = await store.HeroPhoto.SaveFileAsync(_env.WebRootPath, "assets/img"),
                 StoreCategories = store.StoreCategories,

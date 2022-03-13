@@ -19,8 +19,15 @@ using WoltEntity.Entities;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "C:\Users\Nigar\Desktop\New folder (6)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\Areas\WoltArea\Views\_ViewImports.cshtml"
+using WoltBusiness.DTOs;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"bed32c5c95d687d1ef9eb63f8b48fe2e3971dd66", @"/Areas/WoltArea/Views/Restaurant/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"90d5ba831ccde99934d8c21ab3a961f3ce1e6abb", @"/Areas/WoltArea/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"0cc8d4c1eca9d04de13104f045f14c6cb74ae9a7", @"/Areas/WoltArea/Views/_ViewImports.cshtml")]
     public class Areas_WoltArea_Views_Restaurant_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<IEnumerable<Restaurant>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("btn btn-success"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -79,7 +86,7 @@ using WoltEntity.Entities;
                     <h3 class=""mb-0"">Restaurants</h3>
                         <div class=""col-sm-12 d-flex justify-content-end"">
                             ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bed32c5c95d687d1ef9eb63f8b48fe2e3971dd667585", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bed32c5c95d687d1ef9eb63f8b48fe2e3971dd667819", async() => {
                 WriteLiteral("Create Restaurant");
             }
             );
@@ -129,7 +136,7 @@ using WoltEntity.Entities;
 #line hidden
 #nullable disable
             WriteLiteral("</span>\r\n                                    </span>\r\n                                </td>\r\n                                <td>\r\n                                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "bed32c5c95d687d1ef9eb63f8b48fe2e3971dd6611171", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "bed32c5c95d687d1ef9eb63f8b48fe2e3971dd6611405", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -154,7 +161,7 @@ AddHtmlAttributeValue("", 2236, restaurant.ImageURL, 2236, 20, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                                </td>\r\n                                <td>\r\n                                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "bed32c5c95d687d1ef9eb63f8b48fe2e3971dd6613000", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "bed32c5c95d687d1ef9eb63f8b48fe2e3971dd6613234", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -211,9 +218,9 @@ AddHtmlAttributeValue("", 2426, restaurant.HeroImageURL, 2426, 24, false);
 #line hidden
 #nullable disable
             WriteLiteral("\r\n                                </td>\r\n                                <td>\r\n                                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bed32c5c95d687d1ef9eb63f8b48fe2e3971dd6616536", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bed32c5c95d687d1ef9eb63f8b48fe2e3971dd6616770", async() => {
                 WriteLiteral("\r\n                                        ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("button", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bed32c5c95d687d1ef9eb63f8b48fe2e3971dd6616835", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("button", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bed32c5c95d687d1ef9eb63f8b48fe2e3971dd6617069", async() => {
                     WriteLiteral("\r\n                                            <i class=\"fas fa-eye\"></i>\r\n                                        ");
                 }
                 );
@@ -259,9 +266,9 @@ AddHtmlAttributeValue("", 2426, restaurant.HeroImageURL, 2426, 24, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bed32c5c95d687d1ef9eb63f8b48fe2e3971dd6620478", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bed32c5c95d687d1ef9eb63f8b48fe2e3971dd6620712", async() => {
                 WriteLiteral("\r\n                                        ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("button", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bed32c5c95d687d1ef9eb63f8b48fe2e3971dd6620777", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("button", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bed32c5c95d687d1ef9eb63f8b48fe2e3971dd6621011", async() => {
                     WriteLiteral("\r\n                                            <i class=\"fas fa-edit\"></i>\r\n                                        ");
                 }
                 );
@@ -307,7 +314,7 @@ AddHtmlAttributeValue("", 2426, restaurant.HeroImageURL, 2426, 24, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bed32c5c95d687d1ef9eb63f8b48fe2e3971dd6624420", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bed32c5c95d687d1ef9eb63f8b48fe2e3971dd6624654", async() => {
                 WriteLiteral("\r\n                                        <button type=\"submit\" class=\"btn btn-danger\">\r\n                                            <i class=\"fas fa-trash\"></i>\r\n                                        </button>\r\n                                    ");
             }
             );

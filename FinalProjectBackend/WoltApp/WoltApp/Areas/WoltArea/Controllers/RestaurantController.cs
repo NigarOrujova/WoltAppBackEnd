@@ -45,7 +45,6 @@ namespace WoltApp.Areas.WoltArea.Controllers
             ViewBag.Products = _context.Products.ToList();
             ViewBag.Categories = _context.Categories.ToList();
             if (!ModelState.IsValid) return View(restaurant);
-            restaurant.RestaurantProducts = new List<RestaurantProduct>();
             if (restaurant.CategoryIds != null)
             {
                 restaurant.RestaurantCategories = new List<RestaurantCategory>();
@@ -60,15 +59,19 @@ namespace WoltApp.Areas.WoltArea.Controllers
                     restaurant.RestaurantCategories.Add(resCategory);
                 }
             }
-            foreach (var id in restaurant.ProductIds)
+            if (restaurant.ProductIds != null)
             {
-                RestaurantProduct resProduct = new RestaurantProduct()
+                restaurant.RestaurantProducts = new List<RestaurantProduct>();
+                foreach (var id in restaurant.ProductIds)
                 {
-                    ProductId = id,
-                    Restaurant = restaurant
+                    RestaurantProduct resProduct = new RestaurantProduct()
+                    {
+                        ProductId = id,
+                        Restaurant = restaurant
 
-                };
-                restaurant.RestaurantProducts.Add(resProduct);
+                    };
+                    restaurant.RestaurantProducts.Add(resProduct);
+                }
             }
             if (!restaurant.HeroPhoto.CheckFileSize(1000))
             {

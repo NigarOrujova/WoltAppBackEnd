@@ -1,0 +1,59 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container">
+    <h2>Create Product</h2>
+    <form method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label asp-for="@Model.Title" class="form-label">Product Title</label>
+            <input asp-for="@Model.Title" class="form-control" />
+            <span class="text-danger" asp-validation-for="@Model.Title"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Description" class="form-label">Description</label>
+            <input asp-for="@Model.Description" class="form-control" />
+            <span class="text-danger" asp-validation-for="@Model.Description"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Photo" class="form-label">Product Photo</label>
+            <input asp-for="@Model.Photo" class="form-control" />
+            <span class="text-danger" asp-validation-for="@Model.Photo"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Price" class="form-label">Product Price</label>
+            <input asp-for="@Model.Price" class="form-control" />
+            <span class="text-danger" asp-validation-for="@Model.Price"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Count" class="form-label">Product Count</label>
+            <input asp-for="@Model.Count" class="form-control" />
+            <span class="text-danger" asp-validation-for="@Model.Count"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Category.Id" class="form-control-label">Product</label>
+            <select asp-for="CategoryId" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                @foreach (var item in (List<Category>)@ViewBag.Categories)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+            <span class="text-danger" asp-validation-for="@Model.Category.Id"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.RestaurantIds" class="form-label">Restaurants</label>
+            <select asp-for="@Model.RestaurantIds" asp-items="@(new SelectList(ViewBag.Restaurants,"Id","Name"))" class="form-control">
+            </select>
+            <span class="text-danger" asp-validation-for="@Model.RestaurantIds"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.StoreIds" class="form-label">Stores</label>
+            <select asp-for="@Model.StoreIds" asp-items="@(new SelectList(ViewBag.Stores,"Id","Name"))" class="form-control">
+            </select>
+            <span class="text-danger" asp-validation-for="@Model.StoreIds"></span>
+        </div>
+        <button type="submit" class="btn btn-secondary">Create</button>
+        <a class="btn btn-pinterest" asp-action="Index">Cancel</a>
+    </form>
+</div>

@@ -13,6 +13,8 @@ namespace WoltDataAccess.Configurations
             builder.Property(x => x.CreatedDate).HasDefaultValueSql("GETUTCDATE()");
             builder.Property(p => p.ImageURL).IsRequired(false);
             builder.Ignore(p => p.Photo);
+            builder.Ignore(x => x.RestaurantIds);
+            builder.Ignore(x => x.StoreIds);
         }
     }
 }

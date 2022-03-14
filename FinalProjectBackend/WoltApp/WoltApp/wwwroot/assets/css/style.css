@@ -684,7 +684,6 @@ body {
 #header {
   background-color: transparent;
   z-index: 10;
-  border-bottom:1px solid rgba(206, 206, 206, 0.767);
 }
 
 #header .navbar-toggler {
@@ -1161,6 +1160,7 @@ body {
     top: 0;
     right: 0;
     left: 0;
-    background-color:white;
+    background-color: white;
+    border-bottom: 1px solid rgba(206, 206, 206, 0.767);
 }
 /*# sourceMappingURL=style.css.map */

@@ -25,20 +25,20 @@ namespace WoltApp.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            List<BasketItemDTO> basketItems = new List<BasketItemDTO>();
+            List<BasketDTO> basketItems = new List<BasketDTO>();
             AppUser user = User.Identity.IsAuthenticated ? await _userManager.FindByNameAsync(User.Identity.Name) : null;
 
             if (!User.Identity.IsAuthenticated)
             {
                 if (HttpContext.Request.Cookies["Basket"] != null)
                 {
-                    basketItems = JsonConvert.DeserializeObject<List<BasketItemDTO>>(HttpContext.Request.Cookies["Basket"]);
+                    basketItems = JsonConvert.DeserializeObject<List<BasketDTO>>(HttpContext.Request.Cookies["Basket"]);
                 }
             }
             else
             {
 
-                basketItems = await _context.BasketItems.Where(x => x.AppUserId == user.Id && x.IsDeleted == false).Select(x => new BasketItemDTO
+                basketItems = await _context.BasketItems.Where(x => x.AppUserId == user.Id && x.IsDeleted == false).Select(x => new BasketDTO
                 {
                     Count = x.Count,
                     ImageURL = x.Product.ImageURL,
@@ -120,24 +120,24 @@ namespace WoltApp.Controllers
         public async Task<IActionResult> Basket()
         {
             List<BasketDTO> basket = GetBasket();
-            List<BasketItemDTO> model = await GetBasketList(basket);
+            List<BasketDTO> model = await GetBasketList(basket);
             return View(model);
         }
-        public  async Task<List<BasketItemDTO>> GetBasketList(List<BasketDTO> basket)
+        public  async Task<List<BasketDTO>> GetBasketList(List<BasketDTO> basket)
         {
-            List<BasketItemDTO> model = new List<BasketItemDTO>();
+            List<BasketDTO> model = new List<BasketDTO>();
             foreach (BasketDTO item in basket)
             {
                 Product DbProduct = await _context.Products.Include(p=>p.Category).Include(p=>p.RestaurantProducts).ThenInclude(p=>p.Restaurant)
                                                     .FirstOrDefaultAsync(p => p.Id == item.Id);
-                BasketItemDTO itemDTO = getBasketItem(item, DbProduct);
+                BasketDTO itemDTO = getBasketItem(item, DbProduct);
                 model.Add(itemDTO);
             }
             return model;
         }
-        private BasketItemDTO getBasketItem(BasketDTO item, Product DbProduct)
+        private BasketDTO getBasketItem(BasketDTO item, Product DbProduct)
         {
-            return new BasketItemDTO
+            return new BasketDTO
             {
                 Id=item.Id,
                 Title = DbProduct.Title,
@@ -176,7 +176,7 @@ namespace WoltApp.Controllers
 
             if (!User.Identity.IsAuthenticated)
             {
-                Response.Cookies.Delete("Basket");
+                Response.Cookies.Delete("basket");
             }
             else
             {
@@ -209,8 +209,9 @@ namespace WoltApp.Controllers
             }
             else
             {
-                productBaskets = JsonConvert.DeserializeObject<List<BasketDTO>>(Request.Cookies["basket"]);
-                BasketDTO BasketProduct = productBaskets.Find(p => p.Id == id);
+                string basketItms = HttpContext.Request.Cookies["basket"];
+                productBaskets = JsonConvert.DeserializeObject<List<BasketDTO>>(basketItms);
+                BasketDTO BasketProduct = productBaskets.FirstOrDefault(p => p.ProductId == id);
                 if (BasketProduct == null) return NotFound();
                 if (BasketProduct.Count == 1)
                 {
@@ -220,7 +221,7 @@ namespace WoltApp.Controllers
                 {
                     BasketProduct.Count--;
                 }
-                HttpContext.Response.Cookies.Append("Basket", JsonConvert.SerializeObject(BasketProduct));
+                HttpContext.Response.Cookies.Append("basket", JsonConvert.SerializeObject(productBaskets));
             }
             return RedirectToAction("ShowBasketItems","Product");
         }

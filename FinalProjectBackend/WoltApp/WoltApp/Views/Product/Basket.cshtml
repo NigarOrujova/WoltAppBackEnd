@@ -1,4 +1,4 @@
-﻿@model List<BasketItemDTO>
+﻿@model List<BasketDTO>
 @{
     ViewData["Title"] = "Basket";
 }
@@ -54,8 +54,8 @@
                                                     }
                                                 </div>
                                                 <form method="post">
-                                                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                        <a asp-controller="Product" asp-action="RemoveProcuctFromBasket" asp-route-id="@product.Id" class="text-muted"><i class="fas fa-times"></i></a>
+                                                    <div class="col-md-1 col-lg-1 col-xl-1 text-end" data-id="@product.ProductId">
+                                                        <a asp-controller="Product" asp-action="RemoveProductFromBasket" asp-route-id="@product.Id" class="text-muted remove-basket"><i class="fas fa-times"></i></a>
                                                     </div>
                                                 </form>
                                                 

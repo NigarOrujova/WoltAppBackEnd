@@ -215,12 +215,12 @@ window.addEventListener('scroll', function () {
     }
 })
 //$(document).ready(function () {
-//    $('.add-basket').click(function () {
-//        var ProId = $(this).parent().data('id');
-//        console.log("productid" + ProId);
+//    $('.remove-basket').click(function () {
+//        var ProductId = $(this).parent().data('id');
+//        console.log("productid" + ProductId);
 //        $.ajax({
 //            type: "GET",
-//            url: `/Product/AddBasketItem?productid=${ProId}`,
+//            url: `/Product/RemoveProductFromBasket?productid=${ProductId}`,
 //            success: function (response) {
 //                console.log(response);
 //            },

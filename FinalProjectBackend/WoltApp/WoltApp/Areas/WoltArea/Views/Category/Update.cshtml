@@ -1,0 +1,34 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Update";
+}
+
+<div class="container">
+    <h2>Update Restaurant</h2>
+    <form method="post" enctype="multipart/form-data">
+        <div class="col-md-4">
+            <label asp-for="@Model.Name" class="form-label">Restaurant name</label>
+            <input asp-for="@Model.Name" class="form-control" />
+            <span class="text-danger" asp-validation-for="@Model.Name"></span>
+        </div>
+        <div class="col-md-4">
+            <label asp-for="@Model.Photo" class="form-label">Restaurant Photo</label>
+            <input asp-for="@Model.Photo" class="form-control" />
+            <span class="text-danger" asp-validation-for="@Model.Photo"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.RestaurantIds" class="form-label">Restaurants</label>
+            <select asp-for="@Model.RestaurantIds" asp-items="@(new SelectList(ViewBag.Restaurants,"Id","Name"))" class="form-control">
+            </select>
+            <span class="text-danger" asp-validation-for="@Model.RestaurantIds"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.StoreIds" class="form-label">Stores</label>
+            <select asp-for="@Model.StoreIds" asp-items="@(new SelectList(ViewBag.Stores,"Id","Name"))" class="form-control">
+            </select>
+            <span class="text-danger" asp-validation-for="@Model.StoreIds"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a class="btn btn-pinterest" asp-action="Index">Cancel</a>
+    </form>
+</div>

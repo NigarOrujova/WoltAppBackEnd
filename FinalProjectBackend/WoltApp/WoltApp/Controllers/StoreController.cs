@@ -32,7 +32,7 @@ namespace WoltApp.Controllers
                 StoreCategories = await _context.StoreCategories.Include(p => p.Store)
                                                           .Where(p => p.StoreId == Id)
                                                               .Include(c => c.Category).ToListAsync(),
-                Store = await _context.Stores.Where(r => r.IsDeleted == false && r.Id == Id).FirstOrDefaultAsync()
+                Store = await _context.Stores.Where(r =>r.Id == Id).FirstOrDefaultAsync()
             };
             return View(resDTO);
         }

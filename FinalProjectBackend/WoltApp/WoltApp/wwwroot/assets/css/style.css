@@ -1098,15 +1098,15 @@ body {
     position:relative;
 }
 
-    #profil::before {
-        content: "";
-        background: rgba(69, 144, 177, 0.514);
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-    }
+#profil::before {
+    content: "";
+    background: rgba(69, 144, 177, 0.514);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
 
 #UserProfil {
     padding:40px 0;
@@ -1162,5 +1162,8 @@ body {
     left: 0;
     background-color: white;
     border-bottom: 1px solid rgba(206, 206, 206, 0.767);
+}
+.card .imgArea{
+    position:relative;
 }
 /*# sourceMappingURL=style.css.map */

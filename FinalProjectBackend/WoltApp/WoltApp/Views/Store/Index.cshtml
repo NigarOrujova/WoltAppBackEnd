@@ -39,11 +39,10 @@
                         aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                @if (User.Identity.IsAuthenticated)
-                {
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <div class="searchbar">
                         <div class="input-group">
-                            <div class="form-outline">
+                            <div id="search" class="form-outline">
                                 <input placeholder="Axtar" type="search" class="search" style="background-color:transparent" />
                             </div>
                             @*<button type="button" class="search-btn">
@@ -51,58 +50,69 @@
                                 </button>*@
                         </div>
                     </div>
-                    <div class="dropdown ml-auto">
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                            <img src="~/Admin/assets/img/avatars/default-avatar.png" width="30px" class="avatar img-fluid rounded me-1" />
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" asp-controller="Account" asp-action="AccountProfil">
-                                <i class="bi bi-person"></i>
-                                Profile:
-                                <span class="text-dark">@User.Identity.Name</span><hr />
-                            </a>
-                            <a class="dropdown-item" asp-controller="Account" asp-action="AccountSetting">
-                                <i class="bi bi-gear"></i>
-                                Settings
-                            </a>
-                            <a class="dropdown-item" asp-controller="Account" asp-action="LogOut">
-                                <i class="bi bi-door-open"></i>
-                                Log out
-                            </a>
-                        </div>
-                    </div>
-                    <a asp-controller="Product" asp-action="ShowBasketItems" class="btn btn-primary show-basket">
-                        <span>View Order</span>
-                        <span class="badge badge-md badge-circle badge-floating badge-light border-white">4</span>
-                    </a>
-                }
-                else
-                {
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <div class="searchbar">
-                            <div class="input-group">
-                                <div id="search" class="form-outline">
-                                    <input placeholder="Axtar" type="search" class="search" style="background-color:transparent" />
+                    <ul class="navbar-nav ml-auto">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="dropdown ml-auto">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/Admin/assets/img/avatars/default-avatar.png" width="30px" class="avatar img-fluid rounded me-1" />
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" asp-controller="Account" asp-action="AccountProfil">
+                                        <i class="bi bi-person"></i>
+                                        Profile:
+                                        <span class="text-dark">@User.Identity.Name</span><hr />
+                                    </a>
+                                    <a class="dropdown-item" asp-controller="Account" asp-action="AccountSetting">
+                                        <i class="bi bi-gear"></i>
+                                        Settings
+                                    </a>
+                                    <a class="dropdown-item" asp-controller="Account" asp-action="LogOut">
+                                        <i class="bi bi-door-open"></i>
+                                        Log out
+                                    </a>
                                 </div>
-                                @*<button type="button" class="search-btn">
-                                        <i class="fas fa-search"></i>
-                                    </button>*@
                             </div>
-                        </div>
-                        <ul class="navbar-nav ml-auto">
+                            @if (Model.Store.IsDeleted != false)
+                            {
+
+                                <a asp-controller="Product" asp-action="ShowBasketItems" style="background-color: rgb(15, 37, 148)" class="btn btn-primary show-basket">
+                                    <span>Scheduled orders only</span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Product" asp-action="ShowBasketItems" class="btn btn-primary show-basket">
+                                    <span>View Order</span>
+                                    <span class="badge badge-md badge-circle badge-floating badge-light border-white">4</span>
+                                </a>
+                            }
+                        }
+                        else
+                        {
+
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Account" asp-action="Login" asp-route-ReturnUrl="@Context.Request.Path.Value">Daxil ol</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Account" asp-action="Register">Qeydiyyatdan keçin</a>
                             </li>
-                        </ul>
-                    </div>
-                    <a asp-controller="Product" asp-action="Basket" class="btn btn-primary show-basket">
-                        <span>View Order</span>
-                        <span class="badge badge-md badge-circle badge-floating badge-light border-white">4</span>
-                    </a>
-                }
+                            @if (Model.Store.IsDeleted != false)
+                            {
+                                <a asp-controller="Product" asp-action="Basket" style="background-color: rgb(15, 37, 148)" class="btn btn-primary show-basket">
+                                    <span>Scheduled orders only</span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Product" asp-action="Basket" class="btn btn-primary show-basket">
+                                    <span>View Order</span>
+                                    <span class="badge badge-md badge-circle badge-floating badge-light border-white">4</span>
+                                </a>
+                            }
+                        }
+                    </ul>
+                </div>
                 <!-- basket -->
                 <!--<div class="basket mx-3">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
@@ -111,7 +121,7 @@
                 </button>-->
                 <!-- modal start -->
                 <!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -162,7 +172,9 @@
                             </div>
                         </div>
                     </div>
+                    </div>
                 </div>-->
+
             </nav>
         </div>
     </header>

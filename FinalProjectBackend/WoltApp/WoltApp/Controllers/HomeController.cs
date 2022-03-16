@@ -32,10 +32,10 @@ namespace WoltApp.Controllers
                 StoreCategories =await _context.StoreCategories
                                               .Include(x=>x.Category)
                                               .Include(x=>x.Store).ToListAsync(),
-                Restaurants = await _context.Restaurants.Where(r => r.IsDeleted == false)
+                Restaurants = await _context.Restaurants
                                             .Include(r=>r.RestaurantProducts).ThenInclude(r=>r.Product)
                                             .ToListAsync(),
-                Stores = await _context.Stores.Where(s => s.IsDeleted == false).ToListAsync()
+                Stores = await _context.Stores.ToListAsync()
             };
             return View(homeDTO);
         }

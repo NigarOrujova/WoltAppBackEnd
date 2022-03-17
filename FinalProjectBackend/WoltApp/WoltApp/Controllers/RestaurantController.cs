@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -33,9 +34,24 @@ namespace WoltApp.Controllers
                                                               .Where(c => c.RestaurantId == Id)
                                                               .ToListAsync(),
                 Restaurant = await _context.Restaurants.Where(r => r.Id==Id).FirstOrDefaultAsync(),
-                
+                Comments=await _context.Comments.Where(c=>c.IsDeleted==false && c.RestaurantId == Id).ToListAsync()
             };
             return View(resDTO);
+        }
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Comment(RestaurantDTO restaurant)
+        {
+            var comment = new Comment()
+            {
+                Content =restaurant.Content,
+                RestaurantId=restaurant.RestaurantId,
+                UserName=restaurant.UserName
+            };
+            await _context.Comments.AddAsync(comment);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

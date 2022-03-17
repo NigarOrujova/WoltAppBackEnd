@@ -24,7 +24,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            List<Store> stores = await _context.Stores.Where(x => x.IsDeleted == false)
+            List<Store> stores = await _context.Stores
                                              .Include(x => x.StoreCategories).ThenInclude(x => x.Category)
                                              .Include(x => x.StoreProducts).ThenInclude(x => x.Product)
                                              .ToListAsync();
@@ -102,7 +102,8 @@ namespace WoltApp.Areas.WoltArea.Controllers
                 ImageURL = await store.Photo.SaveFileAsync(_env.WebRootPath, "assets/img"),
                 HeroImageURL = await store.HeroPhoto.SaveFileAsync(_env.WebRootPath, "assets/img"),
                 StoreCategories = store.StoreCategories,
-                StoreProducts = store.StoreProducts
+                StoreProducts = store.StoreProducts,
+                IsNew = true
             };
 
             await _context.Stores.AddAsync(newStore);

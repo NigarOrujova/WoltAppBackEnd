@@ -175,6 +175,30 @@ $('.slide-seven').owlCarousel({
         }
     }
 })
+
+$('.slide-eighth').owlCarousel({
+    margin: 10,
+    dots: false,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    responsiveClass: true,
+    responsive: {
+        0: {
+            items: 1,
+            nav: true
+        },
+        600: {
+            items: 1,
+            nav: false
+        },
+        1000: {
+            items: 1,
+            nav: true,
+            loop: true
+        }
+    }
+})
+
 const ScrollToTop = document.querySelector('.ScrollToTop');
 window.addEventListener('scroll', () => {
     if (window.pageYOffset > 100) {
@@ -214,6 +238,15 @@ window.addEventListener('scroll', function () {
         header.classList.remove("header-active");
     }
 })
+
+//let Category = document.querySelector("cardCategory");
+//window.addEventListener('scroll', function () {
+//    if (scrollY > 10) {
+//        header.classList.add("header-active");
+//    } else {
+//        header.classList.remove("header-active");
+//    }
+//})
 //$(document).ready(function () {
 //    $('.remove-basket').click(function () {
 //        var ProductId = $(this).parent().data('id');

@@ -10,5 +10,9 @@ namespace WoltBusiness.DTOs
         public Restaurant Restaurant { get; set; }
         public List<RestaurantProduct> RestaurantProducts { get; set; }
         public List<RestaurantCategory> RestaurantCategories { get; set; }
+        public List<Comment> Comments { get; set; }
+        public string UserName { get; set; }
+        public string Content { get; set; }
+        public int RestaurantId { get; set; }
     }
 }

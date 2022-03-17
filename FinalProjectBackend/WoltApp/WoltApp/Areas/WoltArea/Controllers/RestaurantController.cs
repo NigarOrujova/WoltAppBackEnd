@@ -24,7 +24,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
         }
         public async  Task<IActionResult> Index()
         {
-            List<Restaurant> restaurants = await _context.Restaurants.Where(x => x.IsDeleted == false)
+            List<Restaurant> restaurants = await _context.Restaurants
                                                          .Include(x=>x.RestaurantCategories).ThenInclude(x=>x.Category)
                                                          .Include(x=>x.RestaurantProducts).ThenInclude(x=>x.Product)
                                                          .ToListAsync();
@@ -102,7 +102,8 @@ namespace WoltApp.Areas.WoltArea.Controllers
                 ImageURL =await restaurant.Photo.SaveFileAsync(_env.WebRootPath,"assets/img"),
                 HeroImageURL = await restaurant.HeroPhoto.SaveFileAsync(_env.WebRootPath, "assets/img"),
                 RestaurantCategories = restaurant.RestaurantCategories,
-                RestaurantProducts = restaurant.RestaurantProducts
+                RestaurantProducts = restaurant.RestaurantProducts,
+                IsNew=true
             };
 
             await _context.Restaurants.AddAsync(newRestaurant);

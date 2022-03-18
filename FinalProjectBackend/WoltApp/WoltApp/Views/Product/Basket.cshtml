@@ -1,6 +1,7 @@
 ﻿@model List<BasketDTO>
 @{
     ViewData["Title"] = "Basket";
+    decimal total = 0;
 }
 <section id="basketItem" class="h-100" style="background-color: #e1f5fe;">
     <div class="container py-5 h-100">
@@ -19,6 +20,7 @@
                                     {
                                         foreach (var product in Model)
                                         {
+                                            total += product.Price;
                                             <div class="row mb-4 d-flex justify-content-between align-items-center">
                                                 <div class="col-md-2 col-lg-2 col-xl-2">
                                                     <img src="/assets/img/@product.ImageURL"
@@ -29,18 +31,18 @@
                                                     <h6 class="text-black mb-0">@product.Title</h6>
                                                 </div>
                                                 <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                                    <button class="btn btn-link px-2"
-                                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                    <a class="btn btn-link px-2"
+                                                       asp-controller="Product" asp-action="RemoveProductFromBasket" asp-route-id="@product.Id">
                                                         <i class="fas fa-minus"></i>
-                                                    </button>
+                                                    </a>
 
                                                     <input id="form1" min="0" name="quantity" value="@product.Count" type="number"
                                                            class="form-control form-control-sm" />
 
-                                                    <button class="btn btn-link px-2"
-                                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                                    <a class="btn btn-link px-2"
+                                                       asp-controller="Product" asp-action="BasketCount" asp-route-id="@product.Id">
                                                         <i class="fas fa-plus"></i>
-                                                    </button>
+                                                    </a>
                                                 </div>
                                                 <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                                     @if (product.DiscountPercent > 0)
@@ -58,22 +60,26 @@
                                                         <a asp-controller="Product" asp-action="RemoveProductFromBasket" asp-route-id="@product.Id" class="text-muted remove-basket"><i class="fas fa-times"></i></a>
                                                     </div>
                                                 </form>
-                                                
                                             </div>
                                             <hr class="my-4">
                                         }
+                                        <h5 class="mx-3 d-flex justify-content-end">Total Price:<span style="color: #00aaf3;margin:0 5px">@total AZN</span></h5>
+                                        <hr>
+                                        <div class="d-flex justify-content-end">
+                                            <form method="post">
+                                                <button asp-controller="Product" asp-action="EmptyBasket" type="submit" class="btn btn-primary basket-btn">Remove Basket</button>
+                                            </form>
+                                            <button type="submit" class="btn btn-primary basket-btn">Go To Checkout</button>
+                                        </div>
                                     }
                                     else
                                     {
-                                <div class="d-flex justify-content-center w-100">
-                                    <img src="/assets/img/no-items.png"
-                                         class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                </div>
+                                        <div class="d-flex justify-content-center w-100">
+                                            <img src="/assets/img/no-items.png"
+                                                 class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                        </div>
                                         <hr class="my-4">
                                     }
-                                <form method="post">
-                                    <button asp-controller="Product" asp-action="EmptyBasket" type="submit" class="btn btn-primary">Remove Basket</button>
-                                </form>
                                     <div class="pt-5">
                                         <h6 class="mb-0">
                                             <a asp-controller="Home" asp-action="Index" class="text-body">

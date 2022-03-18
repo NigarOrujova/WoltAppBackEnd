@@ -55,6 +55,9 @@
                                             </div>
                                             <hr class="my-4">
                                         }
+                                        <form method="post">
+                                            <button asp-controller="Product" asp-action="EmptyBasket" type="submit" class="btn btn-primary basket-btn">Remove Basket</button>
+                                        </form>
                                     }
                                     else
                                     {
@@ -64,9 +67,6 @@
                                         </div>
                                         <hr class="my-4">
                                     }
-                                    <form method="post">
-                                        <button asp-controller="Product" asp-action="EmptyBasket" type="submit" class="btn btn-primary">Remove Basket</button>
-                                    </form>
                                     <div class="pt-5">
                                         <h6 class="mb-0">
                                             <a asp-controller="Home" asp-action="Index" class="text-body">

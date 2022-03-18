@@ -52,33 +52,6 @@ namespace WoltApp.Controllers
             return View(basketItems);
         }
 
-        //User Add Basket
-        public async Task AddBasketItem(int productid)
-        {
-                ClaimsPrincipal currentUser = User;
-                var userId = _userManager.GetUserId(User);
-                BasketItem basketItem = _context.BasketItems.Where(b => b.AppUserId == userId && b.ProductId == productid).FirstOrDefault();
-                if (userId != null)
-                {
-
-                    if (basketItem == null)
-                    {
-                        basketItem = new BasketItem
-                        {
-                            AppUserId = userId,
-                            ProductId = productid,
-                            Count = 1
-                        };
-                        await _context.BasketItems.AddAsync(basketItem);
-                    }
-                    else
-                    {
-                        basketItem.Count += 1;
-                    }
-                }
-                await _context.SaveChangesAsync();
-        }
-
         //Cookie
         public async Task<IActionResult> AddBasket(int? id)
         {
@@ -88,6 +61,16 @@ namespace WoltApp.Controllers
             List<BasketDTO> basket = GetBasket();
             UpdateBasket((int)id, basket);
             return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> BasketCount(int? id)
+        {
+            if (id == null) return RedirectToAction("Index", "Error");
+            Product dbProduct = await _context.Products.FindAsync(id);
+            if (dbProduct == null) return RedirectToAction("Index", "Error");
+            List<BasketDTO> basket = GetBasket();
+            UpdateBasket((int)id, basket);
+            return RedirectToAction("basket", "Product");
         }
 
         //Cookie
@@ -157,10 +140,37 @@ namespace WoltApp.Controllers
                 StockCount = DbProduct.Count,
                 Catagory = DbProduct.Category.Name,
                 ImageURL = DbProduct.ImageURL,
-                Price = DbProduct.Price,
+                Price = DbProduct.Price*item.Count,
                 DiscountPercent = DbProduct.DiscountPercent,
                 IsActive = DbProduct.IsDeleted
             };
+        }
+
+        //User Add Basket
+        public async Task AddBasketItem(int productid)
+        {
+            ClaimsPrincipal currentUser = User;
+            var userId = _userManager.GetUserId(User);
+            BasketItem basketItem = _context.BasketItems.Where(b => b.AppUserId == userId && b.ProductId == productid).FirstOrDefault();
+            if (userId != null)
+            {
+
+                if (basketItem == null)
+                {
+                    basketItem = new BasketItem
+                    {
+                        AppUserId = userId,
+                        ProductId = productid,
+                        Count = 1
+                    };
+                    await _context.BasketItems.AddAsync(basketItem);
+                }
+                else
+                {
+                    basketItem.Count += 1;
+                }
+            }
+            await _context.SaveChangesAsync();
         }
 
         //User basket
@@ -172,6 +182,8 @@ namespace WoltApp.Controllers
             UserBasketDTO userBasket = new UserBasketDTO
             {
                 basketItemDTOs = model
+                
+                
             };
             return View(userBasket);
 
@@ -208,7 +220,7 @@ namespace WoltApp.Controllers
                 StockCount = DbProduct.Count,
                 Catagory = DbProduct.Category.Name,
                 ImageURL = DbProduct.ImageURL,
-                Price = DbProduct.Price,
+                Price=DbProduct.Price*item.Count,
                 DiscountPercent = DbProduct.DiscountPercent,
                 IsActive = DbProduct.IsDeleted
             };
@@ -243,7 +255,7 @@ namespace WoltApp.Controllers
             {
                 BasketItem dbBasketItem = _context.BasketItems.FirstOrDefault(x => x.AppUserId == user.Id && x.Id == id && x.IsDeleted == false);
                 if (dbBasketItem == null) return RedirectToAction("Index", "Error");
-                    if (dbBasketItem.Count == 1 || dbBasketItem.Count <= 0)
+                if (dbBasketItem.Count == 1 || dbBasketItem.Count <= 0)
                 {
 
                     _context.BasketItems.Remove(dbBasketItem);
@@ -272,7 +284,6 @@ namespace WoltApp.Controllers
                 HttpContext.Response.Cookies.Append("basket", JsonConvert.SerializeObject(productBaskets));
                 return RedirectToAction("Basket", "Product");
             }
-            return View();
         }
     }
 }

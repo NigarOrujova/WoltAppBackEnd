@@ -6,7 +6,7 @@ namespace WoltBusiness.DTOs.Basket
 {
     public class UserBasketDTO
     {
-        public List<BasketDTO> basketDTOs { get; set; }
-        public decimal TotalCount { get; set; }
+        public List<BasketItemDTO> basketItemDTOs { get; set; }
+
     }
 }

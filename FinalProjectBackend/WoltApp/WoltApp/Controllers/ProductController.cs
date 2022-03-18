@@ -52,10 +52,9 @@ namespace WoltApp.Controllers
             return View(basketItems);
         }
 
-        //User basket
+        //User Add Basket
         public async Task AddBasketItem(int productid)
         {
-            UserBasketDTO data = null;
                 ClaimsPrincipal currentUser = User;
                 var userId = _userManager.GetUserId(User);
                 BasketItem basketItem = _context.BasketItems.Where(b => b.AppUserId == userId && b.ProductId == productid).FirstOrDefault();
@@ -78,34 +77,9 @@ namespace WoltApp.Controllers
                     }
                 }
                 await _context.SaveChangesAsync();
-            data = _getBasketItems(await _context.BasketItems.Include(x => x.Product).Where(x => x.AppUserId == userId).ToListAsync());
         }
 
-        //User Basket
-        private UserBasketDTO _getBasketItems(List<BasketItem> basketItems)
-        {
-            UserBasketDTO basket = new UserBasketDTO
-            {
-                basketDTOs = new List<BasketDTO>(),
-            };
-
-            foreach (BasketItem item in basketItems)
-            {
-                BasketDTO basketItem = new BasketDTO
-                {
-                    Title = item.Product.Title,
-                    Price = item.Product.Price,
-                    ProductId = item.Product.Id,
-                    Count = item.Count,
-                    ImageURL = item.Product.ImageURL,
-                    DiscountPercent = item.Product.DiscountPercent
-                };
-                basket.basketDTOs.Add(basketItem);
-            }
-
-            return basket;
-        }
-
+        //Cookie
         public async Task<IActionResult> AddBasket(int? id)
         {
             if (id == null) return RedirectToAction("Index", "Error");
@@ -115,6 +89,8 @@ namespace WoltApp.Controllers
             UpdateBasket((int)id, basket);
             return RedirectToAction("Index", "Home");
         }
+
+        //Cookie
         public List<BasketDTO> GetBasket()
         {
             List<BasketDTO> basket;
@@ -128,6 +104,8 @@ namespace WoltApp.Controllers
             }
             return basket;
         }
+
+        //cookie
         public void UpdateBasket(int productid, List<BasketDTO> basket)
         {
             BasketDTO BasketProduct = basket.Find(p => p.Id == productid);
@@ -145,55 +123,95 @@ namespace WoltApp.Controllers
             }
             Response.Cookies.Append("basket", JsonConvert.SerializeObject(basket));
         }
+
+        //cookie
         public async Task<IActionResult> Basket()
         {
             List<BasketDTO> basket = GetBasket();
             List<BasketDTO> model = await GetBasketList(basket);
             return View(model);
         }
-        public  async Task<List<BasketDTO>> GetBasketList(List<BasketDTO> basket)
+
+        //cookie
+        public async Task<List<BasketDTO>> GetBasketList(List<BasketDTO> basket)
         {
             List<BasketDTO> model = new List<BasketDTO>();
             foreach (BasketDTO item in basket)
             {
-                Product DbProduct = await _context.Products.Include(p=>p.Category).Include(p=>p.RestaurantProducts).ThenInclude(p=>p.Restaurant)
+                Product DbProduct = await _context.Products.Include(p => p.Category).Include(p => p.RestaurantProducts).ThenInclude(p => p.Restaurant)
                                                     .FirstOrDefaultAsync(p => p.Id == item.Id);
-                BasketDTO itemDTO = getBasketItem(item, DbProduct);
+                BasketDTO itemDTO = GetBasketItem(item, DbProduct);
                 model.Add(itemDTO);
             }
             return model;
         }
-        private BasketDTO getBasketItem(BasketDTO item, Product DbProduct)
+
+        //cookie
+        private BasketDTO GetBasketItem(BasketDTO item, Product DbProduct)
         {
             return new BasketDTO
             {
-                Id=item.Id,
+                Id = item.Id,
                 Title = DbProduct.Title,
                 Count = item.Count,
                 StockCount = DbProduct.Count,
-                Catagory=DbProduct.Category.Name,
+                Catagory = DbProduct.Category.Name,
                 ImageURL = DbProduct.ImageURL,
                 Price = DbProduct.Price,
-                DiscountPercent=DbProduct.DiscountPercent,
+                DiscountPercent = DbProduct.DiscountPercent,
                 IsActive = DbProduct.IsDeleted
             };
         }
+
+        //User basket
         public async Task<IActionResult> ShowBasketItems()
         {
-            var userId = _userManager.GetUserId(User);
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            List<BasketItem> basket = GetBasket(user.Id);
+            List<BasketItemDTO> model = await GetBasketList(basket);
+            UserBasketDTO userBasket = new UserBasketDTO
+            {
+                basketItemDTOs = model
+            };
+            return View(userBasket);
 
-            var ProductIds =await _context.BasketItems
-                    .Where(f => f.AppUserId == userId)
-                    .Select(m => m.ProductId)
-                    .Distinct()
-                    .ToListAsync();
+        }
 
-            var basketItem =await _context.Products
-                                .Where(m => ProductIds.Contains(m.Id))
-                                .ToListAsync();
+        //userbasket
+        private async Task<List<BasketItemDTO>> GetBasketList(List<BasketItem> basket)
+        {
+            List<BasketItemDTO> model = new List<BasketItemDTO>();
+            foreach (BasketItem item in basket)
+            {
+                Product dbProduct = await _context.Products.Include(x => x.Category).FirstOrDefaultAsync(x => x.Id == item.ProductId);
+                BasketItemDTO basketItemDTO = getBasketItem(item, dbProduct);
+                model.Add(basketItemDTO);
+            }
+            return model;
+        }
 
-            return View(basketItem);
+        //user basket
+        private List<BasketItem> GetBasket(string userId)
+        {
+            var basket = _context.BasketItems.Where(x => x.AppUserId == userId).ToList();
+            return basket;
+        }
 
+        //user basket 
+        private BasketItemDTO getBasketItem(BasketItem item, Product DbProduct)
+        {
+            return new BasketItemDTO
+            {
+                Id = item.Id,
+                Title = DbProduct.Title,
+                Count = item.Count,
+                StockCount = DbProduct.Count,
+                Catagory = DbProduct.Category.Name,
+                ImageURL = DbProduct.ImageURL,
+                Price = DbProduct.Price,
+                DiscountPercent = DbProduct.DiscountPercent,
+                IsActive = DbProduct.IsDeleted
+            };
         }
 
         [HttpPost]

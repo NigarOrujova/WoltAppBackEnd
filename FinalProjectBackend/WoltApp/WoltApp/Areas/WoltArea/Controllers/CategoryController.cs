@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WoltBusiness.DTOs;
 using WoltDataAccess.DAL;
 using WoltEntity.Entities;
 using WoltEntity.Utilities.File;
@@ -22,13 +23,42 @@ namespace WoltApp.Areas.WoltArea.Controllers
             _context = context;
             _env = env;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int take = 5)
         {
             List<Category> categories = await _context.Categories.Where(x => x.IsDeleted == false)
-                                             .Include(x => x.RestaurantCategories).ThenInclude(x => x.Category)
-                                             .Include(x => x.StoreCategories).ThenInclude(x => x.Store)
-                                             .ToListAsync();
-            return View(categories);
+                                                                 .OrderByDescending(p => p.Id)
+                                                                 .Skip((page - 1) * take)
+                                                                 .Take(take)
+                                                                 .Include(x => x.RestaurantCategories).ThenInclude(x => x.Category)
+                                                                 .Include(x => x.StoreCategories).ThenInclude(x => x.Store)
+                                                                 .ToListAsync();
+            var categoryVms = GetCategoryList(categories);
+            int pageCount = GetPageCount(take);
+            Paginate<CategoryDTO> model = new Paginate<CategoryDTO>(categoryVms, page, pageCount);
+            return View(model);
+        }
+
+        private List<CategoryDTO> GetCategoryList(List<Category> categories)
+        {
+            List<CategoryDTO> model = new List<CategoryDTO>();
+            foreach (var item in categories)
+            {
+                var category = new CategoryDTO
+                {
+                    Id = item.Id,
+                    Name=item.Name,
+                    IsDeleted = item.IsDeleted,
+                    ImageURL = item.ImageURL
+                };
+                model.Add(category);
+            }
+            return model;
+        }
+
+        private int GetPageCount(int take)
+        {
+            var productCount = _context.Categories.Where(p => p.IsDeleted == false).Count();
+            return (int)Math.Ceiling(((decimal)productCount / take)+1);
         }
 
         //GET - Create

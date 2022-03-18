@@ -703,6 +703,8 @@ body {
   padding: 0;
 }
 
+
+
 #header .navbar .show-basket {
     border: none;
     position: relative;
@@ -756,8 +758,7 @@ body {
   width: 250px;
   height: 40px;
   border: 1px solid #00aaf3;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+  border-radius:5px;
   text-align: center;
   padding: 10px;
   display: -webkit-box;
@@ -778,57 +779,74 @@ body {
   padding: 8px;
 }
 
-#header .searchbar .search-btn {
-  border: 1px solid #00aaf3;
-  background: #00aaf3;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  width: 50px;
-  height: 40px;
+#products #about .comment .comment-input {
+    width: 250px;
+    height: 40px;
+    border: 1px solid #00aaf3;
+    border-radius: 5px;
+    text-align: center;
+    padding: 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
 }
 
-#header .searchbar .search-btn i {
-  color: white;
+#products #about .col-lg-12 .owl-nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: end;
+    font-size: 18px;
 }
 
-#header .searchbar .search-btn:hover {
-  background: #00aaf3;
+#products #about .owl-nav button:hover{
+    background-color: rgba(255, 255, 255, 0);
+}
+
+#products #about .owl-nav button:hover span{
+    color: #00aaf3;
+    border: 1px solid #00aaf3;
 }
 
 #header .basket .btn {
-  border: none;
-  position: relative;
-  z-index: 0;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-      align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-      justify-content: center;
-  -webkit-font-feature-settings: "kern";
-          font-feature-settings: "kern";
-  -webkit-font-smoothing: antialiased;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  font-style: normal;
-  font-stretch: normal;
-  text-transform: none;
-  font-weight: 700;
-  width: 100%;
-  max-width: 100%;
-  cursor: pointer;
-  padding: 0px 1rem;
-  min-height: 3.375rem;
-  border-radius: 0.5rem;
-  background: #00aaf3;
-  color: white;
+    border: none;
+    position: relative;
+    z-index: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-font-feature-settings: "kern";
+    font-feature-settings: "kern";
+    -webkit-font-smoothing: antialiased;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-style: normal;
+    font-stretch: normal;
+    text-transform: none;
+    font-weight: 700;
+    width: 100%;
+    max-width: 100%;
+    cursor: pointer;
+    padding: 0px 1rem;
+    min-height: 3.375rem;
+    border-radius: 0.5rem;
+    background: #00aaf3;
+    color: white;
 }
 
 #header .basket .btn .badge {

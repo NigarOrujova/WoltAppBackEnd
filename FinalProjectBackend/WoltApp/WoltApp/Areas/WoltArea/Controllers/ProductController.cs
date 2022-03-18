@@ -44,7 +44,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
         private int GetPageCount(int take)
         {
             var productCount = _context.Products.Where(p => p.IsDeleted == false).Count();
-            return (int)Math.Ceiling(((decimal)productCount / take));
+            return (int)Math.Ceiling(((decimal)productCount / take)+1);
         }
         private List<ProductDTO> GetProductList(List<Product> products)
         {
@@ -75,8 +75,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
             return View();
         }
 
-
-        #region  Create- Post
+        //POST - Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Product product)
@@ -147,7 +146,8 @@ namespace WoltApp.Areas.WoltArea.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        #endregion
+
+        //GET - Update
         public async Task<IActionResult> Update(int id)
         {
             ViewBag.Categories = new SelectList(await _context.Categories
@@ -159,6 +159,8 @@ namespace WoltApp.Areas.WoltArea.Controllers
             product.StoreIds = await _context.StoreProducts.Select(x => x.StoreId).ToListAsync();
             return View(product);
         }
+
+        //POST - Delete
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Delete")]
@@ -168,7 +170,9 @@ namespace WoltApp.Areas.WoltArea.Controllers
                                               .Where(p => p.IsDeleted == false && p.Id == id)
                                               .FirstOrDefaultAsync();
             if (dbproduct == null) return NotFound();
-            dbproduct.IsDeleted = true;
+            //dbproduct.IsDeleted = true;
+            Helper.RemoveFile(_env.WebRootPath, "assets/img", dbproduct.ImageURL);
+            _context.Products.Remove(dbproduct);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Product");
         }

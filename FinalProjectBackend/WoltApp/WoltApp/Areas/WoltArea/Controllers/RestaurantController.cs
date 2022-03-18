@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WoltBusiness.DTOs;
 using WoltDataAccess.DAL;
 using WoltEntity.Entities;
 using WoltEntity.Utilities.File;
@@ -22,14 +23,48 @@ namespace WoltApp.Areas.WoltArea.Controllers
             _context = context;
             _env = env;
         }
-        public async  Task<IActionResult> Index()
+        public async  Task<IActionResult> Index(int page = 1, int take = 5)
         {
             List<Restaurant> restaurants = await _context.Restaurants
+                                                         .OrderByDescending(p => p.Id)
+                                                         .Skip((page - 1) * take)
+                                                         .Take(take)
                                                          .Include(x=>x.RestaurantCategories).ThenInclude(x=>x.Category)
                                                          .Include(x=>x.RestaurantProducts).ThenInclude(x=>x.Product)
                                                          .ToListAsync();
-            return View(restaurants);
+            var restaurantVms = GetRestaurantList(restaurants);
+            int pageCount = GetPageCount(take);
+            Paginate<RestaurantDTO> model = new Paginate<RestaurantDTO>(restaurantVms, page, pageCount);
+            return View(model);
         }
+        private int GetPageCount(int take)
+        {
+            var restaurantCount = _context.Restaurants.Count();
+            return (int)Math.Ceiling(((decimal)restaurantCount / take)+1);
+        }
+        private List<RestaurantDTO> GetRestaurantList(List<Restaurant> restaurants)
+        {
+            List<RestaurantDTO> model = new List<RestaurantDTO>();
+            foreach (var item in restaurants)
+            {
+                var restaurant = new RestaurantDTO
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Description = item.Description,
+                    Address=item.Address,
+                    ContactNumber=item.ContactNumber,
+                    DiscountPercent = item.DiscountPercent,
+                    IsDeleted = item.IsDeleted,
+                    IsNew = item.IsNew,
+                    ImageURL = item.ImageURL,
+                    HeroImageURL=item.HeroImageURL
+                };
+                model.Add(restaurant);
+            }
+            return model;
+        }
+
         //GET - Create
         public IActionResult Create()
         {
@@ -110,6 +145,8 @@ namespace WoltApp.Areas.WoltArea.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        //GET - Update
         public async Task<IActionResult> Update(int? id)
         {
             ViewBag.Products = _context.Products.ToList();
@@ -120,6 +157,8 @@ namespace WoltApp.Areas.WoltArea.Controllers
             restaurant.ProductIds = await _context.RestaurantProducts.Select(x => x.ProductId).ToListAsync();
             return View(restaurant);
         }
+
+        //POST - Update
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int? id, Restaurant restaurant)
@@ -195,6 +234,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
         //GET - Details
         public async Task<IActionResult> Details(int? id)
         {
@@ -204,15 +244,18 @@ namespace WoltApp.Areas.WoltArea.Controllers
 
             return View(restaurant);
         }
+
+        //POST - Delete
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             Restaurant restaurant = await _context.Restaurants.FindAsync(id);
             if (restaurant == null) return NotFound();
-            restaurant.IsDeleted = true;
-            //Helper.RemoveFile(_env.WebRootPath, "assets/img", restaurant.ImageURL);
-            //_context.Restaurants.Remove(restaurant);
+            //restaurant.IsDeleted = true;
+            Helper.RemoveFile(_env.WebRootPath, "assets/img", restaurant.ImageURL);
+            Helper.RemoveFile(_env.WebRootPath, "assets/img", restaurant.HeroImageURL);
+            _context.Restaurants.Remove(restaurant);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

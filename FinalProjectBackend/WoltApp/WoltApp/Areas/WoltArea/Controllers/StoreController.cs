@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WoltBusiness.DTOs;
 using WoltDataAccess.DAL;
 using WoltEntity.Entities;
 using WoltEntity.Utilities.File;
@@ -22,14 +23,48 @@ namespace WoltApp.Areas.WoltArea.Controllers
             _context = context;
             _env = env;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int take = 5)
         {
             List<Store> stores = await _context.Stores
+                                               .OrderByDescending(p => p.Id)
+                                               .Skip((page - 1) * take)
+                                               .Take(take)
                                              .Include(x => x.StoreCategories).ThenInclude(x => x.Category)
                                              .Include(x => x.StoreProducts).ThenInclude(x => x.Product)
                                              .ToListAsync();
-            return View(stores);
+            var storeVms = GetStoresList(stores);
+            int pageCount = GetPageCount(take);
+            Paginate<StoreDTO> model = new Paginate<StoreDTO>(storeVms, page, pageCount);
+            return View(model);
         }
+        private int GetPageCount(int take)
+        {
+            var storeCount = _context.Stores.Count();
+            return (int)Math.Ceiling(((decimal)storeCount / take)+1);
+        }
+        private List<StoreDTO> GetStoresList(List<Store> stores)
+        {
+            List<StoreDTO> model = new List<StoreDTO>();
+            foreach (var item in stores)
+            {
+                var store  = new StoreDTO
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Description = item.Description,
+                    Address = item.Address,
+                    ContactNumber = item.ContactNumber,
+                    DiscountPercent = item.DiscountPercent,
+                    IsDeleted = item.IsDeleted,
+                    IsNew = item.IsNew,
+                    ImageURL = item.ImageURL,
+                    HeroImageURL = item.HeroImageURL
+                };
+                model.Add(store);
+            }
+            return model;
+        }
+
         //GET - Create
         public IActionResult Create()
         {
@@ -37,6 +72,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
             ViewBag.Categories = _context.Categories.ToList();
             return View();
         }
+
         //POST - Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -118,6 +154,8 @@ namespace WoltApp.Areas.WoltArea.Controllers
             if (store.Id != id) return BadRequest();
             return View(store);
         }
+
+        //POST - Update
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int? id, Store store)
@@ -193,15 +231,18 @@ namespace WoltApp.Areas.WoltArea.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        //POST - Delete
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             Store store = await _context.Stores.FindAsync(id);
             if (store == null) return NotFound();
-            store.IsDeleted = true;
-            //Helper.RemoveFile(_env.WebRootPath, "assets/img", restaurant.ImageURL);
-            //_context.Restaurants.Remove(restaurant);
+            //store.IsDeleted = true;
+            Helper.RemoveFile(_env.WebRootPath, "assets/img", store.ImageURL);
+            Helper.RemoveFile(_env.WebRootPath, "assets/img", store.HeroImageURL);
+            _context.Stores.Remove(store);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

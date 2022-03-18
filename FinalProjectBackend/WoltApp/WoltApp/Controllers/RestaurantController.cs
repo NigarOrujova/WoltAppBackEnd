@@ -41,13 +41,13 @@ namespace WoltApp.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Comment(RestaurantDTO restaurant)
+        public async Task<IActionResult> Comment(RestaurantDTO restaurantDTO)
         {
             var comment = new Comment()
             {
-                Content =restaurant.Content,
-                RestaurantId=restaurant.RestaurantId,
-                UserName=restaurant.UserName
+                Content = restaurantDTO.Content,
+                RestaurantId= restaurantDTO.RestaurantId,
+                UserName= restaurantDTO.UserName
             };
             await _context.Comments.AddAsync(comment);
             await _context.SaveChangesAsync();

@@ -16,6 +16,12 @@
                         <div class="card">
                             <div class="imgArea">
                                 <img src="~/assets/img/@item.Store.ImageURL" alt="...">
+                                @if (item.Store.IsDeleted == true)
+                                {
+                                    <div class="res-close" style=" background: rgba(0, 0, 0, 0.5); position: absolute; left: 0; right: 0; top: 0; bottom: 0;">
+                                        <h5 class="h-100 d-flex align-items-center justify-content-center text-white">Bağlıdır</h5>
+                                    </div>
+                                }
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">@item.Store.Name</h5>

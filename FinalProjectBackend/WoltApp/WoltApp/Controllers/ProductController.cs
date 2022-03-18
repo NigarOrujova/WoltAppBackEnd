@@ -241,8 +241,9 @@ namespace WoltApp.Controllers
             AppUser user = User.Identity.IsAuthenticated ? await _userManager.FindByNameAsync(User.Identity.Name) : null;
             if (User.Identity.IsAuthenticated)
             {
-                BasketItem dbBasketItem = _context.BasketItems.FirstOrDefault(x => x.AppUserId == user.Id && x.ProductId == id && x.IsDeleted == false);
-                if (dbBasketItem.Count == 1)
+                BasketItem dbBasketItem = _context.BasketItems.FirstOrDefault(x => x.AppUserId == user.Id && x.Id == id && x.IsDeleted == false);
+                if (dbBasketItem == null) return RedirectToAction("Index", "Error");
+                    if (dbBasketItem.Count == 1 || dbBasketItem.Count <= 0)
                 {
 
                     _context.BasketItems.Remove(dbBasketItem);
@@ -252,14 +253,15 @@ namespace WoltApp.Controllers
                     dbBasketItem.Count--;
                 }
                 await _context.SaveChangesAsync();
+                return RedirectToAction("ShowBasketItems", "Product");
             }
             else
             {
                 string basketItms = HttpContext.Request.Cookies["basket"];
                 productBaskets = JsonConvert.DeserializeObject<List<BasketDTO>>(basketItms);
-                BasketDTO BasketProduct = productBaskets.FirstOrDefault(p => p.ProductId == id);
+                BasketDTO BasketProduct = productBaskets.FirstOrDefault(p => p.Id == id);
                 if (BasketProduct == null) return RedirectToAction("Index", "Error");
-                if (BasketProduct.Count == 1)
+                if (BasketProduct.Count == 1 || BasketProduct.Count <= 0)
                 {
                     productBaskets.Remove(BasketProduct);
                 }
@@ -268,8 +270,9 @@ namespace WoltApp.Controllers
                     BasketProduct.Count--;
                 }
                 HttpContext.Response.Cookies.Append("basket", JsonConvert.SerializeObject(productBaskets));
+                return RedirectToAction("Basket", "Product");
             }
-            return RedirectToAction("ShowBasketItems","Product");
+            return View();
         }
     }
 }

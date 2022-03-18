@@ -163,9 +163,9 @@ namespace WoltApp.Areas.WoltArea.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int? id, Restaurant restaurant)
         {
-            if (restaurant.Id != id) return BadRequest();
+            if (restaurant.Id != id) return RedirectToAction("Index", "Error");
             Restaurant resDb = await _context.Restaurants.Include(x=>x.RestaurantProducts).Include(x=>x.RestaurantCategories).Where(cd => cd.IsDeleted == false && cd.Id == id).FirstOrDefaultAsync();
-            if (resDb == null) return NotFound();
+            if (resDb == null) return RedirectToAction("Index", "Error");
             if (restaurant.Description == null) return View(resDb);
             bool isExsistFile = true;
             if (restaurant.Photo == null && restaurant.HeroPhoto==null)
@@ -238,9 +238,9 @@ namespace WoltApp.Areas.WoltArea.Controllers
         //GET - Details
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null) return RedirectToAction("Index", "Error");
             var restaurant = await _context.Restaurants.FindAsync(id);
-            if (restaurant == null) return BadRequest();
+            if (restaurant == null) RedirectToAction("Index", "Error");
 
             return View(restaurant);
         }
@@ -251,7 +251,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             Restaurant restaurant = await _context.Restaurants.FindAsync(id);
-            if (restaurant == null) return NotFound();
+            if (restaurant == null) return RedirectToAction("Index", "Error");
             //restaurant.IsDeleted = true;
             Helper.RemoveFile(_env.WebRootPath, "assets/img", restaurant.ImageURL);
             Helper.RemoveFile(_env.WebRootPath, "assets/img", restaurant.HeroImageURL);

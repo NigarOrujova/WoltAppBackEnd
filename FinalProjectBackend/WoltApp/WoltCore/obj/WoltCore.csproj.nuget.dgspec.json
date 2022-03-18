@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Nigar\\Desktop\\New folder (6)\\FinalProject\\FinalProjectBackend\\WoltApp\\WoltCore\\WoltCore.csproj": {}
+    "C:\\Users\\Nigar\\Desktop\\New folder (7)\\FinalProject\\FinalProjectBackend\\WoltApp\\WoltCore\\WoltCore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Nigar\\Desktop\\New folder (6)\\FinalProject\\FinalProjectBackend\\WoltApp\\WoltCore\\WoltCore.csproj": {
+    "C:\\Users\\Nigar\\Desktop\\New folder (7)\\FinalProject\\FinalProjectBackend\\WoltApp\\WoltCore\\WoltCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nigar\\Desktop\\New folder (6)\\FinalProject\\FinalProjectBackend\\WoltApp\\WoltCore\\WoltCore.csproj",
+        "projectUniqueName": "C:\\Users\\Nigar\\Desktop\\New folder (7)\\FinalProject\\FinalProjectBackend\\WoltApp\\WoltCore\\WoltCore.csproj",
         "projectName": "WoltCore",
-        "projectPath": "C:\\Users\\Nigar\\Desktop\\New folder (6)\\FinalProject\\FinalProjectBackend\\WoltApp\\WoltCore\\WoltCore.csproj",
+        "projectPath": "C:\\Users\\Nigar\\Desktop\\New folder (7)\\FinalProject\\FinalProjectBackend\\WoltApp\\WoltCore\\WoltCore.csproj",
         "packagesPath": "C:\\Users\\Nigar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nigar\\Desktop\\New folder (6)\\FinalProject\\FinalProjectBackend\\WoltApp\\WoltCore\\obj\\",
+        "outputPath": "C:\\Users\\Nigar\\Desktop\\New folder (7)\\FinalProject\\FinalProjectBackend\\WoltApp\\WoltCore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

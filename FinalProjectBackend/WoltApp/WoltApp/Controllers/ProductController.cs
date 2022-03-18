@@ -52,8 +52,10 @@ namespace WoltApp.Controllers
             return View(basketItems);
         }
 
+        //User basket
         public async Task AddBasketItem(int productid)
         {
+            UserBasketDTO data = null;
                 ClaimsPrincipal currentUser = User;
                 var userId = _userManager.GetUserId(User);
                 BasketItem basketItem = _context.BasketItems.Where(b => b.AppUserId == userId && b.ProductId == productid).FirstOrDefault();
@@ -76,13 +78,39 @@ namespace WoltApp.Controllers
                     }
                 }
                 await _context.SaveChangesAsync();
+            data = _getBasketItems(await _context.BasketItems.Include(x => x.Product).Where(x => x.AppUserId == userId).ToListAsync());
+        }
+
+        //User Basket
+        private UserBasketDTO _getBasketItems(List<BasketItem> basketItems)
+        {
+            UserBasketDTO basket = new UserBasketDTO
+            {
+                basketDTOs = new List<BasketDTO>(),
+            };
+
+            foreach (BasketItem item in basketItems)
+            {
+                BasketDTO basketItem = new BasketDTO
+                {
+                    Title = item.Product.Title,
+                    Price = item.Product.Price,
+                    ProductId = item.Product.Id,
+                    Count = item.Count,
+                    ImageURL = item.Product.ImageURL,
+                    DiscountPercent = item.Product.DiscountPercent
+                };
+                basket.basketDTOs.Add(basketItem);
+            }
+
+            return basket;
         }
 
         public async Task<IActionResult> AddBasket(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null) return RedirectToAction("Index", "Error");
             Product dbProduct = await _context.Products.FindAsync(id);
-            if (dbProduct == null) return BadRequest();
+            if (dbProduct == null) return RedirectToAction("Index", "Error");
             List<BasketDTO> basket = GetBasket();
             UpdateBasket((int)id, basket);
             return RedirectToAction("Index", "Home");
@@ -190,7 +218,7 @@ namespace WoltApp.Controllers
         }
         public async Task<IActionResult> RemoveProductFromBasket(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null) return RedirectToAction("Index", "Error");
             List<BasketDTO> productBaskets = new List<BasketDTO>();
             AppUser user = User.Identity.IsAuthenticated ? await _userManager.FindByNameAsync(User.Identity.Name) : null;
             if (User.Identity.IsAuthenticated)
@@ -212,7 +240,7 @@ namespace WoltApp.Controllers
                 string basketItms = HttpContext.Request.Cookies["basket"];
                 productBaskets = JsonConvert.DeserializeObject<List<BasketDTO>>(basketItms);
                 BasketDTO BasketProduct = productBaskets.FirstOrDefault(p => p.ProductId == id);
-                if (BasketProduct == null) return NotFound();
+                if (BasketProduct == null) return RedirectToAction("Index", "Error");
                 if (BasketProduct.Count == 1)
                 {
                     productBaskets.Remove(BasketProduct);

@@ -749,3 +749,15 @@ C:\Users\Nigar\Desktop\New folder (6)\FinalProject\FinalProjectBackend\WoltApp\W
 C:\Users\Nigar\Desktop\New folder (6)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Areas\WoltArea\Views\Category\Create.cshtml.g.cs
 C:\Users\Nigar\Desktop\New folder (6)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Areas\WoltArea\Views\Category\Update.cshtml.g.cs
 C:\Users\Nigar\Desktop\New folder (6)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Product\_PaypalPartial.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (7)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Areas\WoltArea\Views\Category\Create.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (7)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Areas\WoltArea\Views\Category\Update.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (7)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Areas\WoltArea\Views\Product\Create.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (7)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Areas\WoltArea\Views\Product\Update.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (7)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Areas\WoltArea\Views\Slider\Create.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (7)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Areas\WoltArea\Views\Slider\Update.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (7)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Areas\WoltArea\Views\Store\Create.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (7)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Areas\WoltArea\Views\Store\Index.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (7)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Areas\WoltArea\Views\Store\Update.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (7)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\AboutUs\Index.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (7)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Error\Index.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (7)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Product\_PaypalPartial.cshtml.g.cs

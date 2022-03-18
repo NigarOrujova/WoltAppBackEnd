@@ -12,6 +12,7 @@ namespace WoltEntity.Entities
         public string Description { get; set; }
         public decimal Price { get; set; }
         public int Count { get; set; }
+        public int BasketCount { get; set; }
         public string ImageURL { get; set; }
         public IFormFile Photo { get; set; }
         public bool IsDeleted { get; set; }

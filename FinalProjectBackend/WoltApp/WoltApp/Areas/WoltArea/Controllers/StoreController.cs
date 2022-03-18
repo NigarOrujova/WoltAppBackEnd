@@ -151,7 +151,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
             ViewBag.Products = _context.Products.ToList();
             ViewBag.Categories = _context.Categories.ToList();
             Store store = await _context.Stores.Where(r => r.IsDeleted == false && r.Id == id).FirstOrDefaultAsync();
-            if (store.Id != id) return BadRequest();
+            if (store.Id != id) return RedirectToAction("Index", "Error");
             return View(store);
         }
 
@@ -160,9 +160,9 @@ namespace WoltApp.Areas.WoltArea.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int? id, Store store)
         {
-            if (store.Id != id) return BadRequest();
+            if (store.Id != id) return RedirectToAction("Index", "Error");
             Store stoDb = await _context.Stores.Include(x => x.StoreProducts).Include(x => x.StoreCategories).Where(cd => cd.IsDeleted == false && cd.Id == id).FirstOrDefaultAsync();
-            if (stoDb == null) return NotFound();
+            if (stoDb == null) return RedirectToAction("Index", "Error");
             if (store.Description == null) return View(stoDb);
             bool isExsistFile = true;
             if (store.Photo == null && store.HeroPhoto == null)
@@ -238,7 +238,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             Store store = await _context.Stores.FindAsync(id);
-            if (store == null) return NotFound();
+            if (store == null) return RedirectToAction("Index", "Error");
             //store.IsDeleted = true;
             Helper.RemoveFile(_env.WebRootPath, "assets/img", store.ImageURL);
             Helper.RemoveFile(_env.WebRootPath, "assets/img", store.HeroImageURL);

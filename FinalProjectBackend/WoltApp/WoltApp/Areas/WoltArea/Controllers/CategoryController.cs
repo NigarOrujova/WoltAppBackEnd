@@ -146,7 +146,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
             ViewBag.restaurants = _context.Restaurants.ToList();
             ViewBag.stores = _context.Stores.ToList();
             Category category = await _context.Categories.Include(x => x.StoreCategories).Include(x => x.RestaurantCategories).Where(r => r.IsDeleted == false && r.Id == id).FirstOrDefaultAsync();
-            if (category.Id != id) return BadRequest();
+            if (category.Id != id) return RedirectToAction("Index", "Error");
             category.RestaurantIds = await _context.RestaurantCategories.Select(x => x.RestaurantId).ToListAsync();
             category.StoreIds = await _context.StoreCategories.Select(x => x.StoreId).ToListAsync();
             return View(category);
@@ -157,9 +157,9 @@ namespace WoltApp.Areas.WoltArea.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int? id, Category category)
         {
-            if (category.Id != id) return BadRequest();
+            if (category.Id != id) return RedirectToAction("Index", "Error");
             Category categoryDb = await _context.Categories.Include(x => x.StoreCategories).Include(x => x.RestaurantCategories).Where(cd => cd.IsDeleted == false && cd.Id == id).FirstOrDefaultAsync();
-            if (categoryDb == null) return NotFound();
+            if (categoryDb == null) return RedirectToAction("Index", "Error");
             bool isExsistFile = true;
             if (category.Photo == null)
             {
@@ -212,7 +212,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
         public IActionResult Delete(int id)
         {
             Category category = _context.Categories.Find(id);
-            if (category == null) return NotFound();
+            if (category == null) return RedirectToAction("Index", "Error");
             return View(category);
         }
 
@@ -225,7 +225,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
             Category dbCategory = await _context.Categories
                                                 .Where(c => c.IsDeleted == false && c.Id == id)
                                                 .FirstOrDefaultAsync();
-            if (dbCategory == null) return NotFound();
+            if (dbCategory == null) return RedirectToAction("Index", "Error");
             //_context.Remove(dbCategory);
             //await _context.SaveChangesAsync();
             dbCategory.IsDeleted = true;

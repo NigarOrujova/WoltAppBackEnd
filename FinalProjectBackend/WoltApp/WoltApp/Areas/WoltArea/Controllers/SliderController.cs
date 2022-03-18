@@ -109,7 +109,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             Slider slider = await _context.Sliders.FindAsync(id);
-            if (slider == null) return NotFound();
+            if (slider == null) return RedirectToAction("Index", "Error");
             Helper.RemoveFile(_env.WebRootPath, "assets/img", slider.ImageURL);
             _context.Sliders.Remove(slider);
             await _context.SaveChangesAsync();
@@ -124,10 +124,10 @@ namespace WoltApp.Areas.WoltArea.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int id, Slider slider)
         {
-            if (id != slider.Id) return BadRequest();
+            if (id != slider.Id) return RedirectToAction("Index", "Error");
             if (ModelState["Photo"].ValidationState == ModelValidationState.Invalid) return RedirectToAction(nameof(Index));
             Slider dbSlider = await _context.Sliders.FindAsync(id);
-            if (dbSlider == null) return NotFound();
+            if (dbSlider == null) return RedirectToAction("Index", "Error");
             if (!slider.Photo.CheckFileType("image/"))
             {
                 ModelState.AddModelError("Photo", "File should be image type");

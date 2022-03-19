@@ -79,7 +79,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
         {
             ViewBag.Products = _context.Products.ToList();
             ViewBag.Categories = _context.Categories.ToList();
-            if (!ModelState.IsValid) return View(restaurant);
+            if (!ModelState.IsValid) return RedirectToAction("Index","Error");
             if (restaurant.CategoryIds != null)
             {
                 restaurant.RestaurantCategories = new List<RestaurantCategory>();
@@ -151,8 +151,9 @@ namespace WoltApp.Areas.WoltArea.Controllers
         {
             ViewBag.Products = _context.Products.ToList();
             ViewBag.Categories = _context.Categories.ToList();
-            Restaurant restaurant = await _context.Restaurants.Include(x => x.RestaurantProducts).Include(x => x.RestaurantCategories).Where(r => r.IsDeleted == false && r.Id == id).FirstOrDefaultAsync();
-            if (restaurant.Id != id) return BadRequest();
+            Restaurant restaurant = await _context.Restaurants.Include(x => x.RestaurantProducts).ThenInclude(x=>x.Product)
+                                                              .Include(x => x.RestaurantCategories).ThenInclude(x=>x.Category).Where(r => r.IsDeleted == false && r.Id == id).FirstOrDefaultAsync();
+            if (restaurant.Id != id) return RedirectToAction("Index","Home");
             restaurant.CategoryIds =await _context.RestaurantCategories.Select(x => x.CategoryId).ToListAsync();
             restaurant.ProductIds = await _context.RestaurantProducts.Select(x => x.ProductId).ToListAsync();
             return View(restaurant);
@@ -161,12 +162,14 @@ namespace WoltApp.Areas.WoltArea.Controllers
         //POST - Update
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int? id, Restaurant restaurant)
+        public async Task<IActionResult> Update(Restaurant restaurant)
         {
-            if (restaurant.Id != id) return RedirectToAction("Index", "Error");
-            Restaurant resDb = await _context.Restaurants.Include(x=>x.RestaurantProducts).Include(x=>x.RestaurantCategories).Where(cd => cd.IsDeleted == false && cd.Id == id).FirstOrDefaultAsync();
+            ViewBag.Products = _context.Products.ToList();
+            ViewBag.Categories = _context.Categories.ToList();
+            Restaurant resDb = await _context.Restaurants.Include(x=>x.RestaurantProducts).ThenInclude(x=>x.Product)
+                                                         .Include(x=>x.RestaurantCategories).ThenInclude(x=>x.Category)
+                                                         .FirstOrDefaultAsync(x=>x.Id==restaurant.Id);
             if (resDb == null) return RedirectToAction("Index", "Error");
-            if (restaurant.Description == null) return View(resDb);
             bool isExsistFile = true;
             if (restaurant.Photo == null && restaurant.HeroPhoto==null)
             {
@@ -211,6 +214,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
             resDb.Discount = restaurant.Discount;
             resDb.IsNew = restaurant.IsNew;
             resDb.DiscountPercent = restaurant.DiscountPercent;
+            //resDb.RestaurantCategories.RemoveAll()
             foreach (var categoryId in restaurant.CategoryIds.Where(x => !resDb.RestaurantCategories.Any(rc => rc.CategoryId == x)))
             {
                 RestaurantCategory restaurantCategory = new RestaurantCategory
@@ -252,10 +256,10 @@ namespace WoltApp.Areas.WoltArea.Controllers
         {
             Restaurant restaurant = await _context.Restaurants.FindAsync(id);
             if (restaurant == null) return RedirectToAction("Index", "Error");
-            //restaurant.IsDeleted = true;
-            Helper.RemoveFile(_env.WebRootPath, "assets/img", restaurant.ImageURL);
-            Helper.RemoveFile(_env.WebRootPath, "assets/img", restaurant.HeroImageURL);
-            _context.Restaurants.Remove(restaurant);
+            restaurant.IsDeleted = true;
+            //Helper.RemoveFile(_env.WebRootPath, "assets/img", restaurant.ImageURL);
+            //Helper.RemoveFile(_env.WebRootPath, "assets/img", restaurant.HeroImageURL);
+            //_context.Restaurants.Remove(restaurant);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

@@ -227,7 +227,6 @@ namespace WoltApp.Areas.WoltArea.Controllers
                                                 .FirstOrDefaultAsync();
             if (dbCategory == null) return RedirectToAction("Index", "Error");
             //_context.Remove(dbCategory);
-            //await _context.SaveChangesAsync();
             dbCategory.IsDeleted = true;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

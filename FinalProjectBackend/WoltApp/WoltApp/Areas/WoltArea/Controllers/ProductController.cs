@@ -170,9 +170,9 @@ namespace WoltApp.Areas.WoltArea.Controllers
                                               .Where(p => p.IsDeleted == false && p.Id == id)
                                               .FirstOrDefaultAsync();
             if (dbproduct == null) return RedirectToAction("Index", "Error");
-            //dbproduct.IsDeleted = true;
-            Helper.RemoveFile(_env.WebRootPath, "assets/img", dbproduct.ImageURL);
-            _context.Products.Remove(dbproduct);
+            dbproduct.IsDeleted = true;
+            //Helper.RemoveFile(_env.WebRootPath, "assets/img", dbproduct.ImageURL);
+            //_context.Products.Remove(dbproduct);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Product");
         }

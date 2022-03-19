@@ -20,6 +20,7 @@ namespace WoltDataAccess.DAL
         public DbSet<BasketItem> BasketItems { get; set; }
         public DbSet<Setting> Settings { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Message> Messages { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
@@ -33,6 +34,7 @@ namespace WoltDataAccess.DAL
             modelBuilder.ApplyConfiguration(new SliderConfiguration());
             modelBuilder.ApplyConfiguration(new BasketItemConfiguration());
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
+            modelBuilder.ApplyConfiguration(new MessageConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

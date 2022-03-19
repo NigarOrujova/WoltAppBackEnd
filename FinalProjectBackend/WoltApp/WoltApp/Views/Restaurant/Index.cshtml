@@ -113,68 +113,6 @@
                         }
                     </ul>
                 </div>
-                <!-- basket -->
-                <!--<div class="basket mx-3">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            <span>View Order</span>
-            <span class="badge badge-md badge-circle badge-floating badge-light border-white">4</span>
-        </button>-->
-                <!-- modal start -->
-                <!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                 aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Your Order</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container">
-                                <div class="card">
-                                    <div class="row g-0">
-                                        <div class="col-md-1">
-                                            <div class="count">
-                                                <p></p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <h5 class="card-title"></h5>
-                                                <p class="card-text"><span>AZN</span></p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="cardImg">
-                                                <img src="~/assets/img/"
-                                                     class="img-fluid rounded-start" alt="...">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="modal-footer">
-                            <a asp-controller="Product" asp-action="Basket" class="btn btn-primary">
-                                <div class="button-content">
-                                    <div class="row">
-                                        <div class="col-1">
-                                            <span class="badge badge-md badge-circle badge-floating badge-light border-white">4</span>
-                                        </div>
-                                        <div class="col-11">
-                                            <p class="card-text">Go to checkout<span>AZN 3.90</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-    </div>-->
-
             </nav>
         </div>
     </header>
@@ -397,6 +335,12 @@
                                             <p>
                                                 @item.Content
                                             </p>
+                                            @if (item.UserName == User.Identity.Name)
+                                            {
+                                                <form method="post" asp-controller="Restaurant" asp-action="DeleteComment" asp-route-id="@item.Id">
+                                                    <button type="submit" class="btn btn-pinterest"> Delete </button>
+                                                </form>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -407,7 +351,11 @@
                         <input class="comment-input" asp-for="@Model.Content" placeholder="Rəy bildirin" />
                         <input asp-for="@Model.UserName" hidden value="@User.Identity.Name"/>
                         <input asp-for="@Model.RestaurantId" hidden  value="@Model.Restaurant.Id"/>
+                        <button type="submit">send</button>
                     </form>
+                    @*<form asp-controller="Restaurant" asp-action="Comment">
+                        <button type="submit" class="btn btn-primary">Butun Reyler</button>
+                    </form>*@
                 </div>
             </div>
         </div>

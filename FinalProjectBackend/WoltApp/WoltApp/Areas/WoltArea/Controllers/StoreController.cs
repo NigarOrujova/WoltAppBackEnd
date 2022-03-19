@@ -239,10 +239,10 @@ namespace WoltApp.Areas.WoltArea.Controllers
         {
             Store store = await _context.Stores.FindAsync(id);
             if (store == null) return RedirectToAction("Index", "Error");
-            //store.IsDeleted = true;
-            Helper.RemoveFile(_env.WebRootPath, "assets/img", store.ImageURL);
-            Helper.RemoveFile(_env.WebRootPath, "assets/img", store.HeroImageURL);
-            _context.Stores.Remove(store);
+            store.IsDeleted = true;
+            //Helper.RemoveFile(_env.WebRootPath, "assets/img", store.ImageURL);
+            //Helper.RemoveFile(_env.WebRootPath, "assets/img", store.HeroImageURL);
+            //_context.Stores.Remove(store);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

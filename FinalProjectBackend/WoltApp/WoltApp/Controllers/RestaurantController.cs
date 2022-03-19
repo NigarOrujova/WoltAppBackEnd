@@ -38,6 +38,14 @@ namespace WoltApp.Controllers
             };
             return View(resDTO);
         }
+
+        //GET - Comment
+        //public IActionResult Comment()
+        //{
+        //    return View();
+        //}
+
+        //POST - Comment
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -52,6 +60,18 @@ namespace WoltApp.Controllers
             await _context.Comments.AddAsync(comment);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteComment(int? Id)
+        {
+            if (Id == null) return RedirectToAction("Index", "Error");
+            Comment comment = await _context.Comments.FindAsync(Id);
+            if (comment == null) return RedirectToAction("Index", "Error");
+            comment.IsDeleted = true;
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index","Home");
         }
     }
 }

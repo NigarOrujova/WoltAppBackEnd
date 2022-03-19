@@ -259,5 +259,15 @@ namespace WoltApp.Areas.WoltArea.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        //Detail
+        public async Task<IActionResult> Detail(int? Id)
+        {
+            if (Id == null) return RedirectToAction("Index", "Error");
+            ViewBag.RestaurantCategories = await _context.RestaurantCategories.Include(x => x.Restaurant).Include(x=>x.Category).Where(x=>x.RestaurantId==Id).ToListAsync();
+            ViewBag.RestaurantProducts = await _context.RestaurantProducts.Include(x=>x.Product).Where(x=>x.RestaurantId==Id).ToListAsync();
+
+            return View(await _context.Restaurants.Include(x => x.RestaurantProducts).ThenInclude(x => x.Product).Include(x => x.RestaurantCategories).ThenInclude(x => x.Category).FirstOrDefaultAsync(c => c.Id == Id));
+        }
     }
 }

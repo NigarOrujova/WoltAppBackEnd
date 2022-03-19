@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -145,6 +146,13 @@ namespace WoltApp.Areas.WoltArea.Controllers
             dbSlider.Description = slider.Description;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        //Detail
+        public async Task<IActionResult> Detail(int? Id)
+        {
+            if (Id == null) return RedirectToAction("Index", "Error");
+            return View(await _context.Sliders.FirstOrDefaultAsync(x => x.Id == Id));
         }
     }
 }

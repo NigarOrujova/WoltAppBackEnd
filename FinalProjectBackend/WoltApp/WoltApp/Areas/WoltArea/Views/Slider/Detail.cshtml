@@ -1,0 +1,26 @@
+﻿@model Slider
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="container">
+    <table class="table table-striped">
+        <tbody>
+        <th scope="row" class="d-flex align-items-center" style=" height: 130px;">
+            Slider Title:
+            @Model.Title
+        </th>
+        <th scope="row" class="d-flex align-items-center" style=" height: 130px;">
+            Slider Description:
+            @Model.Title
+        </th>
+        <th scope="row" class="d-flex align-items-center">
+            Slider Image:
+            <img style="height:100px" src="~/assets/img/@Model.ImageURL" alt="" />
+        </th>
+        </tbody>
+    </table>
+    <div class="mt-4 text-center">
+        <a asp-action="Index" class="btn btn-dark ml-3">Go Back</a>
+    </div>
+</div>

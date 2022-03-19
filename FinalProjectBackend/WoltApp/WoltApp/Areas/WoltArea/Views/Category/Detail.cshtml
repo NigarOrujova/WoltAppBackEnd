@@ -1,0 +1,33 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="container">
+    <table class="table table-striped">
+        <tbody>
+        <th scope="row" class="d-flex align-items-center" style=" height: 130px;">
+            Category Name:
+            @Model.Name
+        </th>
+        <th scope="row" class="d-flex align-items-center">
+            Category Image:
+            <img style="height:100px" src="~/assets/img/@Model.ImageURL" alt="" />
+        </th>
+        </tbody>
+        @foreach (var item in ViewBag.Product)
+        {
+            <tr>
+                <td>Product: @item.Title</td>
+                <td><img src="~/assets/img/@item.ImageURL" style="height:50px"></td>
+                <td>Product Description: @item.Description</td>
+                <td>StockCount: @item.Count</td>
+                <td>Price: @item.Price</td>
+            </tr>
+        }
+
+    </table>
+    <div class="mt-4 text-center">
+        <a asp-action="Index" class="btn btn-dark ml-3">Go Back</a>
+    </div>
+</div>

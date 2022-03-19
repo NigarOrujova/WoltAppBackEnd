@@ -58,7 +58,7 @@
                                     </td>
                                     <td>
                                         <form>
-                                            <button class="btn btn-primary" asp-action="Details" asp-route-id="@store.Id">
+                                            <button class="btn btn-primary" asp-action="Detail" asp-route-id="@store.Id">
                                                 <i class="bi bi-eye"></i>
                                             </button>
                                         </form>
@@ -87,7 +87,7 @@
                                                     <form method="post" asp-action="Delete" asp-route-id="@store.Id">
                                                         <button type="submit" class="btn btn-danger"> Delete </button>
                                                     </form>
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
                                         </div>

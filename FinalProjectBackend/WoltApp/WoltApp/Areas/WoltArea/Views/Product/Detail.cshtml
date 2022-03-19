@@ -1,0 +1,34 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="container">
+    <table class="table table-striped">
+        <tbody>
+        <th scope="row" class="d-flex align-items-center">
+            Product Name:
+            @Model.Title
+        </th>
+        <th scope="row" class="d-flex align-items-center">
+            Product Description:
+            @Model.Description
+        </th>
+        <th scope="row" class="d-flex align-items-center">
+            Product Image:
+            <img style="height:100px" src="~/assets/img/@Model.ImageURL" alt="" />
+        </th>
+        <th scope="row" class="d-flex align-items-center">
+            Price:
+            @Model.Price AZN
+        </th>
+        <th scope="row" class="d-flex align-items-center">
+            StockCount:
+            @Model.Count
+        </th>
+        </tbody>
+    </table>
+    <div class="mt-4 text-center">
+        <a asp-action="Index" class="btn btn-dark ml-3">Go Back</a>
+    </div>
+</div>

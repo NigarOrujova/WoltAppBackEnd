@@ -46,7 +46,7 @@
                                     </td>
                                     <td>
                                         <form>
-                                            <button class="btn btn-primary" asp-action="Details" asp-route-id="@slider.Id">
+                                            <button class="btn btn-primary" asp-action="Detail" asp-route-id="@slider.Id">
                                                 <i class="bi bi-eye"></i>
                                             </button>
                                         </form>
@@ -73,9 +73,9 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <form method="post" asp-action="Delete" asp-route-id="@slider.Id">
-                                                        <button type="submit" class="btn btn-danger"> Delete </button>
+                                                        <button type="submit" class="btn btn-pinterest"> Delete </button>
                                                     </form>
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
                                         </div>

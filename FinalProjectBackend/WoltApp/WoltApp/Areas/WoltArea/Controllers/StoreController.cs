@@ -246,5 +246,14 @@ namespace WoltApp.Areas.WoltArea.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        //Detail
+        public async Task<IActionResult> Detail(int? Id)
+        {
+            if (Id == null) return RedirectToAction("Index", "Error");
+            ViewBag.StoreCategories = await _context.StoreCategories.Include(x => x.Store).Include(x => x.Category).Where(x => x.StoreId == Id).ToListAsync();
+            ViewBag.StoreProducts = await _context.StoreProducts.Include(x => x.Product).Where(x => x.StoreId == Id).ToListAsync();
+            return View(await _context.Stores.Include(x => x.StoreProducts).ThenInclude(x => x.Product).Include(x => x.StoreCategories).ThenInclude(x => x.Category).FirstOrDefaultAsync(c => c.Id == Id));
+        }
     }
 }

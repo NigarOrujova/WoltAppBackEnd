@@ -1,0 +1,59 @@
+﻿@model Restaurant
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="container">
+    <table class="table table-striped">
+        <tbody>
+        <th scope="row" class="d-flex align-items-center">
+            Restaurant Name:
+            @Model.Name
+        </th>
+        <th scope="row" class="d-flex align-items-center">
+            Restaurant Description:
+            @Model.Description
+        </th>
+        <th scope="row" class="d-flex align-items-center">
+            Restaurant Image:
+            <img style="height:100px" src="~/assets/img/@Model.ImageURL" alt="" />
+        </th>
+        <th scope="row" class="d-flex align-items-center">
+            Restaurant HeroImage:
+            <img style="height:100px" src="~/assets/img/@Model.HeroImageURL" alt="" />
+        </th>
+        <th scope="row" class="d-flex align-items-center">
+            Address:
+            @Model.Address
+        </th>
+        <th scope="row" class="d-flex align-items-center">
+            Contact Number:
+            @Model.ContactNumber
+        </th>
+        </tbody>
+        @foreach (var item in @ViewBag.RestaurantProducts)
+        {
+            <tr>
+                <td>Product: @item.Product.Title</td>
+                <td><img src="~/assets/img/@item.Product.ImageURL" style="height:50px"></td>
+                <td>Product Description: @item.Product.Description</td>
+                <td>StockCount: @item.Product.Count</td>
+                <td>Price: @item.Product.Price</td>
+            </tr>
+        }
+        @foreach (var item in @ViewBag.RestaurantCategories)
+        {
+            <tr>
+                <td>ProduCategory Name: @item.Category.Name</td>
+                @if (@item.Category.ImageURL != null)
+                {
+                    <td><img src="~/assets/img/@item.Category.ImageURL" style="height:50px"></td>
+                }
+            </tr>
+        }
+
+    </table>
+    <div class="mt-4 text-center">
+        <a asp-action="Index" class="btn btn-dark ml-3">Go Back</a>
+    </div>
+</div>

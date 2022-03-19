@@ -23,61 +23,61 @@
                                 <th scope="col" class="sort" data-sort="budget">Image</th>
                                 <th scope="col" class="sort" data-sort="budget">Category</th>
                                 <th scope="col" class="sort" data-sort="status">Setting</th>
-                            </tr>   
+                            </tr>
                         </thead>
                         <tbody class="list">
                             @foreach (var category in Model.Items)
                             {
-                            <tr>
-                                <td>
-                                    <span class="badge badge-dot mr-4">
-                                        <span class="status text-black">@count</span>
-                                    </span>
-                                </td>
-                                <td>
-                                    <img style="height:100px" src="~/assets/img/@category.ImageURL" alt="" />
-                                </td>
-                                <td>
-                                    @category.Name
-                                </td>
-                                <td>
-                                    <form>
-                                        <button class="btn btn-primary" asp-action="Details" asp-route-id="@category.Id">
-                                            <i class="bi bi-eye"></i>
-                                        </button>
-                                    </form>
-                                    <form>
-                                        <button class="btn btn-warning" asp-action="Update" asp-route-id="@category.Id">
-                                            <i class="bi bi-tools"></i>
-                                        </button>
-                                    </form>
-                                    <form>
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal_@category.Id">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModal_@category.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4>Do you want delete?</h4>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <h2>@category.Name</h2>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <form method="post" asp-action="Delete" asp-route-id="@category.Id">
-                                                    <button type="submit" class="btn btn-danger"> Delete </button>
-                                                </form>
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <tr>
+                                    <td>
+                                        <span class="badge badge-dot mr-4">
+                                            <span class="status text-black">@count</span>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <img style="height:100px" src="~/assets/img/@category.ImageURL" alt="" />
+                                    </td>
+                                    <td>
+                                        @category.Name
+                                    </td>
+                                    <td>
+                                        <form>
+                                            <button class="btn btn-primary" asp-action="Detail" asp-route-id="@category.Id">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                        </form>
+                                        <form>
+                                            <button class="btn btn-warning" asp-action="Update" asp-route-id="@category.Id">
+                                                <i class="bi bi-tools"></i>
+                                            </button>
+                                        </form>
+                                        <form>
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal_@category.Id">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal_@category.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4>Do you want delete?</h4>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h2>@category.Name</h2>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form method="post" asp-action="Delete" asp-route-id="@category.Id">
+                                                        <button type="submit" class="btn btn-pinterest"> Delete </button>
+                                                    </form>
+                                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </tr>
+                                </tr>
                                 count++;
                             }
                         </tbody>

@@ -23,5 +23,33 @@ namespace WoltApp.Controllers
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SendMessage(Message message)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Account");
+
+            }
+            else
+            {
+                if (!ModelState.IsValid) return View();
+                AppUser appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                Message newMessage = new Message
+                {
+                    AppUserId = appUser.Id,
+                    CreatedDate = DateTime.Now,
+                    Name=message.Name,
+                    Surname=message.Surname,
+                    MessageDescription=message.MessageDescription,
+                    Email=message.Email
+                };
+                await _context.Messages.AddAsync(newMessage);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Index", "ContactUs");
+        }
     }
 }

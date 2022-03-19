@@ -1,0 +1,78 @@
+﻿@model Paginate<ContactUsDTO>
+@{
+    ViewData["Title"] = "Index";
+    int count = ((Model.CurrentPage - 1) * 5) + 1;
+}
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Sliders</h3>
+                    <div class="col-sm-12 d-flex justify-content-end">
+                        <a class="btn btn-success" asp-action="Create">Create Slider</a>
+                    </div>
+                </div>
+                <!-- Light table -->
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="sort" data-sort="name">№</th>
+                                <th scope="col" class="sort" data-sort="budget">Name</th>
+                                <th scope="col" class="sort" data-sort="budget">Surname</th>
+                                <th scope="col" class="sort" data-sort="budget">Message</th>
+                                <th scope="col" class="sort" data-sort="status">Setting</th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+                            @foreach (var message in Model.Items)
+                            {
+                                <tr>
+                                    <td>
+                                        <span class="badge badge-dot mr-4">
+                                            <span class="status text-black">@count</span>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @message.Name
+                                    </td>
+                                    <td>
+                                        @message.Surname
+                                    </td>
+                                    <td>
+                                        @message.MessageDescription
+                                    </td>
+                                    <td>
+                                        <form>
+                                            <button class="btn btn-primary" asp-action="Detail" asp-route-id="@message.Id">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+
+                                </tr>
+                                count++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Card footer -->
+                @if (Model.PageCount == 3) 
+                { 
+                <nav aria-label="...">
+                    <ul class="pagination justify-content-center">
+                        @for (int i = 1; i < Model.PageCount; i++)
+                        {
+                            <li class="page-item  @(Model.CurrentPage==i? "active" : " ")" aria-current="page">
+                                <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+                }
+            </div>
+        </div>
+    </div>
+</div>

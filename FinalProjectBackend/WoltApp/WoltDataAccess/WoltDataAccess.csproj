@@ -15,6 +15,10 @@
     <Compile Remove="Migrations\20220310230028_CreateIsNewColum.Designer.cs" />
     <Compile Remove="Migrations\20220313173555_CreateDiscountPercentColumn.cs" />
     <Compile Remove="Migrations\20220313173555_CreateDiscountPercentColumn.Designer.cs" />
+    <Compile Remove="Migrations\20220319140358_CreateMessageTable.cs" />
+    <Compile Remove="Migrations\20220319140358_CreateMessageTable.Designer.cs" />
+    <Compile Remove="Migrations\20220319161940_CreateMessageTable.cs" />
+    <Compile Remove="Migrations\20220319161940_CreateMessageTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

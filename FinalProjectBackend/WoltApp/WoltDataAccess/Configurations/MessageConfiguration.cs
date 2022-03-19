@@ -11,11 +11,11 @@ namespace WoltDataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<Message> builder)
         {
-            builder.Property(x => x.Name).HasMaxLength(100).IsRequired(); 
-            builder.Property(x => x.Surname).HasMaxLength(100).IsRequired();
-            builder.Property(x => x.MessageDescription).HasMaxLength(255).IsRequired();
+            builder.Property(x => x.Name).HasMaxLength(100).IsRequired(false); 
+            builder.Property(x => x.Surname).HasMaxLength(100).IsRequired(false);
+            builder.Property(x => x.MessageDescription).HasMaxLength(255).IsRequired(false);
             builder.Property(p => p.CreatedDate).HasDefaultValueSql("GETUTCDATE()");
-            builder.Property(p => p.Phone).IsRequired().HasMaxLength(20);
+            builder.Property(p => p.Phone).IsRequired(false).HasMaxLength(20);
 
         }
     }

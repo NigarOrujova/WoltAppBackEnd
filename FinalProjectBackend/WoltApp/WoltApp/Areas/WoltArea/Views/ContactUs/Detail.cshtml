@@ -1,0 +1,30 @@
+﻿@model Message
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="container">
+    <table class="table table-striped">
+        <tbody>
+        <th scope="row" class="d-flex align-items-center">
+            Name:
+            @Model.Name
+        </th>
+        <th scope="row" class="d-flex align-items-center">
+            Surname:
+            @Model.Surname
+        </th>
+        <th scope="row" class="d-flex align-items-center">
+            Email:
+            @Model.Email
+        </th>
+        <th scope="row" class="d-flex align-items-center">
+            Message:
+            @Model.MessageDescription
+        </th>
+        </tbody>
+    </table>
+    <div class="mt-4 text-center">
+        <a asp-action="Index" class="btn btn-dark ml-3">Go Back</a>
+    </div>
+</div>

@@ -153,13 +153,89 @@ namespace WoltApp.Areas.WoltArea.Controllers
         public async Task<IActionResult> Update(int id)
         {
             ViewBag.Categories = new SelectList(await _context.Categories
-                                                             .Where(c => c.IsDeleted == false)
-                                                             .ToListAsync(), "Id", "Name");
-            Product product =await _context.Products.Include(p=>p.Category).Include(p=>p.RestaurantProducts).Include(p=>p.StoreProducts).Where(p => p.IsDeleted == false && p.Id == id).FirstOrDefaultAsync();
-            if (product == null) return NotFound();
+                                                              .Where(c => c.IsDeleted == false)
+                                                              .ToListAsync(), "Id", "Name");
+            ViewBag.restaurants = _context.Restaurants.ToList();
+            ViewBag.stores = _context.Stores.ToList();
+            Product product =await _context.Products.Include(p=>p.Category)
+                                                    .Include(p=>p.RestaurantProducts)
+                                                    .Include(p=>p.StoreProducts)
+                                                    .Where(p => p.IsDeleted == false && p.Id == id)
+                                                    .FirstOrDefaultAsync();
+            if (product == null) return RedirectToAction("Index","Error");
             product.RestaurantIds = await _context.RestaurantProducts.Select(x => x.RestaurantId).ToListAsync();
             product.StoreIds = await _context.StoreProducts.Select(x => x.StoreId).ToListAsync();
             return View(product);
+        }
+
+        //POST - Update
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(Product product)
+        {
+            Product ProductDb = await _context.Products.Include(x => x.RestaurantProducts)
+                                                   .ThenInclude(x => x.Restaurant)
+                                                   .Include(x => x.StoreProducts)
+                                                   .ThenInclude(x => x.Store)
+                                                   .FirstOrDefaultAsync(x => x.Id == product.Id);
+            if (ProductDb == null) return RedirectToAction("Index", "Error");
+            bool isExsistFile = true;
+            if (product.Photo == null)
+            {
+                product.ImageURL = ProductDb.ImageURL;
+                isExsistFile = false;
+            }
+            if (isExsistFile)
+            {
+                if (!product.Photo.CheckFileSize(1000))
+                {
+                    ModelState.AddModelError("Photo", "Size wrong");
+                    return View(ProductDb);
+                }
+                if (!product.Photo.CheckFileType("image/"))
+                {
+                    ModelState.AddModelError("Photo", "Type Wrong");
+                    return View(ProductDb);
+
+                }
+                Helper.RemoveFile(_env.WebRootPath, "assets/img", ProductDb.ImageURL);
+                string newPhotoName = await product.Photo.SaveFileAsync(_env.WebRootPath, "assets/img");
+                ProductDb.ImageURL = newPhotoName;
+            }
+            setData(ProductDb, product);
+            ProductDb.StoreProducts.RemoveAll(x => !product.StoreIds.Contains(x.StoreId));
+            ProductDb.RestaurantProducts.RemoveAll(x => !product.RestaurantIds.Contains(x.RestaurantId));
+            foreach (var storeId in product.StoreIds.Where(x => !ProductDb.StoreProducts.Any(rc => rc.StoreId == x)))
+            {
+                StoreProduct storeProduct = new StoreProduct
+                {
+                    ProductId = product.Id,
+                    StoreId = storeId
+                };
+                ProductDb.StoreProducts.Add(storeProduct);
+            }
+            foreach (var restaurantId in product.RestaurantIds.Where(x => !ProductDb.RestaurantProducts.Any(rc => rc.RestaurantId == x)))
+            {
+                RestaurantProduct restaurantProduct = new RestaurantProduct
+                {
+                    RestaurantId = restaurantId,
+                    ProductId = product.Id
+                };
+
+                ProductDb.RestaurantProducts.Add(restaurantProduct);
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        private void setData(Product ProductDb, Product product)
+        {
+            ProductDb.Title = product.Title;
+            ProductDb.Price = product.Price;
+            ProductDb.Count = product.Count;
+            ProductDb.Description = product.Description;
+            ProductDb.Discount = product.Discount;
+            ProductDb.IsNew = product.IsNew;
+            ProductDb.DiscountPercent = product.DiscountPercent;
         }
 
         //POST - Delete
@@ -183,7 +259,9 @@ namespace WoltApp.Areas.WoltArea.Controllers
         public async Task<IActionResult> Detail(int? Id)
         {
             if (Id == null) return RedirectToAction("Index", "Error");
-            return View(await _context.Products.Include(x => x.RestaurantProducts).ThenInclude(x => x.Restaurant).Include(x => x.StoreProducts).ThenInclude(x => x.Store).FirstOrDefaultAsync(c => c.Id == Id));
+            return View(await _context.Products.Include(x => x.RestaurantProducts).ThenInclude(x => x.Restaurant)
+                                               .Include(x => x.StoreProducts).ThenInclude(x => x.Store)
+                                               .FirstOrDefaultAsync(c => c.Id == Id));
         }
     }
 }

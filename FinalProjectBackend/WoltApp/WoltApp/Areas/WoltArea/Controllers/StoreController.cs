@@ -167,7 +167,10 @@ namespace WoltApp.Areas.WoltArea.Controllers
         public async Task<IActionResult> Update(int? id, Store store)
         {
             if (store.Id != id) return RedirectToAction("Index", "Error");
-            Store stoDb = await _context.Stores.Include(x => x.StoreProducts).Include(x => x.StoreCategories).Where(cd => cd.IsDeleted == false && cd.Id == id).FirstOrDefaultAsync();
+            Store stoDb = await _context.Stores.Include(x => x.StoreProducts)
+                                               .Include(x => x.StoreCategories)
+                                               .Where(cd => cd.IsDeleted == false && cd.Id == id)
+                                               .FirstOrDefaultAsync();
             if (stoDb == null) return RedirectToAction("Index", "Error");
             if (store.Description == null) return View(stoDb);
             bool isExsistFile = true;
@@ -207,13 +210,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
                 string newHeroPhotoName = await store.HeroPhoto.SaveFileAsync(_env.WebRootPath, "assets/img");
                 stoDb.HeroImageURL = newHeroPhotoName;
             }
-            stoDb.Name = store.Name;
-            stoDb.Description = store.Description;
-            stoDb.ContactNumber = store.ContactNumber;
-            stoDb.Address = store.Address;
-            stoDb.Discount = store.Discount;
-            stoDb.IsNew = store.IsNew;
-            stoDb.DiscountPercent = store.DiscountPercent;
+            setData(stoDb, store);
             stoDb.StoreCategories.RemoveAll(x => !store.CategoryIds.Contains(x.CategoryId));
             stoDb.StoreProducts.RemoveAll(x => !store.ProductIds.Contains(x.ProductId));
             foreach (var categoryId in store.CategoryIds.Where(x => !stoDb.StoreCategories.Any(rc => rc.CategoryId == x)))
@@ -238,6 +235,16 @@ namespace WoltApp.Areas.WoltArea.Controllers
             }
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+        private void setData(Store dbStore,Store store)
+        {
+            dbStore.Name = store.Name;
+            dbStore.Description = store.Description;
+            dbStore.ContactNumber = store.ContactNumber;
+            dbStore.Address = store.Address;
+            dbStore.Discount = store.Discount;
+            dbStore.IsNew = store.IsNew;
+            dbStore.DiscountPercent = store.DiscountPercent;
         }
 
         //POST - Delete

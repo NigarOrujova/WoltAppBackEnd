@@ -72,6 +72,10 @@
                                             <div class="card">
                                                 <div class="imgArea">
                                                     <img src="~/assets/img/@item.ImageURL" alt="...">
+                                                    @if (item.IsNew == true)
+                                                    {
+                                                        <div class="col-lg-6 col-sm-6" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: 12px 0;z-index:1;"><span style="margin-top:10px">Yeni</span></div>
+                                                    }
                                                     @if (item.IsDeleted == true)
                                                     {
                                                         <div class="res-close" style=" background: rgba(0, 0, 0, 0.5); position: absolute; left: 0; right: 0; top: 0; bottom: 0;">
@@ -282,6 +286,10 @@
                                     <div class="card">
                                         <div class="imgArea">
                                             <img src="~/assets/img/@item.ImageURL" alt="...">
+                                            @if (item.IsNew == true)
+                                            {
+                                                <div class="col-lg-6 col-sm-6" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: 12px 0;z-index:1;"><span style="margin-top:10px">Yeni</span></div>
+                                            }
                                             @if (item.IsDeleted == true)
                                             {
                                                 <div class="res-close" style=" background: rgba(0, 0, 0, 0.5); position: absolute; left: 0; right: 0; top: 0; bottom: 0;">

@@ -137,13 +137,13 @@ namespace WoltApp.Areas.WoltArea.Controllers
                 Description = restaurant.Description,
                 Address=restaurant.Address,
                 ContactNumber=restaurant.ContactNumber,
+                IsDeleted=restaurant.IsDeleted,
                 ImageURL =await restaurant.Photo.SaveFileAsync(_env.WebRootPath,"assets/img"),
                 HeroImageURL = await restaurant.HeroPhoto.SaveFileAsync(_env.WebRootPath, "assets/img"),
                 RestaurantCategories = restaurant.RestaurantCategories,
                 RestaurantProducts = restaurant.RestaurantProducts,
                 IsNew=true
             };
-
             await _context.Restaurants.AddAsync(newRestaurant);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -167,9 +167,10 @@ namespace WoltApp.Areas.WoltArea.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(Restaurant restaurant)
         {
-            Restaurant resDb = await _context.Restaurants.Include(x => x.RestaurantProducts).ThenInclude(x => x.Product)
-                                                     
-                .Include(x => x.RestaurantCategories).ThenInclude(x => x.Category)
+            Restaurant resDb = await _context.Restaurants.Include(x => x.RestaurantProducts)
+                                                         .ThenInclude(x => x.Product)
+                                                         .Include(x => x.RestaurantCategories)
+                                                         .ThenInclude(x => x.Category)
                                                          .FirstOrDefaultAsync(x => x.Id == restaurant.Id);
             if (resDb == null) return RedirectToAction("Index", "Error");
             bool isExsistFile = true;
@@ -234,7 +235,6 @@ namespace WoltApp.Areas.WoltArea.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private void setData(Restaurant resDb,Restaurant restaurant)
         {
             resDb.Name = restaurant.Name;
@@ -243,6 +243,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
             resDb.Address = restaurant.Address;
             resDb.Discount = restaurant.Discount;
             resDb.IsNew = restaurant.IsNew;
+            resDb.IsDeleted = restaurant.IsDeleted;
             resDb.DiscountPercent = restaurant.DiscountPercent;
         }
 

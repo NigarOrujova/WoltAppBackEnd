@@ -49,6 +49,13 @@
             <span class="text-danger" asp-validation-for="@Model.ProductIds"></span>
         </div>
         <div class="form-check col-md-4 text-center">
+            <input class="form-check-input" asp-for="IsDeleted">
+            <label class="form-check-label" asp-for="IsDeleted">
+                Is it Closed?
+            </label>
+            <span class="text-danger" asp-validation-for="IsDeleted"></span>
+        </div>
+        <div class="form-check col-md-4 text-center">
             <input class="form-check-input" asp-for="IsNew">
             <label class="form-check-label" asp-for="IsNew">
                 Is it New?

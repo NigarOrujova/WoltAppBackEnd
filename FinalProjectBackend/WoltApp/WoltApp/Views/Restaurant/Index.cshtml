@@ -84,7 +84,7 @@
                             {
                                 <a asp-controller="Product" asp-action="ShowBasketItems" class="btn btn-primary show-basket">
                                     <span>View Order</span>
-                                    <span class="badge badge-md badge-circle badge-floating badge-light border-white">4</span>
+                                    <span class="badge badge-md badge-circle badge-floating badge-light border-white">@ViewBag.BasketItemCount</span>
                                 </a>
                             }
                         }
@@ -107,7 +107,7 @@
                             {
                                 <a asp-controller="Product" asp-action="Basket" class="btn btn-primary show-basket">
                                     <span>View Order</span>
-                                    <span class="badge badge-md badge-circle badge-floating badge-light border-white">4</span>
+                                    <span class="badge badge-md badge-circle badge-floating badge-light border-white">@ViewBag.BasketItemCount</span>
                                 </a>
                             }
                         }
@@ -351,9 +351,9 @@
                         <input class="comment-input" asp-for="@Model.Content" placeholder="Rəy bildirin" />
                         <input asp-for="@Model.UserName" hidden value="@User.Identity.Name"/>
                         <input asp-for="@Model.RestaurantId" hidden  value="@Model.Restaurant.Id"/>
-                        <button type="submit">send</button>
+                        <button hidden type="submit" style="overflow:hidden;">send</button>
                     </form>
-                        <a asp-controller="Restaurant" asp-action="Comment" class="btn btn-primary">Butun Reyler</a>
+                    <a asp-controller="Restaurant" asp-action="Comment" class="btn btn-primary all-comment">Butun Reyler</a>
                 </div>
             </div>
         </div>

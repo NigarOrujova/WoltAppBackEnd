@@ -1,5 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
+using WoltBusiness.DTOs;
+using WoltDataAccess.DAL;
 
 namespace WoltApp.Areas.WoltArea.Controllers
 {
@@ -7,8 +13,23 @@ namespace WoltApp.Areas.WoltArea.Controllers
     [Authorize(Roles ="Admin")]
     public class DashboardController : Controller
     {
-        public IActionResult Index()
+        private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _env;
+        public DashboardController(AppDbContext context, IWebHostEnvironment env)
         {
+            _context = context;
+            _env = env;
+        }
+        public async Task<IActionResult> Index()
+        {
+            //HomeDTO homeDTO = new HomeDTO
+            //{
+            //    Sliders = await _context.Sliders.ToListAsync(),
+            //    Restaurants = await _context.Restaurants
+            //                                .Include(r => r.RestaurantProducts).ThenInclude(r => r.Product)
+            //                                .ToListAsync(),
+            //    Stores = await _context.Stores.ToListAsync()
+            //};
             return View();
         }
     }

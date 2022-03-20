@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WoltBusiness.DTOs.Account;
 using WoltDataAccess.DAL;
 using WoltEntity.Entities;
 using WoltEntity.Utilities.Email;
+using static WoltEntity.Utilities.File.Helper;
 
 namespace WoltApp.Controllers
 {
@@ -108,6 +108,7 @@ namespace WoltApp.Controllers
                 var confirmationLink = Url.Action("ConfirmEmail", "Email", new { token, email = register.Email }, Request.Scheme);
                 EmailHelper emailHelper = new EmailHelper();
                 bool emailResponse = emailHelper.SendEmail(register.Email, confirmationLink);
+                await _userManager.AddToRoleAsync(newUser, UserRoles.Member.ToString());
                 await _signInManager.SignInAsync(newUser,false);
                 return RedirectToAction("Index", "Home");
             }
@@ -328,5 +329,19 @@ namespace WoltApp.Controllers
         //    await _signInManager.RefreshSignInAsync(user);
         //    return RedirectToAction("Index", "Home");
         //}
+
+
+        #region CreateRole
+        //public async Task CreateRole()
+        //{
+        //    foreach (var role in Enum.GetValues(typeof(UserRoles)))
+        //    {
+        //        if (!await _roleManager.RoleExistsAsync(role.ToString()))
+        //        {
+        //            await _roleManager.CreateAsync(new IdentityRole { Name = role.ToString() });
+        //        }
+        //    }
+        //}
+        #endregion
     }
 }

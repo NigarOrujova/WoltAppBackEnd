@@ -32,10 +32,13 @@
                                         Profile:
                                         <span class="text-dark">@User.Identity.Name</span><hr />
                                     </a>
-                                    <a class="dropdown-item" asp-controller="Account" asp-action="AccountSetting">
-                                        <i class="bi bi-gear"></i>
-                                        Settings
-                                    </a>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a class="dropdown-item" asp-area="WoltArea" asp-controller="Dashboard" asp-action="Index">
+                                            <i class="bi bi-gear"></i>
+                                            AdminArea
+                                        </a>
+                                    }
                                     <a class="dropdown-item" asp-controller="Account" asp-action="LogOut">
                                         <i class="bi bi-door-open"></i>
                                         Log out

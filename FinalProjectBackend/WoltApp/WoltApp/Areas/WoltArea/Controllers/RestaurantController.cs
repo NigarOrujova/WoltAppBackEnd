@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,6 +14,7 @@ using WoltEntity.Utilities.File;
 namespace WoltApp.Areas.WoltArea.Controllers
 {
     [Area("WoltArea")]
+    [Authorize(Roles = "Admin")]
     public class RestaurantController : Controller
     {
         private AppDbContext _context;

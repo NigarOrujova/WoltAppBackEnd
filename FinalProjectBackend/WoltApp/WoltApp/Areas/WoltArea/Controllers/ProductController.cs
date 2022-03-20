@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WoltBusiness.DTOs;
-using WoltBusiness.DTOs.Basket;
 using WoltDataAccess.DAL;
 using WoltEntity.Entities;
 using WoltEntity.Utilities.File;
@@ -152,9 +151,8 @@ namespace WoltApp.Areas.WoltArea.Controllers
         //GET - Update
         public async Task<IActionResult> Update(int id)
         {
-            ViewBag.Categories = new SelectList(await _context.Categories
-                                                              .Where(c => c.IsDeleted == false)
-                                                              .ToListAsync(), "Id", "Name");
+            ViewBag.Categories = _context.Categories.Where(c => c.IsDeleted == false)
+                                                    .ToList();
             ViewBag.restaurants = _context.Restaurants.ToList();
             ViewBag.stores = _context.Stores.ToList();
             Product product =await _context.Products.Include(p=>p.Category)
@@ -232,6 +230,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
             ProductDb.Title = product.Title;
             ProductDb.Price = product.Price;
             ProductDb.Count = product.Count;
+            ProductDb.CategoryId = product.CategoryId;
             ProductDb.Description = product.Description;
             ProductDb.Discount = product.Discount;
             ProductDb.IsNew = product.IsNew;

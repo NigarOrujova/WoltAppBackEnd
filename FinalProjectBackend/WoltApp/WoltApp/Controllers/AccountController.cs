@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,15 +18,18 @@ namespace WoltApp.Controllers
         private SignInManager<AppUser> _signInManager;
         private RoleManager<IdentityRole> _roleManager;
         private readonly AppDbContext _context;
+        private readonly IConfiguration _configuration;
+
         public AccountController(UserManager<AppUser> userManager,
                               SignInManager<AppUser> signInManager,
                               RoleManager<IdentityRole> roleManager,
-                              AppDbContext context)
+                              AppDbContext context,IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _context = context;
+            _configuration = configuration;
         }
         public IActionResult Index()
         {
@@ -106,7 +110,7 @@ namespace WoltApp.Controllers
             {
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
                 var confirmationLink = Url.Action("ConfirmEmail", "Email", new { token, email = register.Email }, Request.Scheme);
-                EmailHelper emailHelper = new EmailHelper();
+                EmailHelper emailHelper = new EmailHelper(_configuration.GetSection("EmailConfirmation:fromEmail").Value, _configuration.GetSection("EmailConfirmation:fromPassword").Value);
                 bool emailResponse = emailHelper.SendEmail(register.Email, confirmationLink);
                 await _userManager.AddToRoleAsync(newUser, UserRoles.Member.ToString());
                 await _signInManager.SignInAsync(newUser,false);
@@ -146,7 +150,7 @@ namespace WoltApp.Controllers
             }
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var callback = Url.Action(nameof(ResetPassword), "Account", new { token, email = user.Email }, Request.Scheme);
-            EmailHelper emailHelper = new EmailHelper();
+            EmailHelper emailHelper = new EmailHelper(_configuration.GetSection("EmailConfirmation:Email").Value, _configuration.GetSection("EmailConfirmation:Password").Value);
             emailHelper.SendEmail(user.Email, callback);
             return RedirectToAction(nameof(ForgotPasswordConfirmation));
         }

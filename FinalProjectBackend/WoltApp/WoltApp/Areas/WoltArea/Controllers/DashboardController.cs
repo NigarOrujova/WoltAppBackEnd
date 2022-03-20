@@ -22,15 +22,17 @@ namespace WoltApp.Areas.WoltArea.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            //HomeDTO homeDTO = new HomeDTO
-            //{
-            //    Sliders = await _context.Sliders.ToListAsync(),
-            //    Restaurants = await _context.Restaurants
-            //                                .Include(r => r.RestaurantProducts).ThenInclude(r => r.Product)
-            //                                .ToListAsync(),
-            //    Stores = await _context.Stores.ToListAsync()
-            //};
-            return View();
+            DashboardDTO dashboardDTO = new DashboardDTO
+            {
+                Sliders = await _context.Sliders.ToListAsync(),
+                Restaurants = await _context.Restaurants
+                                            .Include(r => r.RestaurantProducts).ThenInclude(r => r.Product)
+                                            .ToListAsync(),
+                Stores = await _context.Stores.ToListAsync(),
+                Products=await _context.Products.ToListAsync(),
+                Categories=await _context.Categories.ToListAsync()
+            };
+            return View(dashboardDTO);
         }
     }
 }

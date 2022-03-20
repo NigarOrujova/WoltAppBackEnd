@@ -25,6 +25,7 @@ namespace WoltEntity.Entities
         public Category Category { get; set; }
         public List<int> RestaurantIds { get; set; } = new List<int>();
         public List<int> StoreIds { get; set; } = new List<int>();
+        public List<Order> Orders { get; set; }
         public List<BasketItem> BasketItems { get; set; }
         public List<RestaurantProduct> RestaurantProducts { get; set; }
         public List<StoreProduct> StoreProducts { get; set; }

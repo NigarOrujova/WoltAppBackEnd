@@ -243,7 +243,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
             resDb.Address = restaurant.Address;
             resDb.Discount = restaurant.Discount;
             resDb.IsNew = restaurant.IsNew;
-            resDb.IsDeleted = restaurant.IsDeleted;
+            resDb.IsDeleted = restaurant.IsDeleted; ;
             resDb.DiscountPercent = restaurant.DiscountPercent;
         }
 

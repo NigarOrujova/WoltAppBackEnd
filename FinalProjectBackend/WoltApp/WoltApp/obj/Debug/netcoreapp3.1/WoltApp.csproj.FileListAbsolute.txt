@@ -772,3 +772,5 @@ C:\Users\Nigar\Desktop\New folder (7)\FinalProject\FinalProjectBackend\WoltApp\W
 C:\Users\Nigar\Desktop\New folder (7)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Restaurant\Comment.cshtml.g.cs
 C:\Users\Nigar\Desktop\New folder (7)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Areas\WoltArea\Views\Comment\Index.cshtml.g.cs
 C:\Users\Nigar\Desktop\New folder (7)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Areas\WoltArea\Views\Comment\Detail.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (7)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Order\MyOrders.cshtml.g.cs
+C:\Users\Nigar\Desktop\New folder (7)\FinalProject\FinalProjectBackend\WoltApp\WoltApp\obj\Debug\netcoreapp3.1\Razor\Views\Order\Index.cshtml.g.cs

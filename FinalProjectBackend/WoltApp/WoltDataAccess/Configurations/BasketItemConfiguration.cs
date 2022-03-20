@@ -14,6 +14,7 @@ namespace WoltDataAccess.Configurations
             builder.Property(p => p.Count).IsRequired().HasDefaultValue(0);
             builder.Property(x => x.IsDeleted).HasDefaultValue(false);
             builder.Property(x => x.CreatedDate).HasDefaultValueSql("GETUTCDATE()");
+            builder.Property(p => p.Price).IsRequired().HasDefaultValue(0).HasColumnType("decimal(18,2)");
         }
     }
 }

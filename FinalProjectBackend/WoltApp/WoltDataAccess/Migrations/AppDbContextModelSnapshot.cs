@@ -249,6 +249,11 @@ namespace WoltDataAccess.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
+                    b.Property<decimal>("Price")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
@@ -327,6 +332,37 @@ namespace WoltDataAccess.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("WoltEntity.Entities.FullOrder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Adress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<double>("TotalCount")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("FullOrders");
+                });
+
             modelBuilder.Entity("WoltEntity.Entities.Message", b =>
                 {
                     b.Property<int>("Id")
@@ -366,6 +402,39 @@ namespace WoltDataAccess.Migrations
                     b.HasIndex("AppUserId");
 
                     b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("WoltEntity.Entities.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FullOrderId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FullOrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("WoltEntity.Entities.Product", b =>
@@ -770,11 +839,33 @@ namespace WoltDataAccess.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("WoltEntity.Entities.FullOrder", b =>
+                {
+                    b.HasOne("WoltEntity.Entities.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId");
+                });
+
             modelBuilder.Entity("WoltEntity.Entities.Message", b =>
                 {
                     b.HasOne("WoltEntity.Entities.AppUser", "AppUser")
                         .WithMany()
                         .HasForeignKey("AppUserId");
+                });
+
+            modelBuilder.Entity("WoltEntity.Entities.Order", b =>
+                {
+                    b.HasOne("WoltEntity.Entities.FullOrder", "FullOrder")
+                        .WithMany("Orders")
+                        .HasForeignKey("FullOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WoltEntity.Entities.Product", "Product")
+                        .WithMany("Orders")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WoltEntity.Entities.Product", b =>

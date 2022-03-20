@@ -18,13 +18,13 @@
         </div>
         <div class="mb-3">
             <label asp-for="@Model.RestaurantIds" class="form-label">Restaurants</label>
-            <select asp-for="@Model.RestaurantIds" asp-items="@(new SelectList(ViewBag.Restaurants,"Id","Name"))" class="form-control">
+            <select asp-for="@Model.RestaurantIds" asp-items="@(new SelectList((List<Restaurant>)ViewBag.Restaurants,"Id","Name"))" class="form-control">
             </select>
             <span class="text-danger" asp-validation-for="@Model.RestaurantIds"></span>
         </div>
         <div class="mb-3">
             <label asp-for="@Model.StoreIds" class="form-label">Stores</label>
-            <select asp-for="@Model.StoreIds" asp-items="@(new SelectList(ViewBag.Stores,"Id","Name"))" class="form-control">
+            <select asp-for="@Model.StoreIds" asp-items="@(new SelectList((List<Store>)ViewBag.Stores,"Id","Name"))" class="form-control">
             </select>
             <span class="text-danger" asp-validation-for="@Model.StoreIds"></span>
         </div>

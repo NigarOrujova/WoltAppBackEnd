@@ -18,7 +18,6 @@ namespace WoltApp.Areas.WoltArea.Controllers
     {
         private readonly AppDbContext _context;
         private readonly IWebHostEnvironment _env;
-
         public ContactUsController(AppDbContext context, IWebHostEnvironment env)
         {
             _context = context;
@@ -35,13 +34,11 @@ namespace WoltApp.Areas.WoltArea.Controllers
             Paginate<ContactUsDTO> model = new Paginate<ContactUsDTO>(messageVms, page, pageCount);
             return View(model);
         }
-
         private int GetPageCount(int take)
         {
             var messageCount = _context.Messages.Count();
             return (int)Math.Ceiling(((decimal)messageCount / take) + 1);
         }
-
         private List<ContactUsDTO> GetProductList(List<Message> messages)
         {
             List<ContactUsDTO> model = new List<ContactUsDTO>();

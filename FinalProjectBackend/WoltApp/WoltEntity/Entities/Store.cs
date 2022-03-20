@@ -24,7 +24,7 @@ namespace WoltEntity.Entities
         public IFormFile HeroPhoto { get; set; }
         public string ImageURL { get; set; }
         public IFormFile Photo { get; set; }
-        public ICollection<StoreProduct> StoreProducts { get; set; }
-        public ICollection<StoreCategory> StoreCategories { get; set; }
+        public List<StoreProduct> StoreProducts { get; set; }
+        public List<StoreCategory> StoreCategories { get; set; }
     }
 }

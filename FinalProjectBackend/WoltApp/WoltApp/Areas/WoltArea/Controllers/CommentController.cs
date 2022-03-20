@@ -36,13 +36,11 @@ namespace WoltApp.Areas.WoltArea.Controllers
             Paginate<CommentDTO> model = new Paginate<CommentDTO>(commentVms, page, pageCount);
             return View(model);
         }
-
         private int GetPageCount(int take)
         {
             var commentCount = _context.Comments.Count();
             return (int)Math.Ceiling(((decimal)commentCount / take) + 1);
         }
-
         private List<CommentDTO> GetProductList(List<Comment> comments)
         {
             List<CommentDTO> model = new List<CommentDTO>();
@@ -72,7 +70,6 @@ namespace WoltApp.Areas.WoltArea.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Comment");
         }
-
         public async Task<IActionResult> Detail(int? Id)
         {
             if (Id == null) return RedirectToAction("Index", "Error");

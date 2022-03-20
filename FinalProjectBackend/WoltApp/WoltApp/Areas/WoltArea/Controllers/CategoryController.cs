@@ -149,8 +149,8 @@ namespace WoltApp.Areas.WoltArea.Controllers
             ViewBag.stores = _context.Stores.ToList();
             Category category = await _context.Categories.Include(x => x.StoreCategories).Include(x => x.RestaurantCategories).Where(r => r.IsDeleted == false && r.Id == id).FirstOrDefaultAsync();
             if (category.Id != id) return RedirectToAction("Index", "Error");
-            category.RestaurantIds = await _context.RestaurantCategories.Select(x => x.RestaurantId).ToListAsync();
-            category.StoreIds = await _context.StoreCategories.Select(x => x.StoreId).ToListAsync();
+            category.RestaurantIds = category.RestaurantCategories.Select(x => x.RestaurantId).ToList();
+            category.StoreIds = category.StoreCategories.Select(x => x.StoreId).ToList();
             return View(category);
         }
 
@@ -186,6 +186,8 @@ namespace WoltApp.Areas.WoltArea.Controllers
                 categoryDb.ImageURL = newPhotoName;
             }
             categoryDb.Name = category.Name;
+            categoryDb.RestaurantCategories.RemoveAll(x => !category.RestaurantIds.Contains(x.RestaurantId));
+            categoryDb.StoreCategories.RemoveAll(x => !category.StoreIds.Contains(x.StoreId));
             foreach (var restaurantId in category.RestaurantIds.Where(x => !categoryDb.RestaurantCategories.Any(rc => rc.RestaurantId == x)))
             {
                 RestaurantCategory restaurantCategory = new RestaurantCategory

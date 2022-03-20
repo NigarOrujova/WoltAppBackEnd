@@ -152,13 +152,13 @@ namespace WoltApp.Areas.WoltArea.Controllers
         //GET - Update
         public async Task<IActionResult> Update(int? id)
         {
+            Restaurant restaurant = await _context.Restaurants.Include(x => x.RestaurantProducts).ThenInclude(x => x.Product)
+                                                              .Include(x => x.RestaurantCategories).ThenInclude(x => x.Category).Where(r => r.IsDeleted == false && r.Id == id).FirstOrDefaultAsync();
+            if (restaurant.Id != id) return RedirectToAction("Index", "Error");
             ViewBag.Products = _context.Products.ToList();
             ViewBag.Categories = _context.Categories.ToList();
-            Restaurant restaurant = await _context.Restaurants.Include(x => x.RestaurantProducts).ThenInclude(x=>x.Product)
-                                                              .Include(x => x.RestaurantCategories).ThenInclude(x=>x.Category).Where(r => r.IsDeleted == false && r.Id == id).FirstOrDefaultAsync();
-            if (restaurant.Id != id) return RedirectToAction("Index","Error");
-            restaurant.CategoryIds =await _context.RestaurantCategories.Select(x => x.CategoryId).ToListAsync();
-            restaurant.ProductIds = await _context.RestaurantProducts.Select(x => x.ProductId).ToListAsync();
+            restaurant.CategoryIds = restaurant.RestaurantCategories.Select(x => x.CategoryId).ToList();
+            restaurant.ProductIds = restaurant.RestaurantProducts.Select(x => x.ProductId).ToList();
             return View(restaurant);
         }
 
@@ -167,11 +167,10 @@ namespace WoltApp.Areas.WoltArea.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(Restaurant restaurant)
         {
-            ViewBag.Products = _context.Products.ToList();
-            ViewBag.Categories = _context.Categories.ToList();
-            Restaurant resDb = await _context.Restaurants.Include(x=>x.RestaurantProducts).ThenInclude(x=>x.Product)
-                                                         .Include(x=>x.RestaurantCategories).ThenInclude(x=>x.Category)
-                                                         .FirstOrDefaultAsync(x=>x.Id==restaurant.Id);
+            Restaurant resDb = await _context.Restaurants.Include(x => x.RestaurantProducts).ThenInclude(x => x.Product)
+                                                     
+                .Include(x => x.RestaurantCategories).ThenInclude(x => x.Category)
+                                                         .FirstOrDefaultAsync(x => x.Id == restaurant.Id);
             if (resDb == null) return RedirectToAction("Index", "Error");
             bool isExsistFile = true;
             if (restaurant.Photo == null && restaurant.HeroPhoto==null)
@@ -210,14 +209,9 @@ namespace WoltApp.Areas.WoltArea.Controllers
                 string newHeroPhotoName = await restaurant.HeroPhoto.SaveFileAsync(_env.WebRootPath, "assets/img");
                 resDb.HeroImageURL = newHeroPhotoName;
             }
-            resDb.Name = restaurant.Name;
-            resDb.Description = restaurant.Description;
-            resDb.ContactNumber = restaurant.ContactNumber;
-            resDb.Address = restaurant.Address;
-            resDb.Discount = restaurant.Discount;
-            resDb.IsNew = restaurant.IsNew;
-            resDb.DiscountPercent = restaurant.DiscountPercent;
-            //resDb.RestaurantCategories.RemoveAll()
+            setData(resDb, restaurant);
+            resDb.RestaurantCategories.RemoveAll(x => !restaurant.CategoryIds.Contains(x.CategoryId));
+            resDb.RestaurantProducts.RemoveAll(x => !restaurant.ProductIds.Contains(x.ProductId));
             foreach (var categoryId in restaurant.CategoryIds.Where(x => !resDb.RestaurantCategories.Any(rc => rc.CategoryId == x)))
             {
                 RestaurantCategory restaurantCategory = new RestaurantCategory
@@ -225,7 +219,6 @@ namespace WoltApp.Areas.WoltArea.Controllers
                     RestaurantId = restaurant.Id,
                     CategoryId = categoryId
                 };
-
                 resDb.RestaurantCategories.Add(restaurantCategory);
             }
             foreach (var productId in restaurant.ProductIds.Where(x => !resDb.RestaurantProducts.Any(rc => rc.ProductId == x)))
@@ -235,11 +228,22 @@ namespace WoltApp.Areas.WoltArea.Controllers
                     RestaurantId = restaurant.Id,
                     ProductId = productId
                 };
-
+                
                 resDb.RestaurantProducts.Add(restaurantProduct);
             }
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private void setData(Restaurant resDb,Restaurant restaurant)
+        {
+            resDb.Name = restaurant.Name;
+            resDb.Description = restaurant.Description;
+            resDb.ContactNumber = restaurant.ContactNumber;
+            resDb.Address = restaurant.Address;
+            resDb.Discount = restaurant.Discount;
+            resDb.IsNew = restaurant.IsNew;
+            resDb.DiscountPercent = restaurant.DiscountPercent;
         }
 
         //GET - Details
@@ -259,10 +263,10 @@ namespace WoltApp.Areas.WoltArea.Controllers
         {
             Restaurant restaurant = await _context.Restaurants.FindAsync(id);
             if (restaurant == null) return RedirectToAction("Index", "Error");
-            restaurant.IsDeleted = true;
-            //Helper.RemoveFile(_env.WebRootPath, "assets/img", restaurant.ImageURL);
-            //Helper.RemoveFile(_env.WebRootPath, "assets/img", restaurant.HeroImageURL);
-            //_context.Restaurants.Remove(restaurant);
+            //restaurant.IsDeleted = true;
+            Helper.RemoveFile(_env.WebRootPath, "assets/img", restaurant.ImageURL);
+            Helper.RemoveFile(_env.WebRootPath, "assets/img", restaurant.HeroImageURL);
+            _context.Restaurants.Remove(restaurant);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

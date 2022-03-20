@@ -156,6 +156,8 @@ namespace WoltApp.Areas.WoltArea.Controllers
             ViewBag.Categories = _context.Categories.ToList();
             Store store = await _context.Stores.Where(r => r.IsDeleted == false && r.Id == id).FirstOrDefaultAsync();
             if (store.Id != id) return RedirectToAction("Index", "Error");
+            store.CategoryIds = store.StoreCategories.Select(x => x.CategoryId).ToList();
+            store.ProductIds = store.StoreProducts.Select(x => x.ProductId).ToList();
             return View(store);
         }
 
@@ -212,6 +214,8 @@ namespace WoltApp.Areas.WoltArea.Controllers
             stoDb.Discount = store.Discount;
             stoDb.IsNew = store.IsNew;
             stoDb.DiscountPercent = store.DiscountPercent;
+            stoDb.StoreCategories.RemoveAll(x => !store.CategoryIds.Contains(x.CategoryId));
+            stoDb.StoreProducts.RemoveAll(x => !store.ProductIds.Contains(x.ProductId));
             foreach (var categoryId in store.CategoryIds.Where(x => !stoDb.StoreCategories.Any(rc => rc.CategoryId == x)))
             {
                 StoreCategory storeCategory = new StoreCategory

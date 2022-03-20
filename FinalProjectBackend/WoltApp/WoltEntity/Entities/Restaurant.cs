@@ -24,7 +24,7 @@ namespace WoltEntity.Entities
         public IFormFile Photo { get; set; }
         public List<int> CategoryIds { get; set; } = new List<int>();
         public List<int> ProductIds { get; set; } = new List<int>();
-        public ICollection<RestaurantProduct> RestaurantProducts { get; set; }
-        public ICollection<RestaurantCategory> RestaurantCategories { get; set; }
+        public List<RestaurantProduct> RestaurantProducts { get; set; }
+        public List<RestaurantCategory> RestaurantCategories { get; set; }
     }
 }

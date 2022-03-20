@@ -74,6 +74,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
             ViewBag.Categories = _context.Categories.ToList();
             return View();
         }
+
         //POST - Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -155,7 +156,7 @@ namespace WoltApp.Areas.WoltArea.Controllers
             ViewBag.Categories = _context.Categories.ToList();
             Restaurant restaurant = await _context.Restaurants.Include(x => x.RestaurantProducts).ThenInclude(x=>x.Product)
                                                               .Include(x => x.RestaurantCategories).ThenInclude(x=>x.Category).Where(r => r.IsDeleted == false && r.Id == id).FirstOrDefaultAsync();
-            if (restaurant.Id != id) return RedirectToAction("Index","Home");
+            if (restaurant.Id != id) return RedirectToAction("Index","Error");
             restaurant.CategoryIds =await _context.RestaurantCategories.Select(x => x.CategoryId).ToListAsync();
             restaurant.ProductIds = await _context.RestaurantProducts.Select(x => x.ProductId).ToListAsync();
             return View(restaurant);

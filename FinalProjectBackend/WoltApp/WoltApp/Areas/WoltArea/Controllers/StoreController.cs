@@ -148,6 +148,8 @@ namespace WoltApp.Areas.WoltArea.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        //GET - Update
         public async Task<IActionResult> Update(int? id)
         {
             ViewBag.Products = _context.Products.ToList();

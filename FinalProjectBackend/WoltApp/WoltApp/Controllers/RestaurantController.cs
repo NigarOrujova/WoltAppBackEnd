@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WoltBusiness.DTOs;
@@ -38,10 +39,11 @@ namespace WoltApp.Controllers
         }
 
         //GET - Comment
-        //public IActionResult Comment()
-        //{
-        //    return View();
-        //}
+        public async Task<IActionResult> Comment()
+        {
+            List<Comment> comments = await _context.Comments.OrderByDescending(x=>x.CreatedDate).ToListAsync();
+            return View(comments);
+        }
 
         //POST - Comment
         [Authorize]

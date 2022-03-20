@@ -38,10 +38,14 @@ namespace WoltApp.Areas.WoltArea.Controllers
         {
             return View(_context.Sliders);
         }
+
+        //GET - Create
         public IActionResult Create()
         {
             return View();
         }
+
+        //POST - Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(MultipleSliderDTO sliderDTO)
@@ -107,6 +111,8 @@ namespace WoltApp.Areas.WoltArea.Controllers
             }
             return true;
         }
+
+        //POST - Delete
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
@@ -118,11 +124,15 @@ namespace WoltApp.Areas.WoltArea.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        //GET - Update
         public async Task<IActionResult> Update(int id)
         {
             Slider slider = await _context.Sliders.FindAsync(id);
             return View(slider);
         }
+
+        //POST - Update
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int id, Slider slider)

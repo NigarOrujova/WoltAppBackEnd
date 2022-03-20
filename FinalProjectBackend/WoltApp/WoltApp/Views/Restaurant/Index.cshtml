@@ -335,7 +335,7 @@
                                             <p>
                                                 @item.Content
                                             </p>
-                                            @if (item.UserName == User.Identity.Name)
+                                            @if (item.UserName == User.Identity.Name || User.IsInRole("Admin"))
                                             {
                                                 <form method="post" asp-controller="Restaurant" asp-action="DeleteComment" asp-route-id="@item.Id">
                                                     <button type="submit" class="btn btn-pinterest"> Delete </button>
@@ -353,9 +353,7 @@
                         <input asp-for="@Model.RestaurantId" hidden  value="@Model.Restaurant.Id"/>
                         <button type="submit">send</button>
                     </form>
-                    @*<form asp-controller="Restaurant" asp-action="Comment">
-                        <button type="submit" class="btn btn-primary">Butun Reyler</button>
-                    </form>*@
+                        <a asp-controller="Restaurant" asp-action="Comment" class="btn btn-primary">Butun Reyler</a>
                 </div>
             </div>
         </div>

@@ -1,0 +1,26 @@
+﻿@model Comment
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="container">
+    <table class="table table-striped">
+        <tbody>
+        <th scope="row" class="d-flex align-items-center">
+            Username:
+            @Model.UserName
+        </th>
+        <th scope="row" class="d-flex align-items-center">
+            Created Date:
+            @Model.CreatedDate
+        </th>
+        <th scope="row" class="d-flex align-items-center">
+            Message:
+            @Model.Content
+        </th>
+        </tbody>
+    </table>
+    <div class="mt-4 text-center">
+        <a asp-action="Index" class="btn btn-dark ml-3">Go Back</a>
+    </div>
+</div>
